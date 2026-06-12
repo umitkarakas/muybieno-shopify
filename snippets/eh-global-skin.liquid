@@ -115,6 +115,43 @@
   .cart input[type="checkbox"],
   .cart-drawer input[type="checkbox"] { accent-color: var(--mb-espresso); }
 
+  /* ---- Sepet SAYFASI (drawer'ı etkilemez) ---- */
+  /* Başlık — Cormorant espresso */
+  .cart__warnings .title,
+  .cart .title--primary,
+  #main-cart-items .title--primary {
+    font-family: var(--mb-font-head);
+    font-weight: 600;
+    color: #2A1B0E;
+  }
+  /* Satır öğeleri tablosunu camsı krem karta çevir */
+  .cart__contents .cart-items,
+  .cart__items {
+    border-radius: 18px;
+    background: rgba(255,252,247,0.62);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.72);
+    box-shadow: 0 14px 34px rgba(74,44,23,0.06);
+    overflow: hidden;
+  }
+  .cart__items .cart-item { border-color: rgba(92,58,30,0.10); }
+  /* Sipariş özeti / footer — camsı krem panel */
+  .cart__footer {
+    border-radius: 22px;
+    background: rgba(255,252,247,0.7);
+    -webkit-backdrop-filter: blur(22px);
+    backdrop-filter: blur(22px);
+    border: 1px solid rgba(255,255,255,0.75);
+    box-shadow: 0 22px 54px rgba(74,44,23,0.10);
+  }
+  /* Satır fiyatları Cormorant espresso */
+  .cart-item__price-wrapper .price,
+  .cart-item__totals .price { font-family: var(--mb-font-head); font-weight: 700; color: var(--mb-espresso); }
+  /* "Alışverişe devam" / boş sepet linki */
+  .cart__empty-text + .button,
+  .cart-page__continue { border-radius: 0.85rem; }
+
   /* ---- Hesap / giriş (customer) ---- */
   .customer__title,
   .customer h1, .customer h2, .customer h3 {
