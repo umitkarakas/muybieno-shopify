@@ -1,0 +1,256 @@
+{% comment %} Earth & Harvest — global header/menu skin {% endcomment %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+{%- style -%}
+  .header-wrapper {
+    --eh-primary: #0f5238;
+    --eh-primary-tint: rgba(15, 82, 56, 0.10);
+    --eh-secondary: #895024;
+    --eh-on-surface: #1b1c1c;
+    --font-head: "Manrope", system-ui, sans-serif;
+    --font-body: "Work Sans", system-ui, sans-serif;
+  }
+
+  /* Metinli logo (görsel + marka adı + alt başlık) */
+  .header-wrapper .header__heading-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.2rem;
+    font-family: var(--font-head);
+    white-space: nowrap;
+  }
+  .header-wrapper .header__heading { max-width: none; }
+  .eh-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    text-align: left;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .eh-brand-name {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: -0.01em;
+    color: var(--eh-primary);
+    white-space: nowrap;
+  }
+  .eh-brand-sub {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    color: var(--eh-secondary);
+    margin-top: 0.35rem;
+  }
+  @media screen and (max-width: 989px) {
+    .eh-brand-text { display: none; }
+  }
+
+
+  /* Masaüstü menü linkleri — yeşil pill hover, alt çizgi yok */
+  .header-wrapper .header__inline-menu .header__menu-item {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: var(--eh-on-surface);
+    border-radius: 0.6rem;
+    padding: 0.8rem 1.1rem;
+    text-decoration: none;
+    transition: background .15s ease, color .15s ease;
+  }
+  /* Caret'i yazının yanına inline al, sağdaki fazla boşluğu kaldır */
+  .header-wrapper .header__inline-menu summary.header__menu-item {
+    padding-right: 1.1rem;
+  }
+  .header-wrapper .header__inline-menu .header__menu-item .icon-caret {
+    position: static;
+    right: auto;
+    margin-left: 0.5rem;
+  }
+  /* Tıklanabilir üst menü başlığı (koleksiyona gider) */
+  .header-wrapper .header__menu-parent-link {
+    color: inherit;
+    text-decoration: none !important;
+    cursor: pointer;
+  }
+  .header-wrapper .header__inline-menu .header__menu-item:hover {
+    background: var(--eh-primary-tint);
+    color: var(--eh-primary);
+  }
+  /* Hover/aktif alt çizgiyi kaldır */
+  .header-wrapper .header__menu-item,
+  .header-wrapper .header__menu-item:hover,
+  .header-wrapper .header__menu-item:focus,
+  .header-wrapper .header__submenu .header__menu-item:hover,
+  .header-wrapper .header__active-menu-item {
+    text-decoration: none !important;
+  }
+  .header-wrapper .header__menu-item:hover .header__active-menu-item {
+    text-decoration: none !important;
+  }
+  /* Aktif menü öğesi */
+  .header-wrapper .header__inline-menu .header__menu-item.list-menu__item--active,
+  .header-wrapper .header__active-menu-item {
+    color: var(--eh-primary);
+    font-weight: 600;
+  }
+  /* Sense'in alt-çizgi animasyonunu yeşile çek */
+  .header-wrapper .header__menu-item span,
+  .header-wrapper .header__active-menu-item {
+    text-underline-offset: 0.3rem;
+  }
+  .header-wrapper .header__menu-item:hover .header__active-menu-item {
+    color: var(--eh-primary);
+  }
+
+  /* Açılır (dropdown) menü */
+  .header-wrapper .header__submenu {
+    border-radius: 0 0 1rem 1rem;
+    box-shadow: 0 12px 30px rgba(15, 82, 56, 0.12);
+    border: none;
+  }
+  .header-wrapper .header__submenu .header__menu-item {
+    border-radius: 0.5rem;
+    transition: background .15s ease, color .15s ease;
+  }
+  .header-wrapper .header__submenu .header__menu-item:hover {
+    background: var(--eh-primary-tint);
+    color: var(--eh-primary);
+  }
+
+  /* İkonlar — yuvarlak yeşil hover */
+  .header-wrapper .header__icons .header__icon {
+    border-radius: 50%;
+    transition: background .15s ease, color .15s ease;
+  }
+  .header-wrapper .header__icons .header__icon:hover {
+    background: var(--eh-primary-tint);
+    color: var(--eh-primary);
+  }
+
+  /* Sepet sayacı — umber */
+  .header-wrapper .cart-count-bubble {
+    background-color: var(--eh-secondary) !important;
+  }
+
+  /* ---- Sepete ekleme bildirimi (cart notification) ---- */
+  .cart-notification { border-radius: 1.2rem; }
+  .cart-notification__heading,
+  .cart-notification-product__name {
+    font-family: "Manrope", system-ui, sans-serif;
+  }
+  .cart-notification-product__name { color: #0f5238; font-weight: 600; }
+  .cart-notification__heading .icon-checkmark,
+  .cart-notification svg.icon-checkmark { color: #0f5238; }
+
+  /* Ödeme — yeşil primary */
+  .cart-notification .button--primary {
+    background: #0f5238 !important;
+    color: #fff !important;
+    border: 1.5px solid #0f5238 !important;
+    border-radius: 0.5rem;
+  }
+  .cart-notification .button--primary:hover { background: #0a3f2b !important; }
+  .cart-notification .button--primary::after,
+  .cart-notification .button--secondary::after { display: none !important; }
+
+  /* Sepeti görüntüle — yeşil çizgili */
+  .cart-notification .button--secondary {
+    background: #fff !important;
+    color: #0f5238 !important;
+    border: 1.5px solid #0f5238 !important;
+    border-radius: 0.5rem;
+  }
+  .cart-notification .button--secondary:hover { background: rgba(15, 82, 56, 0.06) !important; }
+
+  /* Alışverişe devam et — temiz link */
+  .cart-notification__links .link,
+  .cart-notification .cart-notification__continue {
+    color: #0f5238;
+    text-decoration: none;
+  }
+  .cart-notification__links .link:hover { text-decoration: underline; }
+
+  /* ---- Mobil menü (drawer) — Earth & Harvest ---- */
+  .menu-drawer {
+    font-family: "Work Sans", system-ui, sans-serif;
+    background: #fbf9f8;
+    padding: 1rem 2.4rem 2.4rem;
+  }
+  .menu-drawer__navigation { padding: 0; }
+  /* Ana menü öğeleri */
+  .menu-drawer__menu-item {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.7rem;
+    letter-spacing: -0.01em;
+    color: #1b1c1c;
+    padding: 1.5rem 0.4rem;
+    text-decoration: none !important;
+    transition: color .15s ease, background .15s ease;
+    border-radius: 0.6rem;
+  }
+  .menu-drawer__menu-item:hover { color: #0f5238; background: rgba(15, 82, 56, 0.06); }
+  .menu-drawer__parent-link { color: inherit; text-decoration: none !important; }
+  .menu-drawer__menu-item--active { color: #0f5238; }
+  .menu-drawer summary.menu-drawer__menu-item { padding-right: 1rem; }
+  /* Öğeler arası ayraç */
+  .menu-drawer__navigation > .menu-drawer__menu > li {
+    border-bottom: 1px solid rgba(15, 82, 56, 0.10);
+  }
+  .menu-drawer__navigation > .menu-drawer__menu > li:last-child { border-bottom: none; }
+  /* Açılır ok */
+  .menu-drawer__menu-item .icon-caret,
+  .menu-drawer__menu-item .svg-wrapper { color: #895024; }
+
+  /* Alt menü */
+  .menu-drawer__submenu { background: #fbf9f8; }
+  .menu-drawer__close-button {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-weight: 600;
+    color: #0f5238;
+    text-decoration: none !important;
+  }
+  .menu-drawer__close-button .icon-arrow { color: #0f5238; }
+
+  /* Alt yardımcı linkler (hesap, dil vb.) */
+  .menu-drawer__utility-links {
+    background: #fff;
+    border-top: 1px solid rgba(15, 82, 56, 0.10);
+  }
+  .menu-drawer__account {
+    font-family: "Work Sans", system-ui, sans-serif;
+    color: #0f5238;
+    font-weight: 600;
+  }
+  .menu-drawer__account .icon-account { color: #0f5238; }
+
+  /* Hamburger / kapat ikonu */
+  .header__icon--menu .icon { color: #1b1c1c; }
+  .header__icon--menu:hover .icon { color: #0f5238; }
+
+  /* ---- Topbar / duyuru çubuğu — yeşil bant ---- */
+  .utility-bar {
+    background: #0f5238 !important;
+    background-image: none !important;
+    color: #fff !important;
+  }
+  .utility-bar--bottom-border { border-bottom-color: rgba(255, 255, 255, 0.15) !important; }
+  .utility-bar .announcement-bar__message,
+  .utility-bar .announcement-bar__link,
+  .utility-bar .announcement-bar__link .icon,
+  .utility-bar a,
+  .utility-bar .localization-selector,
+  .utility-bar .slider-button .icon { color: #fff !important; }
+  .utility-bar .announcement-bar__message {
+    font-family: "Work Sans", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    letter-spacing: 0.02em;
+    text-transform: none;
+  }
+  .utility-bar .announcement-bar__link:hover { text-decoration: underline; }
+{%- endstyle -%}

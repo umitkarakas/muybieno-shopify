@@ -1,0 +1,448 @@
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #shopify-section-{{ section.id }} {
+    --category-icon-size: {{ section.settings.icon_size }}px;
+    --category-circle-bg: {{ section.settings.circle_color }};
+    --category-circle-size: {{ section.settings.circle_size }}px;
+    --category-label-color: {{ section.settings.label_color }};
+    --category-cols-desktop: {{ section.settings.columns_desktop }};
+    --category-cols-mobile: {{ section.settings.columns_mobile }};
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign is_carousel = section.settings.swipe_on_mobile
+-%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="category-icons-wrapper page-width isolate section-{{ section.id }}-padding">
+    {%- unless section.settings.title == blank -%}
+      <div class="title-wrapper-with-link title-wrapper--self-padded-mobile title-wrapper--no-top-margin">
+        <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+          {{ section.settings.title }}
+        </h2>
+      </div>
+    {%- endunless -%}
+
+    <slider-component class="category-icons__slider{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <ul
+        class="category-icons{% if is_carousel %} category-icons--carousel slider{% endif %}"
+        id="Slider-{{ section.id }}"
+        role="list"
+      >
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign label = block.settings.label
+            assign link = block.settings.link
+            if link == blank and block.settings.collection != blank
+              assign link = block.settings.collection.url
+            endif
+            if label == blank and block.settings.collection != blank
+              assign label = block.settings.collection.title
+            endif
+          -%}
+          <li
+            id="Slide-{{ section.id }}-{{ forloop.index }}"
+            class="category-icons__item{% if is_carousel %} slider__slide{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {{ block.shopify_attributes }}
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
+          >
+            {%- capture inner -%}
+              <span class="category-icons__circle">
+                {%- if block.settings.icon != blank -%}
+                  {{ block.settings.icon | image_url: width: 300 | image_tag:
+                    loading: 'lazy',
+                    class: 'category-icons__img',
+                    widths: '150, 200, 300',
+                    alt: label
+                  }}
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'category-icons__img placeholder' }}
+                {%- endif -%}
+              </span>
+              {%- unless label == blank -%}
+                <span class="category-icons__label">{{ label }}</span>
+              {%- endunless -%}
+            {%- endcapture -%}
+
+            {%- if link != blank -%}
+              <a href="{{ link }}" class="category-icons__link">{{ inner }}</a>
+            {%- else -%}
+              <div class="category-icons__link">{{ inner }}</div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- if is_carousel and section.blocks.size > 1 -%}
+        <div class="category-icons__buttons no-js-hidden">
+          <button
+            type="button"
+            class="slider-button slider-button--prev"
+            name="previous"
+            aria-label="{{ 'general.slider.previous_slide' | t }}"
+          >
+            <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+          </button>
+          <div class="slider-counter visually-hidden">
+            <span class="slider-counter--current">1</span>
+            <span aria-hidden="true"> / </span>
+            <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+            <span class="slider-counter--total">{{ section.blocks.size }}</span>
+          </div>
+          <button
+            type="button"
+            class="slider-button slider-button--next"
+            name="next"
+            aria-label="{{ 'general.slider.next_slide' | t }}"
+          >
+            <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+          </button>
+        </div>
+      {%- endif -%}
+    </slider-component>
+  </div>
+</div>
+
+{%- style -%}
+  .category-icons__slider {
+    position: relative;
+    display: block;
+    /* Oklar içeriğin üstüne biner — ayrı boşluk yok */
+    padding-inline: 0;
+  }
+
+  .category-icons {
+    --ci-gap: 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--ci-gap) calc(var(--ci-gap) / 2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .category-icons--carousel {
+    flex-wrap: nowrap;
+    justify-content: safe center;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .category-icons--carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-icons__item {
+    flex: 0 0 calc((100% - (var(--category-cols-mobile) - 1) * var(--ci-gap)) / var(--category-cols-mobile));
+    min-width: 0;
+    scroll-snap-align: center;
+    text-align: center;
+  }
+
+  .category-icons__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a.category-icons__link:hover .category-icons__circle {
+    transform: translateY(-4px);
+  }
+
+  .category-icons__circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(var(--category-circle-size), 100%);
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    background: var(--category-circle-bg);
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+
+  /* Kare görsel tile'ı tam doldurur (köşeler 12px yumuşar) */
+  .category-icons__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .category-icons__label {
+    display: block;
+    max-width: 14ch;
+    margin: 0 auto;
+    font-family: "Manrope", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.35rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--category-label-color);
+    /* Kelimeyi ortadan kesme: yalnızca boşluktan satır atla */
+    overflow-wrap: normal;
+    word-break: keep-all;
+    hyphens: none;
+  }
+
+  /* --- Yan navigasyon okları --- */
+  .category-icons__buttons {
+    display: contents;
+  }
+
+  .category-icons__slider .slider-button {
+    position: absolute;
+    top: calc(min(var(--category-circle-size), 22vw) / 2);
+    transform: translateY(-50%);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.4rem;
+    height: 3.4rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgb(var(--color-background));
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .category-icons__slider .slider-button .svg-wrapper {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .category-icons__slider .slider-button--prev {
+    left: 0.8rem;
+  }
+
+  .category-icons__slider .slider-button--next {
+    right: 0.8rem;
+  }
+
+  .category-icons__slider .slider-button:disabled {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Mobil: full-width carousel (kenar boşlukları yok, safe-area korunur) */
+  @media screen and (max-width: 749px) {
+    .category-icons-wrapper.page-width {
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .category-icons__slider {
+      padding-left: max(1.2rem, env(safe-area-inset-left, 0px));
+      padding-right: max(1.2rem, env(safe-area-inset-right, 0px));
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .category-icons {
+      --ci-gap: 2rem;
+    }
+
+    .category-icons__item {
+      flex-basis: calc((100% - (var(--category-cols-desktop) - 1) * var(--ci-gap)) / var(--category-cols-desktop));
+    }
+
+    .category-icons__slider .slider-button {
+      top: calc(min(var(--category-circle-size), 12vw) / 2);
+    }
+
+    .category-icons__label {
+      font-size: 1.4rem;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Kategori İkonları",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Kategoriler",
+      "label": "Başlık"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Küçük" },
+        { "value": "h1", "label": "Orta" },
+        { "value": "h0", "label": "Büyük" }
+      ],
+      "default": "h1",
+      "label": "Başlık boyutu"
+    },
+    {
+      "type": "header",
+      "content": "İkon görünümü"
+    },
+    {
+      "type": "color",
+      "id": "circle_color",
+      "default": "#2f5e2f",
+      "label": "Daire arka plan rengi"
+    },
+    {
+      "type": "range",
+      "id": "circle_size",
+      "min": 60,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Daire boyutu",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 24,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "İkon boyutu",
+      "default": 48
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "default": "#333333",
+      "label": "Etiket rengi"
+    },
+    {
+      "type": "header",
+      "content": "Yerleşim"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "label": "Masaüstü sütun sayısı",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        { "value": "2", "label": "2 sütun" },
+        { "value": "3", "label": "3 sütun" },
+        { "value": "4", "label": "4 sütun" }
+      ],
+      "default": "3",
+      "label": "Mobil sütun sayısı"
+    },
+    {
+      "type": "checkbox",
+      "id": "swipe_on_mobile",
+      "default": true,
+      "label": "Kaydırmalı carousel",
+      "info": "Kapalıyken ikonlar sığmazsa alt satıra geçer (oklar gizlenir)."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-1",
+      "label": "Renk şeması"
+    },
+    {
+      "type": "header",
+      "content": "Boşluk"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Üst boşluk",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Alt boşluk",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Kategori",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "İkon görseli"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Etiket",
+          "info": "Boş bırakılırsa koleksiyon adı kullanılır."
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Koleksiyon"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Özel bağlantı",
+          "info": "Doldurulursa koleksiyon bağlantısının yerine geçer."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Kategori İkonları",
+      "blocks": [
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" }
+      ]
+    }
+  ]
+}
+{% endschema %}

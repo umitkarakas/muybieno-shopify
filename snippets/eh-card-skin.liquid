@@ -1,0 +1,161 @@
+{% comment %} Earth & Harvest — global ürün kartı skin'i (tüm sayfalar) {% endcomment %}
+{%- style -%}
+  .card-wrapper {
+    --eh-primary: #0f5238;
+    --eh-primary-hover: #0a3f2b;
+    --eh-primary-tint: rgba(15, 82, 56, 0.10);
+    --eh-outline: #bfc9c1;
+    --eh-on-surface: #1b1c1c;
+    --font-head: "Manrope", system-ui, sans-serif;
+    --font-body: "Work Sans", system-ui, sans-serif;
+    position: relative;
+  }
+
+  .card-wrapper .card__media,
+  .card-wrapper .card__media .media { border-radius: 1rem; overflow: hidden; }
+
+  /* Kartları satırda eşit yüksekliğe çek (alta sabitleme için) */
+  .card-wrapper, .card-wrapper .card { height: 100%; }
+
+  /* Yalnızca fiyat içeren içerik bloğunu tam yükseklik flex kolon yap (rozet bloğunu değil) */
+  .card-wrapper .card__content:has(.price) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .card-wrapper .card__information:has(.price) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
+  .card-wrapper .card__content { padding-top: 1rem; padding-bottom: 1.4rem; }
+
+  /* Sola hizalı içerik */
+  .card-wrapper .card__information { text-align: left; }
+  .card-wrapper .card__information .caption-with-letter-spacing { text-align: left; }
+  .card-wrapper .card__information .rating { text-align: left; justify-content: flex-start; margin-bottom: 0.4rem; }
+  .card-wrapper .card__heading {
+    font-family: var(--font-head);
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: left;
+  }
+  /* Başlığı 2 satıra sabitle → fiyat tüm kartlarda aynı hizada başlar */
+  .card-wrapper .card__heading,
+  .card-wrapper .card__heading a {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-wrapper .card__heading { min-height: 2.6em; }
+
+  /* Fiyat + "+" tek satır, kartın altında (JS ile sarılır) */
+  .card-wrapper .eh-price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 0.8rem;
+  }
+  .card-wrapper .card__information .price {
+    text-align: left;
+    margin: 0;
+  }
+  .card-wrapper .card__information .price__regular .price-item--regular,
+  .card-wrapper .card__information .price--on-sale .price-item--sale {
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--eh-primary);
+  }
+  .card-wrapper .rating-star { --color-rating-star: 217, 154, 43; }
+
+  /* Daire "+" — satır içinde, fiyatla aynı hizada */
+  .card-wrapper .quick-add {
+    flex-shrink: 0;
+    width: auto;
+    margin: 0;
+    z-index: 3;
+  }
+  /* JS sarmadıysa (fallback) sağ-altta dursun */
+  .card-wrapper .card > .quick-add {
+    position: absolute;
+    right: 0.4rem;
+    bottom: 1.4rem;
+  }
+  .card-wrapper .quick-add__submit {
+    width: 4.4rem;
+    height: 4.4rem;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    border-radius: 50% !important;
+    background: var(--eh-primary) !important;
+    color: #fff !important;
+    border: none !important;
+    font-size: 0 !important;
+    box-shadow: 0 4px 12px rgba(15, 82, 56, 0.22);
+    position: relative;
+    transition: background .15s ease, transform .15s ease;
+  }
+  .card-wrapper .quick-add__submit:hover { background: var(--eh-primary-hover) !important; transform: translateY(-2px); }
+  .card-wrapper .quick-add__submit::after { display: none; }
+  .card-wrapper .quick-add__submit::before {
+    content: "+";
+    font-family: var(--font-body);
+    font-size: 2.6rem;
+    font-weight: 400;
+    line-height: 1;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    box-shadow: none;
+    color: #fff;
+    display: grid;
+    place-items: center;
+  }
+{%- endstyle -%}
+
+<script>
+  (function () {
+    function wrapCards(root) {
+      (root || document).querySelectorAll('.card-wrapper').forEach(function (card) {
+        if (card.dataset.ehRow) return;
+        var price = card.querySelector('.card__information .price');
+        var info = price && price.closest('.card__information');
+        var qa = card.querySelector('.quick-add');
+        if (!info || !price || !qa) return;
+        card.dataset.ehRow = '1';
+        var row = document.createElement('div');
+        row.className = 'eh-price-row';
+        price.parentNode.insertBefore(row, price);
+        row.appendChild(price);
+        row.appendChild(qa);
+
+        /* Tüm kartı tıklanabilir yap (görsel dahil) → ürün detaya git */
+        var link = card.querySelector('.card__heading a');
+        if (link && link.getAttribute('href')) {
+          var url = link.getAttribute('href');
+          card.style.cursor = 'pointer';
+          card.addEventListener('click', function (e) {
+            if (e.target.closest('a, button, .quick-add, [role="button"]')) return;
+            if (window.getSelection && window.getSelection().toString()) return;
+            window.location.href = url;
+          });
+        }
+      });
+    }
+    function run() { wrapCards(document); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+    else run();
+    var pending = false;
+    new MutationObserver(function () {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(function () { pending = false; wrapCards(document); });
+    }).observe(document.body, { childList: true, subtree: true });
+  })();
+</script>
+

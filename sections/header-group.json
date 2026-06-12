@@ -1,0 +1,78 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_Tm6riC": {
+          "type": "announcement",
+          "settings": {
+            "text": "1000₺ ve Üzeri Alışverişlerde Ücretsiz Kargo",
+            "link": ""
+          }
+        },
+        "announcement_XDhxCT": {
+          "type": "announcement",
+          "settings": {
+            "text": "Mağazamıza hoş geldiniz",
+            "link": ""
+          }
+        },
+        "announcement-bar-0": {
+          "type": "announcement",
+          "settings": {
+            "text": "Doğal Katkısız Kuruyemişler",
+            "link": "shopify://collections/kuruyemis-atistirmaliklar"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_Tm6riC",
+        "announcement_XDhxCT",
+        "announcement-bar-0"
+      ],
+      "settings": {
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "color_scheme": "scheme-9653f80b-6136-4f75-bc0e-991df51f8bfc",
+        "show_line_separator": true,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_position": "middle-left",
+        "mobile_logo_position": "center",
+        "menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": false,
+        "color_scheme": "scheme-846a0592-79c8-4ec0-be7d-a2a42defb2b4",
+        "menu_color_scheme": "scheme-846a0592-79c8-4ec0-be7d-a2a42defb2b4",
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "enable_customer_avatar": true,
+        "margin_bottom": 8,
+        "padding_top": 8,
+        "padding_bottom": 4
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
+}

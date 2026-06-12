@@ -1,0 +1,170 @@
+{% comment %} Earth & Harvest — site geneli başlık + buton giydirmesi {% endcomment %}
+{%- style -%}
+  /* Başlıklar — Manrope */
+  .template-index h1, .template-index h2, .template-index h3,
+  main .title, main .title-wrapper h2,
+  .rich-text__heading, .slideshow__text .h1, .slideshow__text .h0,
+  .banner__heading, .collection-list-title, .multicolumn .title {
+    font-family: "Manrope", system-ui, sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  /* Bölüm başlığı (eyebrow benzeri) ana hizalama korunur */
+  main .title-wrapper-with-link .title { font-weight: 700; }
+
+  /* Birincil butonlar — yeşil (sade .button dahil; secondary/tertiary hariç) */
+  main .button:not(.button--secondary):not(.button--tertiary),
+  .shopify-section .button:not(.button--secondary):not(.button--tertiary) {
+    --color-button: 15, 82, 56;
+    --color-button-text: 255, 255, 255;
+    --alpha-button-background: 1;
+    --alpha-button-border: 1;
+    background: #0f5238 !important;
+    background-color: #0f5238 !important;
+    color: #fff !important;
+    border: 1.5px solid #0f5238 !important;
+    border-radius: 0.5rem;
+    font-family: "Work Sans", system-ui, sans-serif;
+    font-weight: 600;
+  }
+  main .button:not(.button--secondary):not(.button--tertiary):hover,
+  .shopify-section .button:not(.button--secondary):not(.button--tertiary):hover { background: #0a3f2b !important; }
+  main .button:not(.button--secondary):not(.button--tertiary)::after,
+  .shopify-section .button:not(.button--secondary):not(.button--tertiary)::after { display: none !important; }
+
+  /* İkincil butonlar — umber çizgili */
+  main .button--secondary,
+  .shopify-section .button--secondary {
+    background: transparent !important;
+    color: #895024 !important;
+    border: 1.5px solid #895024 !important;
+    border-radius: 0.5rem;
+    font-family: "Work Sans", system-ui, sans-serif;
+    font-weight: 600;
+  }
+  main .button--secondary:hover,
+  .shopify-section .button--secondary:hover { background: rgba(137, 80, 36, 0.08) !important; }
+  main .button--secondary::after,
+  .shopify-section .button--secondary::after { display: none !important; }
+
+  /* ---- Sepet (drawer + sayfa) ---- */
+  .cart-item__name,
+  .cart-drawer .cart-item__name {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-weight: 600;
+  }
+  .cart-item__name:hover { color: #0f5238; }
+  .cart-item__final-price,
+  .totals__total-value,
+  .totals__subtotal-value { color: #0f5238; font-family: "Manrope", system-ui, sans-serif; }
+
+  /* Ödeme butonu — yeşil */
+  .cart__checkout-button {
+    background: #0f5238 !important;
+    color: #fff !important;
+    border: 1.5px solid #0f5238 !important;
+    border-radius: 0.5rem;
+  }
+  .cart__checkout-button:hover { background: #0a3f2b !important; }
+  .cart__checkout-button::after { display: none !important; }
+
+  /* Drawer başlığı */
+  .cart-drawer .drawer__heading,
+  .drawer__header .drawer__heading {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-weight: 700;
+  }
+
+  /* Adet stepper + sil + checkbox */
+  .cart .quantity__button:hover,
+  .cart-drawer .quantity__button:hover { color: #0f5238; }
+  .cart-remove-button,
+  .cart-remove-button .icon { color: #895024; }
+  .cart input[type="checkbox"],
+  .cart-drawer input[type="checkbox"] { accent-color: #0f5238; }
+
+  /* ---- Hesap / giriş (customer) ---- */
+  .customer__title,
+  .customer h1, .customer h2, .customer h3 {
+    font-family: "Manrope", system-ui, sans-serif;
+    letter-spacing: -0.01em;
+  }
+  .customer .button {
+    background: #0f5238 !important;
+    color: #fff !important;
+    border: 1.5px solid #0f5238 !important;
+    border-radius: 0.5rem;
+    font-family: "Work Sans", system-ui, sans-serif;
+    font-weight: 600;
+  }
+  .customer .button:hover { background: #0a3f2b !important; }
+  .customer .button::after { display: none !important; }
+  .customer a:not(.button) { color: #0f5238; }
+  .customer .field__input:focus,
+  .customer input:focus {
+    border-color: #0f5238 !important;
+    box-shadow: 0 0 0 3px rgba(15, 82, 56, 0.12) !important;
+  }
+
+  /* ---- Arama ---- */
+  .search__input:focus,
+  .search-modal .field__input:focus {
+    border-color: #0f5238 !important;
+    box-shadow: 0 0 0 3px rgba(15, 82, 56, 0.12) !important;
+  }
+  .search__button:hover .icon,
+  .search__button:hover { color: #0f5238; }
+  .predictive-search__item:hover,
+  .predictive-search__item[aria-selected="true"] { background: rgba(15, 82, 56, 0.06); }
+  .predictive-search__heading { color: #895024; font-family: "Manrope", system-ui, sans-serif; }
+
+  /* ---- Ana sayfa slider (slideshow) kontrolleri ---- */
+  .slideshow__controls .slider-button .icon,
+  .slideshow__controls .slider-button:hover .icon,
+  .slideshow__autoplay .icon { color: #0f5238; }
+  /* Aktif nokta (dot) — yeşil */
+  .slider-counter__link--active.slider-counter__link--dots .dot {
+    background-color: #0f5238 !important;
+    border-color: #0f5238 !important;
+  }
+  .slider-counter__link--dots:not(.slider-counter__link--active):hover .dot {
+    background-color: rgba(15, 82, 56, 0.5) !important;
+  }
+  /* Sayı modunda aktif */
+  .slider-counter__link--active.slider-counter__link--numbers {
+    color: #0f5238 !important;
+    border-color: #0f5238 !important;
+  }
+  /* Hero başlık biraz daha karakterli */
+  .slideshow__text .banner__heading { font-weight: 700; }
+
+  /* Hero / banner CTA — koşulsuz yeşil + beyaz (secondary olsa da) */
+  .banner__buttons .button,
+  .slideshow__text .button,
+  .banner__content .button {
+    --color-button: 15, 82, 56;
+    --color-button-text: 255, 255, 255;
+    --alpha-button-background: 1;
+    --alpha-button-border: 1;
+    background: #0f5238 !important;
+    background-color: #0f5238 !important;
+    color: #fff !important;
+    border: 1.5px solid #0f5238 !important;
+    border-radius: 0.5rem;
+    font-weight: 600;
+  }
+  .banner__buttons .button:hover,
+  .slideshow__text .button:hover,
+  .banner__content .button:hover { background: #0a3f2b !important; }
+  .banner__buttons .button::after,
+  .slideshow__text .button::after { display: none !important; }
+
+  /* ---- Mobil ince ayar ---- */
+  @media screen and (max-width: 749px) {
+    /* Hero başlık ölçeği */
+    .slideshow__text .banner__heading { font-size: 3.2rem; line-height: 1.15; }
+    .slideshow__text .banner__text { font-size: 1.5rem; }
+    /* Hero metin kutusu iç boşluk */
+    .slideshow__text-wrapper .slideshow__text { padding: 2.4rem 2rem 2.8rem; }
+  }
+{%- endstyle -%}

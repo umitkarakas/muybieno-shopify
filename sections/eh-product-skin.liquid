@@ -1,0 +1,513 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+{%- style -%}
+  .eh-product-page {
+    --eh-primary: #0f5238;
+    --eh-primary-hover: #0a3f2b;
+    --eh-primary-tint: rgba(15, 82, 56, 0.10);
+    --eh-secondary: #895024;
+    --eh-leaf-deep: #3a8a3a;
+    --eh-error: #ba1a1a;
+    --eh-stone: #e0ded8;
+    --eh-outline: #bfc9c1;
+    --eh-on-surface: #1b1c1c;
+    --eh-on-variant: #404943;
+    --eh-surface: #fbf9f8;
+    --eh-r: 0.5rem;
+    --eh-r-full: 9999px;
+    --font-head: "Manrope", system-ui, sans-serif;
+    --font-body: "Work Sans", system-ui, sans-serif;
+  }
+
+  /* ---- Typography ---- */
+  .eh-product-page .product__info-container,
+  .eh-product-page .product__title,
+  .eh-product-page .price {
+    font-family: var(--font-body);
+  }
+  .eh-product-page .product__title,
+  .eh-product-page .product__title > * {
+    font-family: var(--font-head);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--eh-on-surface);
+  }
+  /* Başlık boyutu — Earth & Harvest h-lg (32px / 26px mobil) */
+  .eh-product-page .product__title h1 {
+    font-size: 2.2rem;
+    line-height: 3rem;
+  }
+  @media screen and (max-width: 749px) {
+    .eh-product-page .product__title h1 {
+      font-size: 2rem;
+      line-height: 2.7rem;
+    }
+  }
+
+  /* ---- Tighten the section top spacing (breadcrumb area) ---- */
+  .eh-product-page main .shopify-section + .shopify-section .product,
+  .eh-product-page .product-grid-container { }
+  .eh-product-page #MainContent > .shopify-section:first-child { padding-top: 8px; }
+  .eh-product-page .product { padding-top: 0; }
+
+  /* ---- Category / type eyebrow (vendor) ---- */
+  .eh-product-page .product__text.caption-with-letter-spacing {
+    color: var(--eh-secondary);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  /* ---- Price ---- */
+  /* Büyük yeşil ana fiyat (yalnızca ürün bilgi sütunu — kartlara sızmasın) */
+  .eh-product-page .product__info-container .price__regular .price-item--regular,
+  .eh-product-page .product__info-container .price--on-sale .price-item--sale {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 3.4rem;
+    line-height: 1;
+    color: var(--eh-primary);
+    letter-spacing: -0.02em;
+  }
+  /* Üstü çizili eski fiyat (ürün bilgi sütunu) */
+  .eh-product-page .product__info-container .price__sale s.price-item--regular,
+  .eh-product-page .product__info-container .price__sale .price-item--regular {
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: var(--eh-outline);
+    font-size: 1.8rem;
+    letter-spacing: 0;
+  }
+  /* Kırmızı indirim rozeti */
+  .eh-product-page .price__badge-sale,
+  .eh-product-page .badge.price__badge-sale {
+    background-color: var(--eh-error) !important;
+    color: #fff !important;
+    border-color: var(--eh-error) !important;
+    border-radius: var(--eh-r-full);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  /* ---- Variant pills ---- */
+  .eh-product-page .product-form__input--pill input[type='radio'] + label {
+    border: 1.5px solid var(--eh-stone);
+    border-radius: var(--eh-r);
+    padding: 1.1rem 1.8rem;
+    font-weight: 500;
+    color: var(--eh-on-surface);
+    background: #fff;
+    transition: border-color .15s ease, background .15s ease, color .15s ease;
+  }
+  .eh-product-page .product-form__input--pill input[type='radio'] + label:hover {
+    border-color: var(--eh-primary);
+  }
+  .eh-product-page .product-form__input--pill input[type='radio']:checked + label {
+    border-color: var(--eh-primary);
+    background: var(--eh-primary-tint);
+    color: var(--eh-primary);
+    font-weight: 600;
+  }
+  .eh-product-page .form__label,
+  .eh-product-page .product-form__input .form__label {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--eh-on-variant);
+  }
+
+  /* ---- Buttons ---- */
+  /* Sepete Ekle her zaman yeşil primary (dynamic checkout açık olsa da) */
+  .eh-product-page .product-form__submit,
+  .eh-product-page .product-form__submit.button--secondary,
+  .eh-product-page .product-form__submit.button--primary,
+  .eh-product-page .button--primary {
+    background: var(--eh-primary) !important;
+    color: #fff !important;
+    border: 1.5px solid var(--eh-primary) !important;
+    border-radius: var(--eh-r);
+    font-family: var(--font-body);
+    font-weight: 600;
+  }
+  .eh-product-page .product-form__submit:hover,
+  .eh-product-page .button--primary:hover { background: var(--eh-primary-hover) !important; }
+  /* Sense butonlarının ::after iç çerçevesini kaldır (çift kenarlık) */
+  .eh-product-page .product-form__submit::after,
+  .eh-product-page .button--primary::after,
+  .eh-product-page .shopify-payment-button__button--unbranded::after { display: none; }
+
+  /* "Hemen Al" / hızlı ödeme → umber çizgili */
+  .eh-product-page .shopify-payment-button__button--unbranded {
+    background: #fff !important;
+    color: var(--eh-secondary) !important;
+    border: 1.5px solid var(--eh-secondary) !important;
+    border-radius: var(--eh-r) !important;
+  }
+  .eh-product-page .shopify-payment-button__button--unbranded:hover {
+    background: rgba(137,80,36,.08) !important;
+  }
+  .eh-product-page .shopify-payment-button__button { border-radius: var(--eh-r); overflow: hidden; }
+
+  /* ---- Quantity stepper ---- */
+  .eh-product-page .quantity {
+    border: 1px solid var(--eh-stone);
+    border-radius: var(--eh-r);
+    overflow: hidden;
+  }
+  .eh-product-page .quantity__button:hover { color: var(--eh-primary); }
+
+  /* ---- Stock / availability chip ---- */
+  .eh-product-page .product__inventory {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--eh-r-full);
+    background: var(--eh-primary-tint);
+    color: var(--eh-primary);
+  }
+
+  /* ---- Accordions ---- */
+  .eh-product-page .product__accordion .accordion__title,
+  .eh-product-page .product__accordion summary {
+    font-family: var(--font-head);
+    font-weight: 600;
+  }
+
+  /* ---- Perk kutusu (icon-with-text, vertical layout) ---- */
+  .eh-product-page .icon-with-text.icon-with-text--vertical {
+    display: block;
+    margin: 0.4rem 0 1.6rem;
+    padding: 0;
+    border: 1px solid var(--eh-outline);
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #fff;
+  }
+  .eh-product-page .icon-with-text--vertical .icon-with-text__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.2rem;
+    margin: 0;
+    padding: 1.3rem 1.6rem;
+    width: auto;
+  }
+  .eh-product-page .icon-with-text--vertical .icon-with-text__item + .icon-with-text__item {
+    border-top: 1px solid var(--eh-outline);
+  }
+  .eh-product-page .icon-with-text--vertical .svg-wrapper,
+  .eh-product-page .icon-with-text--vertical .icon {
+    width: 4rem;
+    height: 4rem;
+    min-width: 4rem;
+    min-height: 4rem;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background: var(--eh-primary-tint);
+    color: var(--eh-primary);
+    fill: var(--eh-primary);
+  }
+  .eh-product-page .icon-with-text--vertical .h4 {
+    font-family: var(--font-body);
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color: var(--eh-on-surface);
+  }
+
+  /* ---- Akordeonlar ---- */
+  .eh-product-page .product__accordion .accordion__title {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 1.7rem;
+  }
+
+  /* ---- Açıklama: daha fazlasını oku ---- */
+  .eh-product-page .product__description.eh-clamp {
+    max-height: 8.5rem;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent);
+    mask-image: linear-gradient(180deg, #000 55%, transparent);
+  }
+  .eh-product-page .product__description.eh-expanded {
+    max-height: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .eh-product-page .eh-readmore {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0.6rem 0 0;
+    padding: 0;
+    background: none;
+    border: none;
+    color: var(--eh-primary);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+  .eh-product-page .eh-readmore:hover { text-decoration: underline; }
+
+  /* ---- Mobil: body-seviyesi sabit alt buton barı ---- */
+  .eh-mobile-buybar { display: none; }
+  @media screen and (max-width: 749px) {
+    .eh-mobile-buybar {
+      display: block;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 40;
+      background: #fff;
+      border-top: 1px solid var(--eh-outline);
+      box-shadow: 0 -4px 16px rgba(15, 82, 56, 0.12);
+      padding: 1rem 1.5rem;
+      padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    }
+    .eh-mobile-buybar .eh-buybar__row {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .eh-mobile-buybar .eh-buybar__price {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    .eh-mobile-buybar .eh-bp__top {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      line-height: 1;
+    }
+    .eh-mobile-buybar .eh-bp__top s { font-size: 1.3rem; font-weight: 500; color: var(--eh-outline); }
+    .eh-mobile-buybar .eh-bp__badge { font-size: 1.2rem; font-weight: 700; color: var(--eh-error); }
+    .eh-mobile-buybar .eh-bp__now {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 2rem;
+      line-height: 1.05;
+      color: var(--eh-on-surface);
+    }
+    .eh-mobile-buybar product-form,
+    .eh-mobile-buybar .product-form { flex: 1; min-width: 0; }
+    .eh-mobile-buybar .product-form__buttons { display: block; margin: 0; }
+    .eh-mobile-buybar .product-form__submit { width: 100%; margin: 0; }
+    .eh-mobile-buybar .shopify-payment-button { display: none; }
+    .eh-mobile-buybar .product-form__error-message-wrapper { display: none; }
+    /* Adet sayacı — butonun solunda, dikey ▲▼ kompakt */
+    .eh-mobile-buybar .product-form__quantity { margin: 0; flex: 0 0 auto; }
+    .eh-mobile-buybar .quantity__label,
+    .eh-mobile-buybar .quantity__rules,
+    .eh-mobile-buybar .quantity__rules-cart { display: none !important; }
+    .eh-mobile-buybar .quantity {
+      display: grid;
+      grid-template-columns: auto 2.8rem;
+      grid-template-rows: 2.5rem 2.5rem;
+      border: 1px solid var(--eh-stone);
+      border-radius: var(--eh-r);
+      overflow: hidden;
+      width: auto;
+      height: auto;
+    }
+    .eh-mobile-buybar .quantity__input {
+      grid-column: 1;
+      grid-row: 1 / 3;
+      width: 3.2rem;
+      height: auto;
+      font-weight: 600;
+      border-right: 1px solid var(--eh-stone);
+    }
+    .eh-mobile-buybar .quantity__button {
+      width: 2.8rem;
+      min-width: 0;
+      height: auto;
+      padding: 0;
+      color: var(--eh-on-surface);
+    }
+    .eh-mobile-buybar .quantity__button:hover { color: var(--eh-primary); }
+    .eh-mobile-buybar .quantity__button .svg-wrapper,
+    .eh-mobile-buybar .quantity__button svg { display: none; }
+    .eh-mobile-buybar .quantity__button[name='plus'] {
+      grid-column: 2;
+      grid-row: 1;
+      border-bottom: 1px solid var(--eh-stone);
+    }
+    .eh-mobile-buybar .quantity__button[name='minus'] { grid-column: 2; grid-row: 2; }
+    .eh-mobile-buybar .quantity__button[name='plus']::after { content: '▲'; font-size: 1rem; line-height: 1; }
+    .eh-mobile-buybar .quantity__button[name='minus']::after { content: '▼'; font-size: 1rem; line-height: 1; }
+    /* Mobilde üstteki fiyat mükerrer olmasın (bar fiyatı bundan beslenir, gizli okunur) */
+    .eh-product-page .product__info-container .price { display: none; }
+    /* alt barın altında içerik gizlenmesin */
+    .eh-product-page #MainContent { padding-bottom: 12rem; }
+  }
+
+  /* Ürün kartı stilleri global snippet'e taşındı: snippets/eh-card-skin.liquid */
+
+  /* ---- Adım 1: Galeri (yuvarlak kart + thumbnail) ---- */
+  .eh-product-page .product__media-item .media,
+  .eh-product-page .product__media-item--single .media {
+    border-radius: 1.5rem;
+    background: #eef1ea;
+    box-shadow: 0 8px 24px rgba(15, 82, 56, 0.06), 0 2px 6px rgba(15, 82, 56, 0.04);
+    overflow: hidden;
+  }
+  .eh-product-page .product__media-item img.media,
+  .eh-product-page .product__media-item .media img {
+    border-radius: 1.5rem;
+  }
+  /* thumbnail'lar */
+  .eh-product-page .thumbnail-list__item .thumbnail {
+    border-radius: 0.75rem;
+    border: 2px solid transparent;
+    overflow: hidden;
+    transition: border-color .15s ease;
+  }
+  .eh-product-page .thumbnail-list__item .thumbnail::after { display: none; }
+  .eh-product-page .thumbnail-list__item .thumbnail[aria-current],
+  .eh-product-page .thumbnail-list__item .thumbnail[aria-current="true"] {
+    border-color: var(--eh-primary);
+    box-shadow: none;
+  }
+{%- endstyle -%}
+
+<script>
+  document.body.classList.add('eh-product-page');
+  (function () {
+    function initReadMore() {
+      var desc = document.querySelector('.eh-product-page .product__description');
+      if (!desc || desc.dataset.ehReadmore) return;
+      desc.dataset.ehReadmore = '1';
+      var threshold = 150;
+      if (desc.scrollHeight <= threshold + 24) return;
+      desc.classList.add('eh-clamp');
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'eh-readmore';
+      btn.textContent = 'Daha fazlasını oku';
+      desc.parentNode.insertBefore(btn, desc.nextSibling);
+      btn.addEventListener('click', function () {
+        var expanded = desc.classList.toggle('eh-expanded');
+        desc.classList.toggle('eh-clamp', !expanded);
+        btn.textContent = expanded ? 'Daha az göster' : 'Daha fazlasını oku';
+      });
+    }
+    /* Mobilde buton formunu body'ye taşıyıp sabit alt bara koy */
+    function initStickyBar() {
+      var form = document.querySelector('.eh-product-page product-form.product-form')
+              || document.querySelector('.eh-product-page .product-form');
+      if (!form) return;
+      var priceEl = document.querySelector('.eh-product-page .product__info-container .price')
+                 || document.querySelector('.eh-product-page .price');
+      var qty = document.querySelector('.eh-product-page .product-form__quantity');
+      var mq = window.matchMedia('(max-width: 749px)');
+      var bar = null, row = null, priceWrap = null;
+      var placeholder = document.createComment('eh-buybar');
+      form.parentNode.insertBefore(placeholder, form);
+      var qtyPlaceholder = null;
+      if (qty) { qtyPlaceholder = document.createComment('eh-qty'); qty.parentNode.insertBefore(qtyPlaceholder, qty); }
+
+      function parseNum(t) {
+        if (!t) return NaN;
+        t = t.replace(/[^\d.,]/g, '');
+        if (t.indexOf(',') > -1) { t = t.replace(/\./g, '').replace(',', '.'); }
+        return parseFloat(t);
+      }
+
+      function syncPrice() {
+        if (!priceWrap || !priceEl) return;
+        var onSale = priceEl.classList.contains('price--on-sale');
+        var curNode = onSale
+          ? priceEl.querySelector('.price__sale .price-item--sale')
+          : priceEl.querySelector('.price__regular .price-item--regular');
+        var oldNode = onSale ? priceEl.querySelector('.price__sale s.price-item--regular') : null;
+        var curText = curNode ? curNode.textContent.trim() : '';
+        var oldText = oldNode ? oldNode.textContent.trim() : '';
+
+        priceWrap.innerHTML = '';
+        if (oldText) {
+          var top = document.createElement('div');
+          top.className = 'eh-bp__top';
+          var s = document.createElement('s');
+          s.textContent = oldText;
+          top.appendChild(s);
+          var pct = Math.round((parseNum(oldText) - parseNum(curText)) / parseNum(oldText) * 100);
+          if (!isNaN(pct) && pct > 0) {
+            var b = document.createElement('span');
+            b.className = 'eh-bp__badge';
+            b.textContent = '%' + pct;
+            top.appendChild(b);
+          }
+          priceWrap.appendChild(top);
+        }
+        var now = document.createElement('div');
+        now.className = 'eh-bp__now';
+        now.textContent = curText;
+        priceWrap.appendChild(now);
+      }
+
+      function place() {
+        if (mq.matches) {
+          if (!bar) {
+            bar = document.createElement('div');
+            bar.className = 'eh-mobile-buybar';
+            row = document.createElement('div');
+            row.className = 'eh-buybar__row';
+            priceWrap = document.createElement('div');
+            priceWrap.className = 'eh-buybar__price';
+            row.appendChild(priceWrap);
+            bar.appendChild(row);
+            document.body.appendChild(bar);
+            if (priceEl && window.MutationObserver) {
+              new MutationObserver(syncPrice).observe(priceEl, { childList: true, subtree: true, characterData: true });
+            }
+          }
+          if (qty && qty.parentNode !== row) row.appendChild(qty);
+          if (form.parentNode !== row) row.appendChild(form);
+          syncPrice();
+        } else {
+          if (placeholder.parentNode && form.parentNode !== placeholder.parentNode) {
+            placeholder.parentNode.insertBefore(form, placeholder);
+          }
+          if (qty && qtyPlaceholder && qtyPlaceholder.parentNode && qty.parentNode !== qtyPlaceholder.parentNode) {
+            qtyPlaceholder.parentNode.insertBefore(qty, qtyPlaceholder);
+          }
+        }
+      }
+      place();
+      if (mq.addEventListener) mq.addEventListener('change', place);
+      else if (mq.addListener) mq.addListener(place);
+    }
+
+    function init() { initReadMore(); initStickyBar(); }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Earth & Harvest Skin",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Bu bölüm görünmez. Yalnızca Earth & Harvest tasarım giydirmesini ürün sayfasına uygular. Şablonun en üstünde kalmalı, kaldırmayın."
+    }
+  ]
+}
+{% endschema %}

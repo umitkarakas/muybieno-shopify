@@ -1,0 +1,185 @@
+{% comment %}
+  Earth & Harvest — mobil alt navigasyon (bottom nav).
+  Sadece mobilde (≤749px). Ürün detay sayfasında render EDİLMEZ (theme.liquid'de koşullu).
+  Sekmeleri güncellemek için aşağıdaki <a> bloklarını düzenle.
+{% endcomment %}
+
+{%- liquid
+  assign pt = request.page_type
+  assign account_url = routes.account_url
+  unless customer
+    assign account_url = routes.account_login_url
+  endunless
+-%}
+
+<nav class="eh-botnav" aria-label="Alt menü">
+  <a href="{{ routes.root_url }}" class="eh-botnav__item{% if pt == 'index' %} is-active{% endif %}" aria-label="Anasayfa">
+    <span class="eh-botnav__pill" aria-hidden="true"></span>
+    <span class="eh-botnav__ico" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg>
+    </span>
+    <span class="eh-botnav__label">Anasayfa</span>
+  </a>
+
+  <a href="{{ routes.all_products_collection_url | default: '/collections/all' }}" class="eh-botnav__item{% if pt == 'collection' or pt == 'list-collections' %} is-active{% endif %}" aria-label="Ürünler">
+    <span class="eh-botnav__pill" aria-hidden="true"></span>
+    <span class="eh-botnav__ico" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l-1 13H6L5 7Z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+    </span>
+    <span class="eh-botnav__label">Ürünler</span>
+  </a>
+
+  <a href="{{ routes.search_url }}" class="eh-botnav__item{% if pt == 'search' %} is-active{% endif %}" aria-label="Ara">
+    <span class="eh-botnav__pill" aria-hidden="true"></span>
+    <span class="eh-botnav__ico" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    </span>
+    <span class="eh-botnav__label">Ara</span>
+  </a>
+
+  <a href="{{ routes.cart_url }}" class="eh-botnav__item{% if pt == 'cart' %} is-active{% endif %}" aria-label="Sepetim">
+    <span class="eh-botnav__pill" aria-hidden="true"></span>
+    <span class="eh-botnav__ico" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      {%- if cart.item_count > 0 -%}
+        <span class="eh-botnav__badge" data-eh-cart-count>{{ cart.item_count }}</span>
+      {%- else -%}
+        <span class="eh-botnav__badge is-hidden" data-eh-cart-count>0</span>
+      {%- endif -%}
+    </span>
+    <span class="eh-botnav__label">Sepetim</span>
+  </a>
+
+  <a href="{{ account_url }}" class="eh-botnav__item{% if pt contains 'customers' or pt == 'account' %} is-active{% endif %}" aria-label="Üyelik">
+    <span class="eh-botnav__pill" aria-hidden="true"></span>
+    <span class="eh-botnav__ico" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 21v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/></svg>
+    </span>
+    <span class="eh-botnav__label">Üyelik</span>
+  </a>
+</nav>
+
+{%- style -%}
+  .eh-botnav { display: none; }
+
+  @media screen and (max-width: 749px) {
+    .eh-botnav {
+      display: flex;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 45;
+      background: #ffffff;
+      border-top: 1px solid #e8e6e0;
+      box-shadow: 0 -2px 16px rgba(15, 82, 56, 0.07);
+      padding: 0 0.4rem;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    .eh-botnav__item {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.55rem 0 0.75rem;
+      color: #a0a49e;
+      text-decoration: none;
+      transition: color .18s ease;
+      position: relative;
+    }
+
+    .eh-botnav__item.is-active { color: #0f5238; }
+
+    /* Üst pill göstergesi — aktif tab */
+    .eh-botnav__pill {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2.4rem;
+      height: 3px;
+      background: #0f5238;
+      border-radius: 0 0 4px 4px;
+      opacity: 0;
+      transition: opacity .18s ease;
+    }
+    .eh-botnav__item.is-active .eh-botnav__pill { opacity: 1; }
+
+    .eh-botnav__ico {
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+    .eh-botnav__ico svg {
+      width: 2.3rem;
+      height: 2.3rem;
+      transition: stroke-width .18s ease;
+    }
+    .eh-botnav__item.is-active .eh-botnav__ico svg { stroke-width: 2.2; }
+
+    .eh-botnav__label {
+      font-family: "Work Sans", system-ui, sans-serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .eh-botnav__item.is-active .eh-botnav__label { font-weight: 700; }
+
+    .eh-botnav__badge {
+      position: absolute;
+      top: -0.5rem;
+      right: -0.85rem;
+      min-width: 1.6rem;
+      height: 1.6rem;
+      padding: 0 0.35rem;
+      border-radius: 9999px;
+      background: #895024;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: "Work Sans", system-ui, sans-serif;
+      display: grid;
+      place-items: center;
+      box-sizing: border-box;
+      border: 1.5px solid #fff;
+    }
+    .eh-botnav__badge.is-hidden { display: none; }
+
+    /* İçerik alt barın arkasında kalmasın */
+    body { padding-bottom: calc(5.8rem + env(safe-area-inset-bottom, 0px)); }
+  }
+{%- endstyle -%}
+
+<script>
+  (function () {
+    var badge = document.querySelector('[data-eh-cart-count]');
+    if (!badge) return;
+
+    function updateBadge(n) {
+      if (typeof n !== 'number' || isNaN(n)) return;
+      badge.textContent = n;
+      badge.classList.toggle('is-hidden', n === 0);
+    }
+
+    /* Gerçek sepet adedini /cart.js'den çek — header rozetini parse etmeye gerek yok (çift sayı bug'ı engellenir) */
+    function fetchCount() {
+      fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(function (d) { updateBadge(d.item_count); })
+        .catch(function () {});
+    }
+
+    /* Sepet değiştiğinde (drawer/add-to-cart) yeniden çek */
+    document.addEventListener('cart:refresh', fetchCount);
+    document.addEventListener('cart:updated', fetchCount);
+    document.addEventListener('cart:change', fetchCount);
+
+    /* Header cart-icon-bubble değişimini izle (fallback) — sadece sayıyı oku */
+    var bubble = document.querySelector('#cart-icon-bubble');
+    if (bubble && window.MutationObserver) {
+      new MutationObserver(fetchCount).observe(bubble, { childList: true, subtree: true, characterData: true });
+    }
+  })();
+</script>

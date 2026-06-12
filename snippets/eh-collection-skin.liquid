@@ -1,0 +1,62 @@
+{% comment %} Earth & Harvest — koleksiyon (filtre/sıralama) giydirmesi {% endcomment %}
+{%- style -%}
+  /* Filtre grup başlıkları */
+  .facets__summary,
+  .facets__heading,
+  .mobile-facets__summary {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-weight: 600;
+    color: #1b1c1c;
+  }
+  .facets__summary .icon-caret { color: #895024; }
+
+  /* Checkbox etiketleri */
+  .facet-checkbox__text-label,
+  .mobile-facets__label,
+  .facets__label {
+    font-family: "Work Sans", system-ui, sans-serif;
+  }
+  .facets input[type="checkbox"],
+  .mobile-facets input[type="checkbox"] { accent-color: #0f5238; }
+
+  /* Sıralama */
+  .facet-filters__label,
+  .facet-filters__sort { font-family: "Work Sans", system-ui, sans-serif; }
+  .facet-filters__sort:focus {
+    border-color: #0f5238;
+    box-shadow: 0 0 0 3px rgba(15, 82, 56, 0.12);
+  }
+
+  /* Aktif filtre çipleri — yeşil pill */
+  .active-facets__button-inner {
+    background: rgba(15, 82, 56, 0.10) !important;
+    color: #0f5238 !important;
+    border-radius: 9999px !important;
+    border: 1px solid transparent !important;
+    font-weight: 600;
+  }
+  .active-facets__button:hover .active-facets__button-inner { border-color: #0f5238 !important; }
+  .active-facets__button-remove,
+  .active-facets__button-remove .icon { color: #0f5238; }
+
+  /* Temizle / sıfırla linkleri */
+  .facets__reset,
+  .mobile-facets__clear,
+  .mobile-facets__close-button {
+    color: #0f5238 !important;
+  }
+
+  /* Fiyat aralığı alanları */
+  .facets__price .field__input:focus {
+    border-color: #0f5238;
+    box-shadow: 0 0 0 3px rgba(15, 82, 56, 0.12);
+  }
+
+  /* Mobil "Filtrele" açıcı butonu */
+  .mobile-facets__open,
+  .disclosure-has-popup.facets__disclosure .facets__summary {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-weight: 600;
+  }
+  .mobile-facets__open .icon { color: #0f5238; }
+{%- endstyle -%}

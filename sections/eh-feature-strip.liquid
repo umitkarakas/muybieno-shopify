@@ -1,0 +1,173 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --eh-primary: #0f5238;
+    --eh-primary-tint: rgba(15, 82, 56, 0.10);
+    --eh-outline: #bfc9c1;
+    --eh-on-surface: #1b1c1c;
+    --eh-on-variant: #404943;
+    --eh-surface: #fbf9f8;
+  }
+  .eh-fstrip-wrap {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  .eh-fstrip {
+    display: grid;
+    grid-template-columns: repeat({{ section.blocks.size }}, 1fr);
+    gap: 1px;
+    background: var(--eh-outline);
+    border: 1px solid var(--eh-outline);
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  .eh-feature {
+    background: #fff;
+    padding: 2.2rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+  }
+  .eh-feature__ico {
+    width: 4.4rem;
+    height: 4.4rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--eh-primary-tint);
+    color: var(--eh-primary);
+    display: grid;
+    place-items: center;
+  }
+  .eh-feature__ico svg { width: 2.2rem; height: 2.2rem; }
+  .eh-feature__title {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 0.3rem;
+    color: var(--eh-on-surface);
+  }
+  .eh-feature__text {
+    font-family: "Work Sans", system-ui, sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.4;
+    color: var(--eh-on-variant);
+    margin: 0;
+  }
+  @media screen and (max-width: 749px) {
+    /* Mobil: yatay kaydırmalı carousel */
+    .eh-fstrip {
+      display: flex;
+      grid-template-columns: none;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding-bottom: 0.4rem;
+    }
+    .eh-fstrip::-webkit-scrollbar { display: none; }
+    .eh-feature {
+      flex: 0 0 58%;
+      scroll-snap-align: start;
+      border: 1px solid var(--eh-outline);
+      border-radius: 1rem;
+      background: #fff;
+      gap: 1.1rem;
+      padding: 1.4rem 1.4rem;
+    }
+    .eh-feature__ico { width: 3.8rem; height: 3.8rem; }
+    .eh-feature__ico svg { width: 1.9rem; height: 1.9rem; }
+    .eh-feature__title { font-size: 1.4rem; }
+    .eh-feature__text { font-size: 1.2rem; line-height: 1.3; }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width eh-fstrip-wrap">
+    <div class="eh-fstrip">
+      {%- for block in section.blocks -%}
+        <div class="eh-feature" {{ block.shopify_attributes }}>
+          <span class="eh-feature__ico">
+            {%- case block.settings.icon -%}
+              {%- when 'leaf' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+              {%- when 'truck' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5M14 17H9"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+              {%- when 'clock' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              {%- when 'return' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              {%- when 'shield' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+              {%- else -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg>
+            {%- endcase -%}
+          </span>
+          <div>
+            <h3 class="eh-feature__title">{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}<p class="eh-feature__text">{{ block.settings.text }}</p>{%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Güven Şeridi",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-1",
+      "label": "Renk şeması"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0, "max": 80, "step": 4, "unit": "px",
+      "label": "Üst boşluk", "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0, "max": 80, "step": 4, "unit": "px",
+      "label": "Alt boşluk", "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Özellik",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "İkon",
+          "default": "leaf",
+          "options": [
+            { "value": "leaf", "label": "Yaprak (doğal)" },
+            { "value": "truck", "label": "Kargo" },
+            { "value": "clock", "label": "Saat (aynı gün)" },
+            { "value": "return", "label": "İade" },
+            { "value": "shield", "label": "Kalkan (güven)" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Başlık", "default": "%100 Doğal" },
+        { "type": "text", "id": "text", "label": "Açıklama", "default": "Katkısız, gerçek ürünler" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Güven Şeridi",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "leaf", "title": "%100 Doğal", "text": "Katkısız, gerçek ürünler" } },
+        { "type": "feature", "settings": { "icon": "truck", "title": "Ücretsiz Kargo", "text": "₺500 üzeri siparişlerde" } },
+        { "type": "feature", "settings": { "icon": "clock", "title": "Aynı Gün Kargo", "text": "14:00'a kadar siparişler" } },
+        { "type": "feature", "settings": { "icon": "return", "title": "Kolay İade", "text": "14 gün koşulsuz iade" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
