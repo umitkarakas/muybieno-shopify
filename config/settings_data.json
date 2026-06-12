@@ -146,90 +146,90 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#ffffff",
-          "background_gradient": "linear-gradient(180deg, rgba(255, 255, 255, 1) 2%, rgba(242, 242, 240, 1) 98%)",
-          "text": "#2e2a39",
-          "button": "#0f5238",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#2e2a39",
-          "shadow": "#2e2a39"
+          "background": "#FBF3E7",
+          "background_gradient": "linear-gradient(180deg, rgba(255, 252, 247, 1) 2%, rgba(245, 233, 215, 1) 98%)",
+          "text": "#2A1B0E",
+          "button": "#5C3A1E",
+          "button_label": "#FBF3E7",
+          "secondary_button_label": "#5C3A1E",
+          "shadow": "#4A2C17"
         }
       },
       "scheme-2": {
         "settings": {
-          "background": "#edffa7",
-          "background_gradient": "radial-gradient(rgba(255, 229, 229, 1), rgba(255, 224, 218, 1) 25%, rgba(215, 255, 137, 1) 100%)",
-          "text": "#2e2a39",
-          "button": "#0f5238",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#2e2a39",
-          "shadow": "#2e2a39"
+          "background": "#F3E3CB",
+          "background_gradient": "radial-gradient(rgba(255, 252, 247, 1), rgba(245, 233, 215, 1) 25%, rgba(232, 213, 181, 1) 100%)",
+          "text": "#2A1B0E",
+          "button": "#5C3A1E",
+          "button_label": "#FBF3E7",
+          "secondary_button_label": "#5C3A1E",
+          "shadow": "#4A2C17"
         }
       },
       "scheme-3": {
         "settings": {
-          "background": "#2e2a39",
+          "background": "#2A1B0E",
           "background_gradient": "",
-          "text": "#fdfbf7",
-          "button": "#0f5238",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#fdfbf7",
-          "shadow": "#2e2a39"
+          "text": "#FBF3E7",
+          "button": "#FBF3E7",
+          "button_label": "#5C3A1E",
+          "secondary_button_label": "#FBF3E7",
+          "shadow": "#2A1B0E"
         }
       },
       "scheme-5": {
         "settings": {
-          "background": "#286b2a",
-          "background_gradient": "linear-gradient(320deg, rgba(149, 82, 18, 1) 4%, rgba(107, 55, 5, 1) 100%)",
-          "text": "#fdfbf7",
-          "button": "#0f5238",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#fdfbf7",
-          "shadow": "#2e2a39"
+          "background": "#5C3A1E",
+          "background_gradient": "linear-gradient(135deg, rgba(92, 58, 30, 1) 0%, rgba(138, 90, 46, 1) 55%, rgba(176, 122, 69, 1) 100%)",
+          "text": "#FBF3E7",
+          "button": "#FBF3E7",
+          "button_label": "#5C3A1E",
+          "secondary_button_label": "#FBF3E7",
+          "shadow": "#2A1B0E"
         }
       },
       "scheme-55cc3106-dfb4-45b0-9a7a-a7a898c339d2": {
         "settings": {
-          "background": "#ffffff",
-          "background_gradient": "radial-gradient(rgba(255, 255, 255, 1) 2%, rgba(254, 254, 254, 0.52) 46%)",
-          "text": "#2e2a39",
-          "button": "#0f5238",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#286b2a",
-          "shadow": "#2e2a39"
+          "background": "#FFFCF7",
+          "background_gradient": "radial-gradient(rgba(255, 252, 247, 1) 2%, rgba(251, 243, 231, 0.52) 46%)",
+          "text": "#2A1B0E",
+          "button": "#5C3A1E",
+          "button_label": "#FBF3E7",
+          "secondary_button_label": "#5C3A1E",
+          "shadow": "#4A2C17"
         }
       },
       "scheme-9653f80b-6136-4f75-bc0e-991df51f8bfc": {
         "settings": {
-          "background": "#fdfbf7",
-          "background_gradient": "linear-gradient(180deg, rgba(40, 107, 42, 1), rgba(23, 76, 25, 1) 99%)",
-          "text": "#ffffff",
-          "button": "#0f5238",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#2e2a39",
-          "shadow": "#2e2a39"
+          "background": "#FFFCF7",
+          "background_gradient": "linear-gradient(180deg, rgba(255, 252, 247, 1), rgba(251, 243, 231, 1) 100%)",
+          "text": "#2A1B0E",
+          "button": "#5C3A1E",
+          "button_label": "#FBF3E7",
+          "secondary_button_label": "#5C3A1E",
+          "shadow": "#4A2C17"
         }
       },
       "scheme-846a0592-79c8-4ec0-be7d-a2a42defb2b4": {
         "settings": {
-          "background": "#ffffff",
-          "background_gradient": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(245, 245, 245, 1) 100%)",
-          "text": "#286b2a",
-          "button": "#0f5238",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#d3d3d3",
-          "shadow": "#aeaeae"
+          "background": "#FFFCF7",
+          "background_gradient": "linear-gradient(180deg, rgba(255, 252, 247, 1), rgba(251, 243, 231, 1) 100%)",
+          "text": "#5C3A1E",
+          "button": "#5C3A1E",
+          "button_label": "#FBF3E7",
+          "secondary_button_label": "#9C8773",
+          "shadow": "#C9B79C"
         }
       },
       "scheme-8c71cbf4-013c-46a4-b09e-a82b95f95bbb": {
         "settings": {
-          "background": "#fdfbf7",
-          "background_gradient": "linear-gradient(180deg, rgba(240, 244, 236, 1), rgba(241, 235, 226, 1) 100%)",
-          "text": "#2e2a39",
-          "button": "#0f5238",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#2e2a39",
-          "shadow": "#2e2a39"
+          "background": "#FBF3E7",
+          "background_gradient": "linear-gradient(180deg, rgba(251, 243, 231, 1), rgba(245, 233, 215, 1) 100%)",
+          "text": "#2A1B0E",
+          "button": "#5C3A1E",
+          "button_label": "#FBF3E7",
+          "secondary_button_label": "#5C3A1E",
+          "shadow": "#4A2C17"
         }
       }
     }

@@ -17,10 +17,10 @@
           "settings": {
             "image": "shopify://shop_images/4_1bf0bc37-e4f0-4643-a0c0-83546d52a894.png",
             "image_overlay_opacity": 0,
-            "heading": "Doğal, Güvenilir Seçim",
+            "heading": "Her fincanda muy bien bir lezzet",
             "heading_size": "h1",
-            "subheading": "Kuruyemişten bitki çaylarına, doğal gıdalardan bitkisel bakım ürünlerine kadar özenle seçilmiş ürünleri Eko Kuruyemiş güvencesiyle keşfedin.",
-            "button_label": "Ürünleri Keşfet",
+            "subheading": "Dünyanın seçkin bölgelerinden, ustalıkla kavrulmuş tek origin çekirdekler ve demleme ekipmanları. Siparişinizden hemen önce kavurur, tazeliğini kapınıza taşırız.",
+            "button_label": "Kahveleri keşfet",
             "link": "",
             "button_style_secondary": false,
             "show_text_box": true,
@@ -183,10 +183,10 @@
       "settings": {
         "title": "",
         "heading_size": "h2",
-        "circle_color": "#0f5238",
+        "circle_color": "#5C3A1E",
         "circle_size": 84,
         "icon_size": 60,
-        "label_color": "#1b1c1c",
+        "label_color": "#2A1B0E",
         "columns_desktop": 7,
         "columns_mobile": "3",
         "swipe_on_mobile": true,
@@ -200,7 +200,7 @@
       "settings": {
         "collection": "all",
         "products_to_show": 4,
-        "title": "Öne Çıkan Ürünler",
+        "title": "Öne çıkan kahveler",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
@@ -229,14 +229,14 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Yaza Hazırlık",
+            "heading": "Çekirdekten fincana, ustalıkla",
             "heading_size": "h2"
           }
         },
         "button": {
           "type": "button",
           "settings": {
-            "button_label": "Ürünlere Göz At",
+            "button_label": "Hikayemiz",
             "button_link": "shopify://collections/all",
             "button_style_secondary": true
           }

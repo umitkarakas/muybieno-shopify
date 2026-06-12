@@ -17,22 +17,22 @@
         "announcement_Tm6riC": {
           "type": "announcement",
           "settings": {
-            "text": "1000₺ ve Üzeri Alışverişlerde Ücretsiz Kargo",
+            "text": "Taze kavrum, 48 saatte kapınızda · 250 ₺ üzeri siparişlerde ücretsiz kargo",
             "link": ""
           }
         },
         "announcement_XDhxCT": {
           "type": "announcement",
           "settings": {
-            "text": "Mağazamıza hoş geldiniz",
+            "text": "Her fincanda muy bien bir lezzet",
             "link": ""
           }
         },
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Doğal Katkısız Kuruyemişler",
-            "link": "shopify://collections/kuruyemis-atistirmaliklar"
+            "text": "Çekirdekten fincana, ustalıkla kavrulmuş tek origin kahveler",
+            "link": ""
           }
         }
       },

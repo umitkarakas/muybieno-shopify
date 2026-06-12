@@ -1,16 +1,12 @@
-{% comment %} Earth & Harvest — global header/menu skin {% endcomment %}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+{% comment %} Muybieno — global header/menu skin (kahve/krem) {% endcomment %}
 {%- style -%}
   .header-wrapper {
-    --eh-primary: #0f5238;
-    --eh-primary-tint: rgba(15, 82, 56, 0.10);
-    --eh-secondary: #895024;
-    --eh-on-surface: #1b1c1c;
-    --font-head: "Manrope", system-ui, sans-serif;
-    --font-body: "Work Sans", system-ui, sans-serif;
+    --eh-primary: #5C3A1E;
+    --eh-primary-tint: rgba(92, 58, 30, 0.10);
+    --eh-secondary: #8A5A2E;
+    --eh-on-surface: #3A2818;
+    --font-head: "Cormorant Garamond", Georgia, serif;
+    --font-body: "Inter", system-ui, sans-serif;
   }
 
   /* Metinli logo (görsel + marka adı + alt başlık) */
@@ -109,7 +105,7 @@
   /* Açılır (dropdown) menü */
   .header-wrapper .header__submenu {
     border-radius: 0 0 1rem 1rem;
-    box-shadow: 0 12px 30px rgba(15, 82, 56, 0.12);
+    box-shadow: 0 12px 30px rgba(92, 58, 30, 0.12);
     border: none;
   }
   .header-wrapper .header__submenu .header__menu-item {
@@ -140,103 +136,103 @@
   .cart-notification { border-radius: 1.2rem; }
   .cart-notification__heading,
   .cart-notification-product__name {
-    font-family: "Manrope", system-ui, sans-serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
   }
-  .cart-notification-product__name { color: #0f5238; font-weight: 600; }
+  .cart-notification-product__name { color: #5C3A1E; font-weight: 600; }
   .cart-notification__heading .icon-checkmark,
-  .cart-notification svg.icon-checkmark { color: #0f5238; }
+  .cart-notification svg.icon-checkmark { color: #5C3A1E; }
 
   /* Ödeme — yeşil primary */
   .cart-notification .button--primary {
-    background: #0f5238 !important;
+    background: #5C3A1E !important;
     color: #fff !important;
-    border: 1.5px solid #0f5238 !important;
+    border: 1.5px solid #5C3A1E !important;
     border-radius: 0.5rem;
   }
-  .cart-notification .button--primary:hover { background: #0a3f2b !important; }
+  .cart-notification .button--primary:hover { background: #4A2C17 !important; }
   .cart-notification .button--primary::after,
   .cart-notification .button--secondary::after { display: none !important; }
 
   /* Sepeti görüntüle — yeşil çizgili */
   .cart-notification .button--secondary {
     background: #fff !important;
-    color: #0f5238 !important;
-    border: 1.5px solid #0f5238 !important;
+    color: #5C3A1E !important;
+    border: 1.5px solid #5C3A1E !important;
     border-radius: 0.5rem;
   }
-  .cart-notification .button--secondary:hover { background: rgba(15, 82, 56, 0.06) !important; }
+  .cart-notification .button--secondary:hover { background: rgba(92, 58, 30, 0.06) !important; }
 
   /* Alışverişe devam et — temiz link */
   .cart-notification__links .link,
   .cart-notification .cart-notification__continue {
-    color: #0f5238;
+    color: #5C3A1E;
     text-decoration: none;
   }
   .cart-notification__links .link:hover { text-decoration: underline; }
 
   /* ---- Mobil menü (drawer) — Earth & Harvest ---- */
   .menu-drawer {
-    font-family: "Work Sans", system-ui, sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
     background: #fbf9f8;
     padding: 1rem 2.4rem 2.4rem;
   }
   .menu-drawer__navigation { padding: 0; }
   /* Ana menü öğeleri */
   .menu-drawer__menu-item {
-    font-family: "Manrope", system-ui, sans-serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-weight: 600;
     font-size: 1.7rem;
     letter-spacing: -0.01em;
-    color: #1b1c1c;
+    color: #2A1B0E;
     padding: 1.5rem 0.4rem;
     text-decoration: none !important;
     transition: color .15s ease, background .15s ease;
     border-radius: 0.6rem;
   }
-  .menu-drawer__menu-item:hover { color: #0f5238; background: rgba(15, 82, 56, 0.06); }
+  .menu-drawer__menu-item:hover { color: #5C3A1E; background: rgba(92, 58, 30, 0.06); }
   .menu-drawer__parent-link { color: inherit; text-decoration: none !important; }
-  .menu-drawer__menu-item--active { color: #0f5238; }
+  .menu-drawer__menu-item--active { color: #5C3A1E; }
   .menu-drawer summary.menu-drawer__menu-item { padding-right: 1rem; }
   /* Öğeler arası ayraç */
   .menu-drawer__navigation > .menu-drawer__menu > li {
-    border-bottom: 1px solid rgba(15, 82, 56, 0.10);
+    border-bottom: 1px solid rgba(92, 58, 30, 0.10);
   }
   .menu-drawer__navigation > .menu-drawer__menu > li:last-child { border-bottom: none; }
   /* Açılır ok */
   .menu-drawer__menu-item .icon-caret,
-  .menu-drawer__menu-item .svg-wrapper { color: #895024; }
+  .menu-drawer__menu-item .svg-wrapper { color: #8A5A2E; }
 
   /* Alt menü */
   .menu-drawer__submenu { background: #fbf9f8; }
   .menu-drawer__close-button {
-    font-family: "Manrope", system-ui, sans-serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-weight: 600;
-    color: #0f5238;
+    color: #5C3A1E;
     text-decoration: none !important;
   }
-  .menu-drawer__close-button .icon-arrow { color: #0f5238; }
+  .menu-drawer__close-button .icon-arrow { color: #5C3A1E; }
 
   /* Alt yardımcı linkler (hesap, dil vb.) */
   .menu-drawer__utility-links {
     background: #fff;
-    border-top: 1px solid rgba(15, 82, 56, 0.10);
+    border-top: 1px solid rgba(92, 58, 30, 0.10);
   }
   .menu-drawer__account {
-    font-family: "Work Sans", system-ui, sans-serif;
-    color: #0f5238;
+    font-family: "Inter", system-ui, sans-serif;
+    color: #5C3A1E;
     font-weight: 600;
   }
-  .menu-drawer__account .icon-account { color: #0f5238; }
+  .menu-drawer__account .icon-account { color: #5C3A1E; }
 
   /* Hamburger / kapat ikonu */
-  .header__icon--menu .icon { color: #1b1c1c; }
-  .header__icon--menu:hover .icon { color: #0f5238; }
+  .header__icon--menu .icon { color: #2A1B0E; }
+  .header__icon--menu:hover .icon { color: #5C3A1E; }
 
-  /* ---- Topbar / duyuru çubuğu — yeşil bant ---- */
+  /* ---- Topbar / duyuru çubuğu — espresso gradyan bant ---- */
   .utility-bar {
-    background: #0f5238 !important;
-    background-image: none !important;
-    color: #fff !important;
+    background: linear-gradient(135deg, #5C3A1E 0%, #8A5A2E 55%, #B07A45 100%) !important;
+    background-image: linear-gradient(135deg, #5C3A1E 0%, #8A5A2E 55%, #B07A45 100%) !important;
+    color: #FBF3E7 !important;
   }
   .utility-bar--bottom-border { border-bottom-color: rgba(255, 255, 255, 0.15) !important; }
   .utility-bar .announcement-bar__message,
@@ -246,7 +242,7 @@
   .utility-bar .localization-selector,
   .utility-bar .slider-button .icon { color: #fff !important; }
   .utility-bar .announcement-bar__message {
-    font-family: "Work Sans", system-ui, sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
     font-weight: 500;
     font-size: 1.3rem;
     letter-spacing: 0.02em;
