@@ -9,60 +9,30 @@
  */
 {
   "sections": {
-    "slideshow_9gLaqh": {
-      "type": "slideshow",
-      "blocks": {
-        "slide_D9aTXD": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/4_1bf0bc37-e4f0-4643-a0c0-83546d52a894.png",
-            "image_overlay_opacity": 0,
-            "heading": "Her fincanda muy bien bir lezzet",
-            "heading_size": "h1",
-            "subheading": "Dünyanın seçkin bölgelerinden, ustalıkla kavrulmuş tek origin çekirdekler ve demleme ekipmanları. Siparişinizden hemen önce kavurur, tazeliğini kapınıza taşırız.",
-            "button_label": "Kahveleri keşfet",
-            "link": "",
-            "button_style_secondary": false,
-            "show_text_box": true,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": "scheme-8c71cbf4-013c-46a4-b09e-a82b95f95bbb"
-          }
-        },
-        "slide_dTqqbx": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/3_ee364297-0091-4194-becf-d68856169bef.png",
-            "image_overlay_opacity": 0,
-            "heading": "Görsel slaytı",
-            "heading_size": "h1",
-            "subheading": "Görsellerle marka öykünüzü anlatın",
-            "button_label": "Düğme etiketi",
-            "link": "",
-            "button_style_secondary": false,
-            "show_text_box": true,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": "scheme-8c71cbf4-013c-46a4-b09e-a82b95f95bbb"
-          }
-        }
-      },
-      "block_order": [
-        "slide_D9aTXD",
-        "slide_dTqqbx"
-      ],
-      "name": "t:sections.slideshow.presets.name",
+    "eh_hero": {
+      "type": "eh-hero",
       "settings": {
-        "layout": "full_bleed",
-        "slide_height": "medium",
-        "slider_visual": "dots",
-        "auto_rotate": true,
-        "change_slides_speed": 5,
-        "image_behavior": "none",
-        "show_text_below": true,
-        "accessibility_info": "Markamız hakkında slayt gösterisi"
+        "badge": "Haftalık taze kavrum",
+        "heading": "<p>Her fincanda <em>muy bien</em> bir lezzet</p>",
+        "text": "<p>Dünyanın seçkin bölgelerinden, ustalıkla kavrulmuş tek origin çekirdekler ve demleme ekipmanları. Siparişinizden hemen önce kavurur, tazeliğini kapınıza taşırız.</p>",
+        "button_label": "Kahveleri keşfet",
+        "button_link": "shopify://collections/all",
+        "button2_label": "Aboneliği incele",
+        "button2_link": "",
+        "stat1_num": "12+",
+        "stat1_label": "Tek origin bölge",
+        "stat2_num": "48 sa",
+        "stat2_label": "Kavrumdan teslime",
+        "stat3_num": "9.8K",
+        "stat3_label": "Mutlu kahve sever",
+        "product_label": "Etiyopya Yirgacheffe",
+        "product_sub": "AÇIK KAVRUM · TEK ORIGIN",
+        "float1_key": "Tat profili",
+        "float1_value": "Yasemin · Şeftali",
+        "float2_value": "4.9",
+        "float2_key": "2.4K değerlendirme",
+        "padding_top": 56,
+        "padding_bottom": 20
       }
     },
     "eh_feature_strip": {
@@ -264,7 +234,7 @@
     }
   },
   "order": [
-    "slideshow_9gLaqh",
+    "eh_hero",
     "eh_feature_strip",
     "category_icons_3Hcnn7",
     "featured-collection",
