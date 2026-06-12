@@ -1,62 +1,102 @@
-{% comment %} Earth & Harvest — koleksiyon (filtre/sıralama) giydirmesi {% endcomment %}
+{% comment %} Muybieno — koleksiyon (başlık/filtre/sıralama) kahve/krem giydirmesi {% endcomment %}
 {%- style -%}
+  /* Koleksiyon başlığı — Cormorant serif espresso */
+  .collection-hero__title,
+  .collection-hero__title.title {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 600;
+    color: #2A1B0E;
+    letter-spacing: -0.005em;
+  }
+  .collection-hero__description { color: #8A7560; font-family: "Inter", system-ui, sans-serif; }
+
   /* Filtre grup başlıkları */
   .facets__summary,
   .facets__heading,
-  .mobile-facets__summary {
-    font-family: "Manrope", system-ui, sans-serif;
-    font-weight: 600;
-    color: #1b1c1c;
+  .mobile-facets__summary,
+  .facets__disclosure .facets__summary {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 700;
+    color: #2A1B0E;
   }
-  .facets__summary .icon-caret { color: #895024; }
+  .facets__summary .icon-caret,
+  .mobile-facets__summary .icon-caret { color: #8A5A2E; }
 
-  /* Checkbox etiketleri */
+  /* Filtre panellerini camsı krem karta çevir */
+  .facets__disclosure,
+  .mobile-facets__details {
+    background: rgba(255,252,247,0.62);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.72);
+    box-shadow: 0 12px 30px rgba(74,44,23,0.06);
+    border-radius: 18px;
+    padding: 14px 18px;
+  }
+
+  /* Checkbox etiketleri + espresso accent */
   .facet-checkbox__text-label,
   .mobile-facets__label,
   .facets__label {
-    font-family: "Work Sans", system-ui, sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
+    color: #5A4836;
   }
   .facets input[type="checkbox"],
-  .mobile-facets input[type="checkbox"] { accent-color: #0f5238; }
+  .mobile-facets input[type="checkbox"] { accent-color: #5C3A1E; }
+  .facet-checkbox__count,
+  .mobile-facets__count { color: #B09A84; }
 
-  /* Sıralama */
+  /* Sıralama — krem pill hissi */
   .facet-filters__label,
-  .facet-filters__sort { font-family: "Work Sans", system-ui, sans-serif; }
+  .facet-filters__sort { font-family: "Inter", system-ui, sans-serif; color: #3A2818; }
+  .facet-filters__field,
+  .facet-filters__sort {
+    border-radius: 13px;
+  }
   .facet-filters__sort:focus {
-    border-color: #0f5238;
-    box-shadow: 0 0 0 3px rgba(15, 82, 56, 0.12);
+    border-color: #5C3A1E;
+    box-shadow: 0 0 0 3px rgba(92, 58, 30, 0.12);
   }
 
-  /* Aktif filtre çipleri — yeşil pill */
+  /* Aktif filtre çipleri — espresso pill */
   .active-facets__button-inner {
-    background: rgba(15, 82, 56, 0.10) !important;
-    color: #0f5238 !important;
+    background: rgba(138, 90, 46, 0.12) !important;
+    color: #5C3A1E !important;
     border-radius: 9999px !important;
     border: 1px solid transparent !important;
     font-weight: 600;
+    font-family: "Inter", system-ui, sans-serif;
   }
-  .active-facets__button:hover .active-facets__button-inner { border-color: #0f5238 !important; }
+  .active-facets__button:hover .active-facets__button-inner { border-color: #8A5A2E !important; }
   .active-facets__button-remove,
-  .active-facets__button-remove .icon { color: #0f5238; }
+  .active-facets__button-remove .icon { color: #5C3A1E; }
 
   /* Temizle / sıfırla linkleri */
   .facets__reset,
   .mobile-facets__clear,
   .mobile-facets__close-button {
-    color: #0f5238 !important;
+    color: #5C3A1E !important;
   }
 
   /* Fiyat aralığı alanları */
   .facets__price .field__input:focus {
-    border-color: #0f5238;
-    box-shadow: 0 0 0 3px rgba(15, 82, 56, 0.12);
+    border-color: #5C3A1E;
+    box-shadow: 0 0 0 3px rgba(92, 58, 30, 0.12);
   }
+
+  /* Ürün sayısı / sonuç metni */
+  .collection .product-count__text,
+  .facets__label--text,
+  .product-count__text { color: #8A7560; font-family: "Inter", system-ui, sans-serif; }
 
   /* Mobil "Filtrele" açıcı butonu */
   .mobile-facets__open,
   .disclosure-has-popup.facets__disclosure .facets__summary {
-    font-family: "Manrope", system-ui, sans-serif;
-    font-weight: 600;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 700;
+    color: #2A1B0E;
   }
-  .mobile-facets__open .icon { color: #0f5238; }
+  .mobile-facets__open .icon,
+  .mobile-facets__heading-display { color: #5C3A1E; }
+  .mobile-facets__footer .button { border-radius: 13px; }
 {%- endstyle -%}
