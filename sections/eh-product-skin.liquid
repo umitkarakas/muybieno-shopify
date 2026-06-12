@@ -1,24 +1,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 {%- style -%}
   .eh-product-page {
-    --eh-primary: #0f5238;
-    --eh-primary-hover: #0a3f2b;
-    --eh-primary-tint: rgba(15, 82, 56, 0.10);
-    --eh-secondary: #895024;
-    --eh-leaf-deep: #3a8a3a;
-    --eh-error: #ba1a1a;
-    --eh-stone: #e0ded8;
-    --eh-outline: #bfc9c1;
-    --eh-on-surface: #1b1c1c;
-    --eh-on-variant: #404943;
-    --eh-surface: #fbf9f8;
-    --eh-r: 0.5rem;
+    --eh-primary: #5C3A1E;
+    --eh-primary-hover: #4A2E16;
+    --eh-primary-grad: linear-gradient(135deg,#5C3A1E 0%,#8A5A2E 55%,#B07A45 100%);
+    --eh-primary-tint: rgba(138, 90, 46, 0.12);
+    --eh-secondary: #8A5A2E;
+    --eh-caramel: #B07A45;
+    --eh-error: #B5482F;
+    --eh-stone: rgba(92, 58, 30, 0.18);
+    --eh-outline: rgba(255, 255, 255, 0.72);
+    --eh-on-surface: #2A1B0E;
+    --eh-on-variant: #6E5947;
+    --eh-surface: #FFFCF7;
+    --eh-r: 0.85rem;
     --eh-r-full: 9999px;
-    --font-head: "Manrope", system-ui, sans-serif;
-    --font-body: "Work Sans", system-ui, sans-serif;
+    --font-head: "Cormorant Garamond", Georgia, serif;
+    --font-body: "Inter", system-ui, sans-serif;
   }
 
   /* ---- Typography ---- */
@@ -30,19 +31,19 @@
   .eh-product-page .product__title,
   .eh-product-page .product__title > * {
     font-family: var(--font-head);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-weight: 600;
+    letter-spacing: 0;
     color: var(--eh-on-surface);
   }
-  /* Başlık boyutu — Earth & Harvest h-lg (32px / 26px mobil) */
+  /* Başlık boyutu — Muybieno Cormorant 44px (34px mobil) */
   .eh-product-page .product__title h1 {
-    font-size: 2.2rem;
-    line-height: 3rem;
+    font-size: 4rem;
+    line-height: 1.08;
   }
   @media screen and (max-width: 749px) {
     .eh-product-page .product__title h1 {
-      font-size: 2rem;
-      line-height: 2.7rem;
+      font-size: 3.2rem;
+      line-height: 1.1;
     }
   }
 
@@ -122,15 +123,17 @@
   .eh-product-page .product-form__submit.button--secondary,
   .eh-product-page .product-form__submit.button--primary,
   .eh-product-page .button--primary {
-    background: var(--eh-primary) !important;
-    color: #fff !important;
-    border: 1.5px solid var(--eh-primary) !important;
+    background: var(--eh-primary-grad) !important;
+    color: #FBF3E7 !important;
+    border: none !important;
     border-radius: var(--eh-r);
     font-family: var(--font-body);
-    font-weight: 600;
+    font-weight: 700;
+    box-shadow: 0 18px 34px rgba(124, 80, 40, 0.28);
+    transition: filter .2s, transform .2s;
   }
   .eh-product-page .product-form__submit:hover,
-  .eh-product-page .button--primary:hover { background: var(--eh-primary-hover) !important; }
+  .eh-product-page .button--primary:hover { filter: brightness(1.06); transform: translateY(-2px); }
   /* Sense butonlarının ::after iç çerçevesini kaldır (çift kenarlık) */
   .eh-product-page .product-form__submit::after,
   .eh-product-page .button--primary::after,
@@ -268,9 +271,9 @@
       right: 0;
       bottom: 0;
       z-index: 40;
-      background: #fff;
-      border-top: 1px solid var(--eh-outline);
-      box-shadow: 0 -4px 16px rgba(15, 82, 56, 0.12);
+      background: #FFFCF7;
+      border-top: 1px solid var(--eh-stone);
+      box-shadow: 0 -4px 16px rgba(74, 44, 23, 0.12);
       padding: 1rem 1.5rem;
       padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
     }
@@ -360,8 +363,8 @@
   .eh-product-page .product__media-item .media,
   .eh-product-page .product__media-item--single .media {
     border-radius: 1.5rem;
-    background: #eef1ea;
-    box-shadow: 0 8px 24px rgba(15, 82, 56, 0.06), 0 2px 6px rgba(15, 82, 56, 0.04);
+    background: #FFFCF7;
+    box-shadow: 0 26px 60px rgba(58, 34, 15, 0.12), 0 2px 6px rgba(74, 44, 23, 0.05);
     overflow: hidden;
   }
   .eh-product-page .product__media-item img.media,
@@ -502,11 +505,11 @@
 
 {% schema %}
 {
-  "name": "Earth & Harvest Skin",
+  "name": "Muybieno Ürün Skin",
   "settings": [
     {
       "type": "paragraph",
-      "content": "Bu bölüm görünmez. Yalnızca Earth & Harvest tasarım giydirmesini ürün sayfasına uygular. Şablonun en üstünde kalmalı, kaldırmayın."
+      "content": "Bu bölüm görünmez. Yalnızca Muybieno kahve tasarım giydirmesini ürün sayfasına uygular. Şablonun en üstünde kalmalı, kaldırmayın."
     }
   ]
 }
