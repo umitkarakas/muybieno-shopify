@@ -125,7 +125,6 @@
     color: #2A1B0E;
   }
   /* Satır öğeleri tablosunu camsı krem karta çevir */
-  .cart__contents .cart-items,
   .cart__items {
     border-radius: 18px;
     background: rgba(255,252,247,0.62);
@@ -133,8 +132,10 @@
     backdrop-filter: blur(18px);
     border: 1px solid rgba(255,255,255,0.72);
     box-shadow: 0 14px 34px rgba(74,44,23,0.06);
-    overflow: hidden;
+    padding: 0.4rem 2rem;        /* yatay padding: tablo başlıkları yuvarlak köşede kırpılmasın */
   }
+  /* taşmayı önle ama köşeleri yine yuvarlak tut */
+  .cart__items .cart-items { overflow: visible; }
   .cart__items .cart-item { border-color: rgba(92,58,30,0.10); }
   /* Sipariş özeti / footer — camsı krem panel */
   .cart__footer {
