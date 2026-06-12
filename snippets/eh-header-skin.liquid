@@ -45,6 +45,17 @@
     .eh-brand-text { display: none; }
   }
 
+  /* Muybieno wordmark (settings.logo boşken tema varlığından) */
+  .header-wrapper .eh-wordmark {
+    display: block;
+    height: 4.4rem;
+    width: auto;
+    object-fit: contain;
+  }
+  @media screen and (max-width: 749px) {
+    .header-wrapper .eh-wordmark { height: 3.8rem; }
+  }
+
 
   /* Masaüstü menü linkleri — yeşil pill hover, alt çizgi yok */
   .header-wrapper .header__inline-menu .header__menu-item {

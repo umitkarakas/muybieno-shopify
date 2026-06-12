@@ -164,10 +164,17 @@
               </div>
               <span class="eh-brand-text">
                 <span class="eh-brand-name">{{ shop.name }}</span>
-                <span class="eh-brand-sub">DOĞANIN TAZE HALİ</span>
+                <span class="eh-brand-sub">KAHVE GRUBU</span>
               </span>
             {%- else -%}
-              <span class="h2">{{ shop.name }}</span>
+              <span class="visually-hidden">{{ shop.name }}</span>
+              <img
+                src="{{ 'muybieno-wordmark.png' | asset_url }}"
+                alt="{{ shop.name | escape }}"
+                class="eh-wordmark motion-reduce"
+                width="150"
+                height="50"
+                loading="eager">
             {%- endif -%}
           </a>
       {%- if request.page_type == 'index' -%}
