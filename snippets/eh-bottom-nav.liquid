@@ -1,5 +1,5 @@
 {% comment %}
-  Earth & Harvest — mobil alt navigasyon (bottom nav).
+  Muybieno — mobil alt navigasyon (bottom nav). Kahve/krem cam, espresso accent.
   Sadece mobilde (≤749px). Ürün detay sayfasında render EDİLMEZ (theme.liquid'de koşullu).
   Sekmeleri güncellemek için aşağıdaki <a> bloklarını düzenle.
 {% endcomment %}
@@ -70,9 +70,11 @@
       right: 0;
       bottom: 0;
       z-index: 45;
-      background: #ffffff;
-      border-top: 1px solid #e8e6e0;
-      box-shadow: 0 -2px 16px rgba(15, 82, 56, 0.07);
+      background: rgba(255, 252, 247, 0.88);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+      border-top: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 -8px 24px rgba(74, 44, 23, 0.08);
       padding: 0 0.4rem;
       padding-bottom: env(safe-area-inset-bottom, 0px);
     }
@@ -84,13 +86,13 @@
       align-items: center;
       gap: 0.3rem;
       padding: 0.55rem 0 0.75rem;
-      color: #a0a49e;
+      color: #A6907A;
       text-decoration: none;
       transition: color .18s ease;
       position: relative;
     }
 
-    .eh-botnav__item.is-active { color: #0f5238; }
+    .eh-botnav__item.is-active { color: #5C3A1E; }
 
     /* Üst pill göstergesi — aktif tab */
     .eh-botnav__pill {
@@ -100,7 +102,7 @@
       transform: translateX(-50%);
       width: 2.4rem;
       height: 3px;
-      background: #0f5238;
+      background: #5C3A1E;
       border-radius: 0 0 4px 4px;
       opacity: 0;
       transition: opacity .18s ease;
@@ -120,7 +122,7 @@
     .eh-botnav__item.is-active .eh-botnav__ico svg { stroke-width: 2.2; }
 
     .eh-botnav__label {
-      font-family: "Work Sans", system-ui, sans-serif;
+      font-family: "Inter", system-ui, sans-serif;
       font-size: 1.05rem;
       font-weight: 500;
       line-height: 1;
@@ -135,11 +137,11 @@
       height: 1.6rem;
       padding: 0 0.35rem;
       border-radius: 9999px;
-      background: #895024;
-      color: #fff;
+      background: linear-gradient(135deg, #5C3A1E, #8A5A2E);
+      color: #FBF3E7;
       font-size: 1rem;
       font-weight: 700;
-      font-family: "Work Sans", system-ui, sans-serif;
+      font-family: "Inter", system-ui, sans-serif;
       display: grid;
       place-items: center;
       box-sizing: border-box;

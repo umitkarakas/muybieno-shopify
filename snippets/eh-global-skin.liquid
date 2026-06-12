@@ -145,6 +145,13 @@
     backdrop-filter: blur(22px);
     border: 1px solid rgba(255,255,255,0.75);
     box-shadow: 0 22px 54px rgba(74,44,23,0.10);
+    padding: 2.4rem;            /* iç boşluk: not alanı/toplam kenara yapışmasın */
+    margin-top: 1.6rem;         /* satır kartından ayrıl */
+  }
+  .cart__footer .cart__note { margin-bottom: 1.6rem; }
+  .cart__footer .cart__note textarea { border-radius: 1.1rem; }
+  @media screen and (max-width: 749px) {
+    .cart__footer { padding: 2rem 1.6rem; }
   }
   /* Satır fiyatları Bricolage espresso */
   .cart-item__price-wrapper .price,
