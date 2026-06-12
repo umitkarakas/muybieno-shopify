@@ -137,6 +137,21 @@
   /* taşmayı önle ama köşeleri yine yuvarlak tut */
   .cart__items .cart-items { overflow: visible; }
   .cart__items .cart-item { border-color: rgba(92,58,30,0.10); }
+  /* Tablo başlık satırı (ÜRÜN / ADET / TOPLAM) */
+  .cart__items .cart-items thead th {
+    padding-top: 1.4rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid rgba(92,58,30,0.12);
+  }
+  .cart__items .cart-items thead th .caption-with-letter-spacing,
+  .cart__items .cart-items thead th.caption-with-letter-spacing {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #A0662F;
+  }
   /* Sipariş özeti / footer — camsı krem panel */
   .cart__footer {
     border-radius: 22px;
