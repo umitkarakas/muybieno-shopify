@@ -1,7 +1,7 @@
 {% comment %} Muybieno — site geneli başlık + buton giydirmesi (kahve/krem) {% endcomment %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 {%- style -%}
   /* Marka token'ları */
   :root {
@@ -13,14 +13,14 @@
     --mb-ink: #2A1B0E;
     --mb-muted: #8A7560;
     --mb-grad: linear-gradient(135deg, #5C3A1E 0%, #8A5A2E 55%, #B07A45 100%);
-    --mb-font-head: "Cormorant Garamond", Georgia, serif;
+    --mb-font-head: "Bricolage Grotesque", system-ui, sans-serif;
     --mb-font-body: "Inter", system-ui, sans-serif;
   }
 
   /* Gövde / arayüz fontu */
   .template-index, main, .shopify-section { font-family: var(--mb-font-body); }
 
-  /* Başlıklar — Cormorant Garamond (zarif serif) */
+  /* Başlıklar — Bricolage Grotesque (zarif serif) */
   .template-index h1, .template-index h2, .template-index h3,
   main .title, main .title-wrapper h2,
   .rich-text__heading, .slideshow__text .h1, .slideshow__text .h0,
@@ -116,7 +116,7 @@
   .cart-drawer input[type="checkbox"] { accent-color: var(--mb-espresso); }
 
   /* ---- Sepet SAYFASI (drawer'ı etkilemez) ---- */
-  /* Başlık — Cormorant espresso */
+  /* Başlık — Bricolage espresso */
   .cart__warnings .title,
   .cart .title--primary,
   #main-cart-items .title--primary {
@@ -146,7 +146,7 @@
     border: 1px solid rgba(255,255,255,0.75);
     box-shadow: 0 22px 54px rgba(74,44,23,0.10);
   }
-  /* Satır fiyatları Cormorant espresso */
+  /* Satır fiyatları Bricolage espresso */
   .cart-item__price-wrapper .price,
   .cart-item__totals .price { font-family: var(--mb-font-head); font-weight: 700; color: var(--mb-espresso); }
   /* "Alışverişe devam" / boş sepet linki */
