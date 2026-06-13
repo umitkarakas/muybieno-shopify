@@ -111,45 +111,6 @@
         "padding_bottom": 68
       }
     },
-    "image-with-text": {
-      "type": "image-with-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Çekirdekten fincana, ustalıkla",
-            "heading_size": "h2"
-          }
-        },
-        "button": {
-          "type": "button",
-          "settings": {
-            "button_label": "Hikayemiz",
-            "button_link": "shopify://collections/all",
-            "button_style_secondary": true
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "button"
-      ],
-      "settings": {
-        "image": "shopify://shop_images/Bitki_Caylari.png",
-        "height": "large",
-        "desktop_image_width": "large",
-        "layout": "text_first",
-        "image_behavior": "none",
-        "content_layout": "overlap",
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "scheme-1",
-        "color_scheme": "scheme-9653f80b-6136-4f75-bc0e-991df51f8bfc",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "eh_category_grid": {
       "type": "eh-category-grid",
       "blocks": {
@@ -264,6 +225,59 @@
         "padding_top": 20,
         "padding_bottom": 24
       }
+    },
+    "eh_story": {
+      "type": "eh-story",
+      "blocks": {
+        "p0": {
+          "type": "point",
+          "settings": {
+            "icon": "coffee",
+            "title": "Tek origin",
+            "sub": "Üreticiden doğrudan, izlenebilir."
+          }
+        },
+        "p1": {
+          "type": "point",
+          "settings": {
+            "icon": "droplet",
+            "title": "Taze kavrum",
+            "sub": "Küçük partiler, sipariş öncesi."
+          }
+        },
+        "p2": {
+          "type": "point",
+          "settings": {
+            "icon": "filter",
+            "title": "Özenli demleme",
+            "sub": "Her yönteme uygun öğütüm."
+          }
+        },
+        "p3": {
+          "type": "point",
+          "settings": {
+            "icon": "gift",
+            "title": "Sürdürülebilir",
+            "sub": "Adil ticaret, dürüst kaynak."
+          }
+        }
+      },
+      "block_order": [
+        "p0",
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {
+        "eyebrow": "Hikayemiz",
+        "heading": "Çekirdekten fincana, ustalıkla",
+        "text": "Muybieno, kahveyi bir ritüel olarak görenler için kuruldu. Üreticiyle doğrudan çalışır, küçük partiler hâlinde kavururuz. Amacımız basit: her fincanda bölgenin karakterini taze ve dürüst biçimde sunmak.",
+        "placeholder_label": "kavurma atölyesi fotoğrafı",
+        "button_label": "Hikayemiz",
+        "button_link": "shopify://pages/hikayemiz",
+        "padding_top": 24,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
@@ -272,6 +286,6 @@
     "eh_category_grid",
     "eh_category_row",
     "featured-collection",
-    "image-with-text"
+    "eh_story"
   ]
 }
