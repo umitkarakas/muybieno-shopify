@@ -450,15 +450,15 @@
     box-shadow: 0 26px 60px rgba(58, 34, 15, 0.12), 0 2px 6px rgba(74, 44, 23, 0.05);
     overflow: hidden;
   }
-  /* Kare format YALNIZCA mobilde — dikey alan tasarrufu (desktop'ta doğal oran kalsın) */
+  /* Kare format YALNIZCA mobilde — dikey alan tasarrufu (desktop'ta doğal oran kalsın).
+     Dawn oranı .product-media-container .media { padding-top: var(--ratio-percent) } ile
+     verir; doğrudan padding-top:100% ile kareye sabitliyoruz. */
   @media screen and (max-width: 749px) {
-    .eh-product-page .product__media-item .media,
-    .eh-product-page .product__media-item--single .media {
-      aspect-ratio: 1 / 1;
-      --ratio-percent: 100%;
+    .eh-product-page .product-media-container { --aspect-ratio: 1 !important; --ratio-percent: 100% !important; }
+    .eh-product-page .product-media-container .media {
+      padding-top: 100% !important;
     }
-    .eh-product-page .product__media-item .media img,
-    .eh-product-page .product__media-item--single .media img {
+    .eh-product-page .product-media-container .media img {
       object-fit: contain;
     }
   }
