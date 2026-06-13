@@ -94,9 +94,24 @@
   @keyframes eh-floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 
   @media screen and (max-width: 900px) {
-    #shopify-section-{{ section.id }} .eh-hero__grid { grid-template-columns: 1fr; gap: 3.2rem; }
-    #shopify-section-{{ section.id }} .eh-hero__title { font-size: 4.6rem; }
-    #shopify-section-{{ section.id }} .eh-hero__visual { max-width: 42rem; margin: 0 auto; width: 100%; }
+    #shopify-section-{{ section.id }} .eh-hero { padding-top: 3.2rem; padding-bottom: 1.6rem; }
+    #shopify-section-{{ section.id }} .eh-hero__grid { grid-template-columns: 1fr; gap: 2.4rem; }
+    #shopify-section-{{ section.id }} .eh-hero__title { font-size: 4rem; margin-top: 1.6rem; }
+    #shopify-section-{{ section.id }} .eh-hero__text { font-size: 1.55rem; margin-top: 1.4rem; }
+    #shopify-section-{{ section.id }} .eh-hero__cta { margin-top: 2rem; }
+    #shopify-section-{{ section.id }} .eh-hero__stats { gap: 1.8rem; margin-top: 2.4rem; }
+    #shopify-section-{{ section.id }} .eh-hero__visual { max-width: 38rem; margin: 0 auto; width: 100%; }
+  }
+  /* Telefon: başlık daha küçük, istatistikler tek satır 3'lü grid (ayraçsız) */
+  @media screen and (max-width: 560px) {
+    #shopify-section-{{ section.id }} .eh-hero__title { font-size: 3.4rem; }
+    #shopify-section-{{ section.id }} .eh-hero__stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem;
+    }
+    #shopify-section-{{ section.id }} .eh-hero__divider { display: none; }
+    #shopify-section-{{ section.id }} .eh-hero__stat-num { font-size: 2.4rem; }
+    #shopify-section-{{ section.id }} .eh-hero__stat-lbl { font-size: 1.1rem; line-height: 1.25; }
+    #shopify-section-{{ section.id }} .eh-hero__btn { height: 4.8rem; }
   }
   @media (prefers-reduced-motion: reduce) {
     #shopify-section-{{ section.id }} .eh-hero__float { animation: none !important; }
