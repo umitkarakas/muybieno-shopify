@@ -678,6 +678,8 @@
                 {% render 'eh-meta-grid', product: product, block: block %}
               {%- when 'eh_tabs' -%}
                 {% render 'eh-product-tabs', product: product, block: block %}
+              {%- when 'eh_selling_plan' -%}
+                {% render 'eh-selling-plan', product: product, block: block, section: section %}
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -765,6 +767,17 @@
           "id": "show_empty_hint",
           "label": "Hiç metafield yoksa ipucu göster",
           "default": false
+        }
+      ]
+    },
+    {
+      "type": "eh_selling_plan",
+      "name": "Muybieno abonelik seçici",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "product.selling_plan_groups'tan Tek seferlik / Abone ol + frekans seçici. Yalnız abonelik planı olan üründe görünür. Shopify Subscriptions app gerekir."
         }
       ]
     },

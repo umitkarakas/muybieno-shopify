@@ -1,0 +1,122 @@
+{% comment %}
+  Muybieno — PDP abonelik seçici (Tek seferlik / Abone ol + frekans).
+  Kaynak: product.selling_plan_groups (Shopify Subscriptions app).
+  Seçilen selling_plan id'si JS ile product-form'a hidden input olarak enjekte edilir.
+  Plan yoksa hiç render edilmez (mevcut tek-seferlik akış bozulmaz).
+{% endcomment %}
+{%- if product.selling_plan_groups.size > 0 -%}
+  <div class="eh-sp" id="EhSP-{{ section.id }}" {{ block.shopify_attributes }}>
+    <label class="eh-sp__opt is-active">
+      <input type="radio" name="eh-sp-mode-{{ section.id }}" value="onetime" checked>
+      <span class="eh-sp__radio" aria-hidden="true"></span>
+      <span class="eh-sp__body">
+        <span class="eh-sp__title">Tek seferlik satın al</span>
+        <span class="eh-sp__sub">{{ product.selected_or_first_available_variant.price | money }}</span>
+      </span>
+    </label>
+
+    <label class="eh-sp__opt">
+      <input type="radio" name="eh-sp-mode-{{ section.id }}" value="subscribe">
+      <span class="eh-sp__radio" aria-hidden="true"></span>
+      <span class="eh-sp__body">
+        <span class="eh-sp__title">Abone ol &amp; tasarruf et</span>
+        <span class="eh-sp__sub">Taze kavrum her ay kapında · istediğin zaman iptal</span>
+      </span>
+      <span class="eh-sp__save">indirimli</span>
+    </label>
+
+    <div class="eh-sp__freq" hidden>
+      <span class="eh-sp__freq-label">Teslimat sıklığı</span>
+      <div class="eh-sp__freq-field">
+        <select data-eh-sp-plan>
+          {%- for group in product.selling_plan_groups -%}
+            {%- for plan in group.selling_plans -%}
+              <option value="{{ plan.id }}">{{ plan.name }}</option>
+            {%- endfor -%}
+          {%- endfor -%}
+        </select>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </div>
+  </div>
+
+  {%- style -%}
+    #shopify-section-{{ section.id }} .eh-sp { display: flex; flex-direction: column; gap: 1rem; margin: 0.4rem 0 0.6rem; }
+    #shopify-section-{{ section.id }} .eh-sp__opt {
+      display: flex; align-items: center; gap: 1.2rem; padding: 1.4rem 1.6rem; cursor: pointer;
+      border: 1.5px solid rgba(92,58,30,0.18); border-radius: 1.3rem; background: rgba(255,252,247,0.55);
+      transition: border-color .15s ease, background .15s ease;
+    }
+    #shopify-section-{{ section.id }} .eh-sp__opt.is-active { border-color: #5C3A1E; background: rgba(138,90,46,0.06); }
+    #shopify-section-{{ section.id }} .eh-sp__opt input { position: absolute; opacity: 0; width: 0; height: 0; }
+    #shopify-section-{{ section.id }} .eh-sp__radio {
+      flex: none; width: 2rem; height: 2rem; border-radius: 50%; border: 2px solid #C0A78E; position: relative; transition: border-color .15s ease;
+    }
+    #shopify-section-{{ section.id }} .eh-sp__opt.is-active .eh-sp__radio { border-color: #5C3A1E; }
+    #shopify-section-{{ section.id }} .eh-sp__opt.is-active .eh-sp__radio::after {
+      content: ""; position: absolute; inset: 3px; border-radius: 50%; background: linear-gradient(135deg,#5C3A1E,#8A5A2E);
+    }
+    #shopify-section-{{ section.id }} .eh-sp__body { display: flex; flex-direction: column; gap: 0.2rem; flex: 1; min-width: 0; }
+    #shopify-section-{{ section.id }} .eh-sp__title { font-family: "Inter", system-ui, sans-serif; font-size: 1.45rem; font-weight: 700; color: #2A1B0E; }
+    #shopify-section-{{ section.id }} .eh-sp__sub { font-size: 1.25rem; color: #8A7560; font-weight: 500; }
+    #shopify-section-{{ section.id }} .eh-sp__save {
+      flex: none; font-size: 1.2rem; font-weight: 800; color: #FBF3E7; padding: 0.4rem 1rem; border-radius: 999px;
+      background: linear-gradient(135deg,#5C3A1E,#8A5A2E);
+    }
+    #shopify-section-{{ section.id }} .eh-sp__freq { padding: 0.2rem 0.2rem 0.4rem; }
+    #shopify-section-{{ section.id }} .eh-sp__freq-label { display: block; font-size: 1.3rem; font-weight: 700; color: #2A1B0E; margin-bottom: 0.7rem; }
+    #shopify-section-{{ section.id }} .eh-sp__freq-field { position: relative; }
+    #shopify-section-{{ section.id }} .eh-sp__freq-field select {
+      width: 100%; appearance: none; -webkit-appearance: none; cursor: pointer;
+      font-family: "Inter", system-ui, sans-serif; font-size: 1.4rem; font-weight: 600; color: #3A2818;
+      padding: 1.2rem 4rem 1.2rem 1.6rem; border: 1.5px solid rgba(92,58,30,0.18); border-radius: 1.2rem; background: #FFFCF7;
+    }
+    #shopify-section-{{ section.id }} .eh-sp__freq-field select:focus { border-color: #5C3A1E; outline: none; box-shadow: 0 0 0 3px rgba(92,58,30,0.12); }
+    #shopify-section-{{ section.id }} .eh-sp__freq-field svg { position: absolute; right: 1.4rem; top: 50%; transform: translateY(-50%); width: 1.8rem; height: 1.8rem; color: #8A5A2E; pointer-events: none; }
+  {%- endstyle -%}
+
+  <script>
+    (function () {
+      var root = document.getElementById('EhSP-{{ section.id }}');
+      if (!root || root.dataset.ehInit) return;
+      root.dataset.ehInit = '1';
+      var opts = [].slice.call(root.querySelectorAll('.eh-sp__opt'));
+      var radios = [].slice.call(root.querySelectorAll('input[type="radio"]'));
+      var freq = root.querySelector('.eh-sp__freq');
+      var planSelect = root.querySelector('[data-eh-sp-plan]');
+
+      function form() {
+        return document.querySelector('.eh-product-page product-form form')
+            || document.querySelector('.eh-product-page form[action*="/cart/add"]')
+            || document.querySelector('product-form form');
+      }
+      function hiddenInput() {
+        var f = form();
+        if (!f) return null;
+        var inp = f.querySelector('input[name="selling_plan"]');
+        if (!inp) {
+          inp = document.createElement('input');
+          inp.type = 'hidden';
+          inp.name = 'selling_plan';
+          f.appendChild(inp);
+        }
+        return inp;
+      }
+      function apply() {
+        var mode = (root.querySelector('input[type="radio"]:checked') || {}).value;
+        opts.forEach(function (o) { o.classList.toggle('is-active', !!o.querySelector('input:checked')); });
+        var inp = hiddenInput();
+        if (mode === 'subscribe') {
+          if (freq) freq.hidden = false;
+          if (inp && planSelect) inp.value = planSelect.value;
+        } else {
+          if (freq) freq.hidden = true;
+          if (inp) inp.value = '';
+        }
+      }
+      radios.forEach(function (r) { r.addEventListener('change', apply); });
+      if (planSelect) planSelect.addEventListener('change', apply);
+      apply();
+    })();
+  </script>
+{%- endif -%}

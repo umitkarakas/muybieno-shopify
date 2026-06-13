@@ -31,6 +31,10 @@
           "type": "price",
           "settings": {}
         },
+        "eh_sp": {
+          "type": "eh_selling_plan",
+          "settings": {}
+        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
@@ -75,6 +79,7 @@
         "vendor",
         "title",
         "price",
+        "eh_sp",
         "quantity_selector",
         "buy_buttons",
         "perks",
