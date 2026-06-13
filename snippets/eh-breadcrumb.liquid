@@ -1,0 +1,41 @@
+{% comment %}
+  Muybieno — breadcrumb (Ana Sayfa › Koleksiyon › Ürün).
+  Ürün sayfası: Ana Sayfa › [ürünün koleksiyonu] › Ürün adı
+  Koleksiyon sayfası: Ana Sayfa › Koleksiyon adı
+{% endcomment %}
+{%- liquid
+  assign crumb_col = null
+  if request.page_type == 'product'
+    assign crumb_col = collection | default: product.collections.first
+  elsif request.page_type == 'collection'
+    assign crumb_col = collection
+  endif
+-%}
+<nav class="eh-crumb" aria-label="Breadcrumb">
+  <a class="eh-crumb__link" href="{{ routes.root_url }}">Ana Sayfa</a>
+  {%- if crumb_col and crumb_col.url != blank -%}
+    <span class="eh-crumb__sep" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></span>
+    {%- if request.page_type == 'product' -%}
+      <a class="eh-crumb__link" href="{{ crumb_col.url }}">{{ crumb_col.title }}</a>
+    {%- else -%}
+      <span class="eh-crumb__cur" aria-current="page">{{ crumb_col.title }}</span>
+    {%- endif -%}
+  {%- endif -%}
+  {%- if request.page_type == 'product' -%}
+    <span class="eh-crumb__sep" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></span>
+    <span class="eh-crumb__cur" aria-current="page">{{ product.title }}</span>
+  {%- endif -%}
+</nav>
+
+{%- style -%}
+  .eh-crumb {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;
+    font-family: "Inter", system-ui, sans-serif; font-size: 1.3rem; font-weight: 500;
+    color: #8A7560; margin: 0 0 1.4rem;
+  }
+  .eh-crumb__link { color: #8A7560; text-decoration: none; transition: color .15s ease; }
+  .eh-crumb__link:hover { color: #5C3A1E; }
+  .eh-crumb__sep { display: inline-flex; color: #C0A78E; }
+  .eh-crumb__sep svg { width: 1.4rem; height: 1.4rem; }
+  .eh-crumb__cur { color: #5C3A1E; font-weight: 700; }
+{%- endstyle -%}

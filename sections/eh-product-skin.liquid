@@ -2,7 +2,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+<div class="page-width eh-crumb-wrap">{% render 'eh-breadcrumb' %}</div>
+
 {%- style -%}
+  .eh-crumb-wrap { padding-top: 1.6rem; }
   .eh-product-page {
     --eh-primary: #5C3A1E;
     --eh-primary-hover: #4A2E16;
