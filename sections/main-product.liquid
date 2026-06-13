@@ -676,6 +676,8 @@
                 {% render 'icon-with-text', block: block %}
               {%- when 'eh_meta_grid' -%}
                 {% render 'eh-meta-grid', product: product, block: block %}
+              {%- when 'eh_tabs' -%}
+                {% render 'eh-product-tabs', product: product, block: block %}
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -763,6 +765,23 @@
           "id": "show_empty_hint",
           "label": "Hiç metafield yoksa ipucu göster",
           "default": false
+        }
+      ]
+    },
+    {
+      "type": "eh_tabs",
+      "name": "Muybieno sekmeler",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Ürün açıklaması (description) + Tat profili & Demleme önerisi (metafield) + Kargo & İade tek yatay sekmeli bileşende. İçeriği olmayan sekme gösterilmez."
+        },
+        {
+          "type": "richtext",
+          "id": "kargo_content",
+          "label": "Kargo & İade içeriği",
+          "default": "<p>₺500 ve üzeri siparişlerde kargo ücretsizdir. 14:00'a kadar verilen siparişler aynı gün kargoya teslim edilir. Türkiye geneli ortalama teslimat 1–3 iş günüdür. 14 gün içinde koşulsuz iade hakkınız bulunur.</p>"
         }
       ]
     },

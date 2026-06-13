@@ -1,0 +1,87 @@
+{% comment %}
+  Muybieno — ürün yatay sekmeleri (accordion yerine).
+  Sekmeler: Ürün açıklaması (product.description) · Tat profili (custom.tat_profili) ·
+  Demleme önerisi (custom.demleme_onerisi) · Kargo & İade (block.settings.kargo_content).
+  İçeriği olmayan sekme render edilmez. İlk mevcut sekme aktif; JS ile geçiş.
+{% endcomment %}
+{%- liquid
+  assign mf = product.metafields.custom
+  assign desc = product.description
+  assign tat = mf.tat_profili
+  assign dem = mf.demleme_onerisi
+  assign kargo = block.settings.kargo_content
+  assign any = false
+  if desc != blank or tat != blank or dem != blank or kargo != blank
+    assign any = true
+  endif
+-%}
+
+{%- if any -%}
+  <div class="eh-tabs" id="EhTabs-{{ section.id }}" {{ block.shopify_attributes }}>
+    <div class="eh-tabs__strip" role="tablist">
+      {%- if desc != blank -%}<button type="button" class="eh-tabs__tab is-active" data-eh-tab="d" role="tab">Ürün açıklaması</button>{%- endif -%}
+      {%- if tat != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="t" role="tab">Tat profili</button>{%- endif -%}
+      {%- if dem != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="b" role="tab">Demleme önerisi</button>{%- endif -%}
+      {%- if kargo != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="k" role="tab">Kargo &amp; İade</button>{%- endif -%}
+    </div>
+    <div class="eh-tabs__panels">
+      {%- if desc != blank -%}<div class="eh-tabs__panel is-active rte" data-eh-panel="d" role="tabpanel">{{ desc }}</div>{%- endif -%}
+      {%- if tat != blank -%}<div class="eh-tabs__panel" data-eh-panel="t" role="tabpanel">{{ tat | newline_to_br }}</div>{%- endif -%}
+      {%- if dem != blank -%}<div class="eh-tabs__panel" data-eh-panel="b" role="tabpanel">{{ dem | newline_to_br }}</div>{%- endif -%}
+      {%- if kargo != blank -%}<div class="eh-tabs__panel rte" data-eh-panel="k" role="tabpanel">{{ kargo }}</div>{%- endif -%}
+    </div>
+  </div>
+
+  {%- style -%}
+    #shopify-section-{{ section.id }} .eh-tabs { margin: 2.4rem 0 0; }
+    #shopify-section-{{ section.id }} .eh-tabs__strip {
+      display: flex; gap: 0.4rem; flex-wrap: nowrap; overflow-x: auto;
+      scrollbar-width: none; border-bottom: 1px solid rgba(92,58,30,0.12);
+      margin-bottom: 1.6rem;
+    }
+    #shopify-section-{{ section.id }} .eh-tabs__strip::-webkit-scrollbar { display: none; }
+    #shopify-section-{{ section.id }} .eh-tabs__tab {
+      flex: none; appearance: none; background: none; border: none; cursor: pointer;
+      font-family: "Inter", system-ui, sans-serif; font-size: 1.4rem; font-weight: 600;
+      color: #8A7560; padding: 1rem 1.4rem; border-radius: 1rem 1rem 0 0;
+      position: relative; white-space: nowrap; transition: color .18s ease, background .18s ease;
+    }
+    #shopify-section-{{ section.id }} .eh-tabs__tab:hover { color: #5C3A1E; }
+    #shopify-section-{{ section.id }} .eh-tabs__tab.is-active { color: #2A1B0E; font-weight: 700; }
+    #shopify-section-{{ section.id }} .eh-tabs__tab.is-active::after {
+      content: ""; position: absolute; left: 1.4rem; right: 1.4rem; bottom: -1px; height: 2.5px;
+      background: linear-gradient(135deg,#5C3A1E,#8A5A2E); border-radius: 3px;
+    }
+    #shopify-section-{{ section.id }} .eh-tabs__panel { display: none; }
+    #shopify-section-{{ section.id }} .eh-tabs__panel.is-active {
+      display: block;
+      font-family: "Inter", system-ui, sans-serif; font-size: 1.45rem; line-height: 1.6; color: #6E5947;
+      animation: eh-tabfade .2s ease;
+    }
+    #shopify-section-{{ section.id }} .eh-tabs__panel.rte > :first-child { margin-top: 0; }
+    @keyframes eh-tabfade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      #shopify-section-{{ section.id }} .eh-tabs__panel.is-active { animation: none; }
+    }
+  {%- endstyle -%}
+
+  <script>
+    (function () {
+      var root = document.getElementById('EhTabs-{{ section.id }}');
+      if (!root || root.dataset.ehInit) return;
+      root.dataset.ehInit = '1';
+      var tabs = [].slice.call(root.querySelectorAll('.eh-tabs__tab'));
+      var panels = [].slice.call(root.querySelectorAll('.eh-tabs__panel'));
+      function activate(key) {
+        tabs.forEach(function (t) { t.classList.toggle('is-active', t.getAttribute('data-eh-tab') === key); });
+        panels.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-eh-panel') === key); });
+      }
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () { activate(t.getAttribute('data-eh-tab')); });
+      });
+      if (!root.querySelector('.eh-tabs__tab.is-active') && tabs[0]) {
+        activate(tabs[0].getAttribute('data-eh-tab'));
+      }
+    })();
+  </script>
+{%- endif -%}

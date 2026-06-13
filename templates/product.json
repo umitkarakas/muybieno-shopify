@@ -58,13 +58,10 @@
           "type": "eh_meta_grid",
           "settings": {}
         },
-        "shipping": {
-          "type": "collapsible_tab",
+        "eh_tabs": {
+          "type": "eh_tabs",
           "settings": {
-            "heading": "Kargo & İade",
-            "icon": "truck",
-            "content": "<p>₺500 ve üzeri siparişlerde kargo ücretsizdir. 14:00'a kadar verilen siparişler aynı gün kargoya teslim edilir. Türkiye geneli ortalama teslimat süresi 1–3 iş günüdür. Memnun kalmazsanız 14 gün içinde koşulsuz iade hakkınız bulunur.</p>",
-            "page": ""
+            "kargo_content": "<p>₺500 ve üzeri siparişlerde kargo ücretsizdir. 14:00'a kadar verilen siparişler aynı gün kargoya teslim edilir. Türkiye geneli ortalama teslimat süresi 1–3 iş günüdür. Memnun kalmazsanız 14 gün içinde koşulsuz iade hakkınız bulunur.</p>"
           }
         },
         "share": {
@@ -72,10 +69,6 @@
           "settings": {
             "share_label": "Paylaş"
           }
-        },
-        "description": {
-          "type": "description",
-          "settings": {}
         }
       },
       "block_order": [
@@ -86,9 +79,8 @@
         "buy_buttons",
         "perks",
         "eh_meta",
-        "shipping",
-        "share",
-        "description"
+        "eh_tabs",
+        "share"
       ],
       "settings": {
         "enable_sticky_info": true,
