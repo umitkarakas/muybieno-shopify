@@ -674,6 +674,8 @@
                 </product-recommendations>
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
+              {%- when 'eh_meta_grid' -%}
+                {% render 'eh-meta-grid', product: product, block: block %}
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -746,6 +748,23 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "eh_meta_grid",
+      "name": "Muybieno meta grid",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Bölge · Rakım · Kavrum · İşleme metafield'larından 2×2 kart (mobilde carousel). Boş metafield'lı kart gösterilmez."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_empty_hint",
+          "label": "Hiç metafield yoksa ipucu göster",
+          "default": false
+        }
+      ]
     },
     {
       "type": "text",

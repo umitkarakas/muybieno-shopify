@@ -54,6 +54,10 @@
             "heading_3": "14 gün koşulsuz iade"
           }
         },
+        "eh_meta": {
+          "type": "eh_meta_grid",
+          "settings": {}
+        },
         "shipping": {
           "type": "collapsible_tab",
           "settings": {
@@ -81,6 +85,7 @@
         "quantity_selector",
         "buy_buttons",
         "perks",
+        "eh_meta",
         "shipping",
         "share",
         "description"
