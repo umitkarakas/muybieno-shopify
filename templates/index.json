@@ -83,34 +83,6 @@
         "padding_bottom": 16
       }
     },
-    "featured-collection": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "all",
-        "products_to_show": 4,
-        "title": "Öne çıkan kahveler",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": true,
-        "full_width": true,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-55cc3106-dfb4-45b0-9a7a-a7a898c339d2",
-        "image_ratio": "portrait",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "standard",
-        "columns_mobile": "2",
-        "swipe_on_mobile": true,
-        "padding_top": 56,
-        "padding_bottom": 68
-      }
-    },
     "eh_category_grid": {
       "type": "eh-category-grid",
       "blocks": {
@@ -118,42 +90,54 @@
           "type": "category",
           "settings": {
             "collection": "cekirdek-kahveler",
-            "icon": "coffee"
+            "label": "",
+            "icon": "coffee",
+            "custom_svg": ""
           }
         },
         "cat_1": {
           "type": "category",
           "settings": {
             "collection": "ogutulmus-filtre-kahveler",
-            "icon": "filter"
+            "label": "",
+            "icon": "filter",
+            "custom_svg": ""
           }
         },
         "cat_2": {
           "type": "category",
           "settings": {
             "collection": "turk-kahvesi",
-            "icon": "droplet"
+            "label": "",
+            "icon": "droplet",
+            "custom_svg": ""
           }
         },
         "cat_3": {
           "type": "category",
           "settings": {
             "collection": "kapsul-kahveler",
-            "icon": "capsule"
+            "label": "",
+            "icon": "capsule",
+            "custom_svg": ""
           }
         },
         "cat_4": {
           "type": "category",
           "settings": {
             "collection": "pratik-hazir-kahveler",
-            "icon": "zap"
+            "label": "",
+            "icon": "zap",
+            "custom_svg": ""
           }
         },
         "cat_5": {
           "type": "category",
           "settings": {
             "collection": "kiloluk-kahveler",
-            "icon": "box"
+            "label": "",
+            "icon": "box",
+            "custom_svg": ""
           }
         }
       },
@@ -181,35 +165,45 @@
           "type": "category",
           "settings": {
             "collection": "french-press",
-            "icon": "cup"
+            "label": "",
+            "icon": "cup",
+            "custom_svg": ""
           }
         },
         "eq_1": {
           "type": "category",
           "settings": {
             "collection": "kagit-filtreler",
-            "icon": "file"
+            "label": "",
+            "icon": "file",
+            "custom_svg": ""
           }
         },
         "eq_2": {
           "type": "category",
           "settings": {
             "collection": "demleme-ekipmanlari",
-            "icon": "beaker"
+            "label": "",
+            "icon": "beaker",
+            "custom_svg": ""
           }
         },
         "eq_3": {
           "type": "category",
           "settings": {
             "collection": "termoslar",
-            "icon": "thermos"
+            "label": "",
+            "icon": "thermos",
+            "custom_svg": ""
           }
         },
         "eq_4": {
           "type": "category",
           "settings": {
             "collection": "hediye-setleri",
-            "icon": "gift"
+            "label": "",
+            "icon": "gift",
+            "custom_svg": ""
           }
         }
       },
@@ -224,6 +218,105 @@
         "eyebrow": "Ekipmanlar",
         "padding_top": 20,
         "padding_bottom": 24
+      }
+    },
+    "eh_showcase": {
+      "type": "eh-showcase",
+      "blocks": {
+        "c0": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/muybieno-dominik-barahana-250-gr-cekirdek-kahve-tum-urunler-muybieno-orta-amerika-kahveleri-1141-93-B.jpg",
+            "collection": "cekirdek-kahveler",
+            "link": "",
+            "eyebrow": "Premium Seçim",
+            "heading": "Espresso Sanatı",
+            "subtitle": "",
+            "button_label": "Koleksiyonu Gör",
+            "icon": "coffee",
+            "custom_svg": ""
+          }
+        },
+        "c1": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/muybieno-siyah-seramik-dripper-ve-muybieno-demleme-kagidi-seti-50li-demleme-ekipmanlari-muybieno-ekipmanlar-992-93-B.jpg",
+            "collection": "demleme-ekipmanlari",
+            "link": "",
+            "eyebrow": "",
+            "heading": "Demleme Setleri",
+            "subtitle": "",
+            "button_label": "",
+            "icon": "coffee",
+            "custom_svg": ""
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/kahve-t-c.png",
+            "collection": "french-press",
+            "link": "",
+            "eyebrow": "",
+            "heading": "Öğütücüler",
+            "subtitle": "",
+            "button_label": "",
+            "icon": "coffee",
+            "custom_svg": ""
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/muybieno-siyah-seramik-dripper-ve-muybieno-demleme-kagidi-seti-50li-demleme-ekipmanlari-muybieno-ekipmanlar-992-93-B.jpg",
+            "collection": "kagit-filtreler",
+            "link": "",
+            "eyebrow": "",
+            "heading": "Aksesuarlar",
+            "subtitle": "Tartılar, kağıt filtreler ve daha fazlası.",
+            "button_label": "Tümünü Gör",
+            "icon": "filter",
+            "custom_svg": ""
+          }
+        }
+      },
+      "block_order": [
+        "c0",
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "padding_top": 20,
+        "padding_bottom": 24
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all",
+        "products_to_show": 4,
+        "title": "Öne çıkan kahveler",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": true,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-55cc3106-dfb4-45b0-9a7a-a7a898c339d2",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 56,
+        "padding_bottom": 68
       }
     },
     "eh_story": {
@@ -277,54 +370,6 @@
         "button_link": "shopify://pages/hikayemiz",
         "padding_top": 24,
         "padding_bottom": 40
-      }
-    },
-    "eh_showcase": {
-      "type": "eh-showcase",
-      "blocks": {
-        "c0": {
-          "type": "card",
-          "settings": {
-            "collection": "cekirdek-kahveler",
-            "eyebrow": "Premium Seçim",
-            "heading": "Espresso Sanatı",
-            "button_label": "Koleksiyonu Gör"
-          }
-        },
-        "c1": {
-          "type": "card",
-          "settings": {
-            "collection": "demleme-ekipmanlari",
-            "heading": "Demleme Setleri"
-          }
-        },
-        "c2": {
-          "type": "card",
-          "settings": {
-            "collection": "french-press",
-            "heading": "Öğütücüler"
-          }
-        },
-        "c3": {
-          "type": "card",
-          "settings": {
-            "collection": "kagit-filtreler",
-            "heading": "Aksesuarlar",
-            "subtitle": "Tartılar, kağıt filtreler ve daha fazlası.",
-            "button_label": "Tümünü Gör",
-            "icon": "filter"
-          }
-        }
-      },
-      "block_order": [
-        "c0",
-        "c1",
-        "c2",
-        "c3"
-      ],
-      "settings": {
-        "padding_top": 20,
-        "padding_bottom": 24
       }
     }
   },
