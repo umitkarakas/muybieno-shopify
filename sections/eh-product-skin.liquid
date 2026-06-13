@@ -159,6 +159,21 @@
   }
   .eh-product-page .quantity__button:hover { color: var(--eh-primary); }
 
+  /* ---- Desktop: Adet + Sepete ekle tek satır; Hemen satın al alt satır ---- */
+  @media screen and (min-width: 750px) {
+    .eh-product-page .product-form__buttons.eh-buy-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      align-items: center;
+    }
+    .eh-product-page .eh-buy-row .product-form__quantity { flex: 0 0 auto; margin: 0; }
+    .eh-product-page .eh-buy-row .product-form__quantity .quantity__label { display: none; }
+    .eh-product-page .eh-buy-row .product-form__submit { flex: 1 1 auto; min-width: 50%; margin: 0; }
+    .eh-product-page .eh-buy-row .shopify-payment-button { flex: 1 1 100%; margin-top: 0; }
+    .eh-product-page .eh-buy-row .product-form__error-message-wrapper { flex: 1 1 100%; }
+  }
+
   /* ---- Stock / availability chip ---- */
   .eh-product-page .product__inventory {
     display: inline-flex;
@@ -545,7 +560,12 @@
           if (placeholder.parentNode && form.parentNode !== placeholder.parentNode) {
             placeholder.parentNode.insertBefore(form, placeholder);
           }
-          if (qty && qtyPlaceholder && qtyPlaceholder.parentNode && qty.parentNode !== qtyPlaceholder.parentNode) {
+          /* Desktop: Adet'i form buton satırına al → [Adet][Sepete ekle] aynı satır */
+          var btns = form.querySelector('.product-form__buttons');
+          if (qty && btns) {
+            if (qty.parentNode !== btns) { btns.insertBefore(qty, btns.firstChild); }
+            btns.classList.add('eh-buy-row');
+          } else if (qty && qtyPlaceholder && qtyPlaceholder.parentNode && qty.parentNode !== qtyPlaceholder.parentNode) {
             qtyPlaceholder.parentNode.insertBefore(qty, qtyPlaceholder);
           }
         }
