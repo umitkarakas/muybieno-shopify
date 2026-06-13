@@ -25,7 +25,7 @@
         assign url = col.url | default: '#'
       -%}
       <a class="eh-catr__card" href="{{ url }}" {{ block.shopify_attributes }}>
-        <span class="eh-catr__ico">{% render 'eh-cat-icon', icon: block.settings.icon %}</span>
+        <span class="eh-catr__ico">{%- if block.settings.custom_svg != blank -%}{{ block.settings.custom_svg }}{%- else -%}{% render 'eh-cat-icon', icon: block.settings.icon %}{%- endif -%}</span>
         <span class="eh-catr__name">{{ label }}</span>
       </a>
     {%- endfor -%}
@@ -48,12 +48,13 @@
       "settings": [
         { "type": "collection", "id": "collection", "label": "Koleksiyon" },
         { "type": "text", "id": "label", "label": "Başlık (boşsa koleksiyon adı)" },
-        { "type": "select", "id": "icon", "label": "İkon", "default": "cup", "options": [
+        { "type": "select", "id": "icon", "label": "Hazır ikon", "default": "cup", "options": [
           { "value": "coffee", "label": "Kahve fincanı" }, { "value": "filter", "label": "Filtre" }, { "value": "droplet", "label": "Damla" },
           { "value": "capsule", "label": "Kapsül" }, { "value": "zap", "label": "Şimşek" }, { "value": "box", "label": "Kutu" },
           { "value": "cup", "label": "Bardak" }, { "value": "file", "label": "Kağıt" }, { "value": "beaker", "label": "Demlik" },
           { "value": "thermos", "label": "Termos" }, { "value": "gift", "label": "Hediye" }
-        ] }
+        ] },
+        { "type": "liquid", "id": "custom_svg", "label": "Özel SVG (opsiyonel)", "info": "Buraya <svg>…</svg> yapıştırın; hazır ikonu geçersiz kılar. Otomatik renk için stroke/fill yerine currentColor kullanın." }
       ]
     }
   ],
