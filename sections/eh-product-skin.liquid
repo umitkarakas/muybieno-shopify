@@ -284,10 +284,14 @@
     }
     .eh-product-page .related-products .product-grid::-webkit-scrollbar { display: none; }
     .eh-product-page .related-products .product-grid > li {
-      flex: 0 0 60%;
+      flex: 0 0 44%;
       scroll-snap-align: start;
-      max-width: 60%;
+      max-width: 44%;
     }
+    /* Eksik görselli kart aşırı uzamasın — medya alanını kareye sabitle */
+    .eh-product-page .related-products .card__inner { --ratio-percent: 100%; }
+    .eh-product-page .related-products .card__media,
+    .eh-product-page .related-products .media { aspect-ratio: 1 / 1; }
   }
 
   /* ---- Akordeonlar ---- */
