@@ -1,0 +1,120 @@
+{% comment %} Muybieno — showcase bento grid (büyük görsel + geniş + kare + espresso metin kartı). {% endcomment %}
+{%- style -%}
+  #shopify-section-{{ section.id }} .eh-show { max-width: 128rem; margin: 0 auto; padding: {{ section.settings.padding_top }}px 2.4rem {{ section.settings.padding_bottom }}px; font-family: "Inter", system-ui, sans-serif; }
+  #shopify-section-{{ section.id }} .eh-show__grid {
+    display: grid; grid-template-columns: 1.15fr 0.85fr 0.85fr; grid-template-rows: 1fr 1fr; gap: 1.6rem; min-height: 52rem;
+  }
+  #shopify-section-{{ section.id }} .eh-show__card:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
+  #shopify-section-{{ section.id }} .eh-show__card:nth-child(2) { grid-column: 2 / 4; grid-row: 1; }
+  #shopify-section-{{ section.id }} .eh-show__card:nth-child(3) { grid-column: 2; grid-row: 2; }
+  #shopify-section-{{ section.id }} .eh-show__card:nth-child(4) { grid-column: 3; grid-row: 2; }
+  #shopify-section-{{ section.id }} .eh-show__card {
+    position: relative; display: flex; border-radius: 2rem; overflow: hidden; text-decoration: none; min-height: 22rem;
+    box-shadow: 0 16px 38px rgba(74,44,23,0.08); transition: transform .25s ease, box-shadow .25s ease;
+    background: linear-gradient(135deg, #3A2418, #5C3A1E);
+  }
+  #shopify-section-{{ section.id }} .eh-show__card:hover { transform: translateY(-3px); box-shadow: 0 28px 64px rgba(74,44,23,0.16); }
+  #shopify-section-{{ section.id }} .eh-show__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  #shopify-section-{{ section.id }} .eh-show__overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(42,27,14,0.82) 0%, rgba(42,27,14,0.20) 46%, transparent 72%); }
+  #shopify-section-{{ section.id }} .eh-show__body { position: relative; z-index: 1; margin-top: auto; padding: 2.4rem; color: #FBF3E7; width: 100%; }
+  #shopify-section-{{ section.id }} .eh-show__eyebrow { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(251,243,231,0.8); }
+  #shopify-section-{{ section.id }} .eh-show__title { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-weight: 600; font-size: 2rem; line-height: 1.12; margin: 0.5rem 0 0; color: #FBF3E7; }
+  #shopify-section-{{ section.id }} .eh-show__card:nth-child(1) .eh-show__title { font-size: 3rem; }
+  #shopify-section-{{ section.id }} .eh-show__sub { font-size: 1.3rem; color: rgba(251,243,231,0.78); margin: 0.6rem 0 0; font-weight: 500; line-height: 1.45; }
+  #shopify-section-{{ section.id }} .eh-show__btn {
+    display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.6rem; height: 4.4rem; padding: 0 2rem; border-radius: 1.1rem;
+    background: rgba(251,247,241,0.92); color: #5C3A1E; font-size: 1.4rem; font-weight: 700; transition: background .2s, transform .2s;
+  }
+  #shopify-section-{{ section.id }} .eh-show__card:hover .eh-show__btn { background: #FBF3E7; }
+  #shopify-section-{{ section.id }} .eh-show__link { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.2rem; font-size: 1.4rem; font-weight: 700; color: #FBF3E7; }
+  #shopify-section-{{ section.id }} .eh-show__link svg, #shopify-section-{{ section.id }} .eh-show__btn svg { width: 1.6rem; height: 1.6rem; }
+  /* Görselsiz (solid) kart — ortalı metin + ikon */
+  #shopify-section-{{ section.id }} .eh-show__card--solid { align-items: center; text-align: center; }
+  #shopify-section-{{ section.id }} .eh-show__card--solid .eh-show__body { margin: 0; text-align: center; }
+  #shopify-section-{{ section.id }} .eh-show__card--solid .eh-show__link { justify-content: center; }
+  #shopify-section-{{ section.id }} .eh-show__ico { width: 4.4rem; height: 4.4rem; margin: 0 auto 1.2rem; border-radius: 1.3rem; background: rgba(251,243,231,0.12); display: flex; align-items: center; justify-content: center; }
+  #shopify-section-{{ section.id }} .eh-show__ico svg { width: 2.2rem; height: 2.2rem; color: #FBF3E7; }
+
+  @media screen and (max-width: 860px) {
+    #shopify-section-{{ section.id }} .eh-show__grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; min-height: 0; }
+    #shopify-section-{{ section.id }} .eh-show__card:nth-child(1) { grid-column: 1 / 3; grid-row: auto; min-height: 34rem; }
+    #shopify-section-{{ section.id }} .eh-show__card:nth-child(2) { grid-column: 1 / 3; grid-row: auto; min-height: 24rem; }
+    #shopify-section-{{ section.id }} .eh-show__card:nth-child(3),
+    #shopify-section-{{ section.id }} .eh-show__card:nth-child(4) { grid-column: auto; grid-row: auto; min-height: 24rem; }
+  }
+  @media screen and (max-width: 480px) {
+    #shopify-section-{{ section.id }} .eh-show__grid { grid-template-columns: 1fr; }
+    #shopify-section-{{ section.id }} .eh-show__card { grid-column: 1 !important; }
+  }
+{%- endstyle -%}
+
+<section class="eh-show">
+  <div class="eh-show__grid">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign col = block.settings.collection
+        assign url = block.settings.link | default: col.url | default: '#'
+        assign label = block.settings.heading | default: col.title
+        assign has_img = false
+        if block.settings.image != blank
+          assign has_img = true
+        endif
+      -%}
+      <a class="eh-show__card{% unless has_img %} eh-show__card--solid{% endunless %}" href="{{ url }}" {{ block.shopify_attributes }}>
+        {%- if has_img -%}
+          {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'eh-show__img', alt: label, sizes: '(max-width: 860px) 90vw, 40vw', widths: '400,600,900,1200' }}
+          <span class="eh-show__overlay"></span>
+        {%- endif -%}
+        <span class="eh-show__body">
+          {%- unless has_img -%}
+            {%- if block.settings.custom_svg != blank -%}<span class="eh-show__ico">{{ block.settings.custom_svg }}</span>
+            {%- elsif block.settings.icon != blank -%}<span class="eh-show__ico">{% render 'eh-cat-icon', icon: block.settings.icon %}</span>{%- endif -%}
+          {%- endunless -%}
+          {%- if block.settings.eyebrow != blank -%}<span class="eh-show__eyebrow">{{ block.settings.eyebrow }}</span>{%- endif -%}
+          {%- if label != blank -%}<span class="eh-show__title">{{ label }}</span>{%- endif -%}
+          {%- if block.settings.subtitle != blank -%}<span class="eh-show__sub">{{ block.settings.subtitle }}</span>{%- endif -%}
+          {%- if block.settings.button_label != blank -%}
+            {%- if has_img -%}
+              <span class="eh-show__btn">{{ block.settings.button_label }}</span>
+            {%- else -%}
+              <span class="eh-show__link">{{ block.settings.button_label }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+            {%- endif -%}
+          {%- endif -%}
+        </span>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Muybieno Showcase",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Bento grid: 1. blok büyük (sol), 2. geniş (sağ üst), 3. kare, 4. kart. Görsel verilen blok overlay-görsel kartı; görselsiz blok espresso metin kartı olur. 4 blok önerilir." },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Üst boşluk", "default": 20 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Alt boşluk", "default": 24 }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Kart",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Görsel", "info": "Verilirse overlay-görsel kartı; boşsa espresso metin kartı." },
+        { "type": "collection", "id": "collection", "label": "Koleksiyon (link)" },
+        { "type": "url", "id": "link", "label": "Özel link (koleksiyonu geçersiz kılar)" },
+        { "type": "text", "id": "eyebrow", "label": "Üst etiket" },
+        { "type": "text", "id": "heading", "label": "Başlık (boşsa koleksiyon adı)" },
+        { "type": "text", "id": "subtitle", "label": "Alt metin (metin kartı için)" },
+        { "type": "text", "id": "button_label", "label": "Buton/Link etiketi" },
+        { "type": "select", "id": "icon", "label": "İkon (metin kartı)", "default": "coffee", "options": [
+          { "value": "coffee", "label": "Kahve" }, { "value": "beaker", "label": "Demlik" }, { "value": "filter", "label": "Filtre" },
+          { "value": "box", "label": "Kutu" }, { "value": "file", "label": "Kağıt" }, { "value": "gift", "label": "Hediye" }, { "value": "cup", "label": "Bardak" }
+        ] },
+        { "type": "liquid", "id": "custom_svg", "label": "Özel SVG (metin kartı, opsiyonel)", "info": "currentColor kullanın." }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Muybieno Showcase", "blocks": [ { "type": "card" }, { "type": "card" }, { "type": "card" }, { "type": "card" } ] } ]
+}
+{% endschema %}

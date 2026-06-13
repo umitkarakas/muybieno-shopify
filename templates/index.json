@@ -278,6 +278,54 @@
         "padding_top": 24,
         "padding_bottom": 40
       }
+    },
+    "eh_showcase": {
+      "type": "eh-showcase",
+      "blocks": {
+        "c0": {
+          "type": "card",
+          "settings": {
+            "collection": "cekirdek-kahveler",
+            "eyebrow": "Premium Seçim",
+            "heading": "Espresso Sanatı",
+            "button_label": "Koleksiyonu Gör"
+          }
+        },
+        "c1": {
+          "type": "card",
+          "settings": {
+            "collection": "demleme-ekipmanlari",
+            "heading": "Demleme Setleri"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "collection": "french-press",
+            "heading": "Öğütücüler"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "collection": "kagit-filtreler",
+            "heading": "Aksesuarlar",
+            "subtitle": "Tartılar, kağıt filtreler ve daha fazlası.",
+            "button_label": "Tümünü Gör",
+            "icon": "filter"
+          }
+        }
+      },
+      "block_order": [
+        "c0",
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "padding_top": 20,
+        "padding_bottom": 24
+      }
     }
   },
   "order": [
@@ -285,6 +333,7 @@
     "eh_feature_strip",
     "eh_category_grid",
     "eh_category_row",
+    "eh_showcase",
     "featured-collection",
     "eh_story"
   ]
