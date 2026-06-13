@@ -35,22 +35,24 @@
   {%- style -%}
     #shopify-section-{{ section.id }} .eh-tabs { margin: 2.4rem 0 0; }
     #shopify-section-{{ section.id }} .eh-tabs__strip {
-      display: flex; gap: 0.4rem; flex-wrap: nowrap; overflow-x: auto;
-      scrollbar-width: none; border-bottom: 1px solid rgba(92,58,30,0.12);
-      margin-bottom: 1.6rem;
+      display: flex; gap: 0.6rem; flex-wrap: nowrap; overflow-x: auto;
+      scrollbar-width: none; margin-bottom: 1.8rem; padding-bottom: 0.2rem;
     }
     #shopify-section-{{ section.id }} .eh-tabs__strip::-webkit-scrollbar { display: none; }
+    /* Pill/segment görünüm — net tıklanabilirlik */
     #shopify-section-{{ section.id }} .eh-tabs__tab {
-      flex: none; appearance: none; background: none; border: none; cursor: pointer;
-      font-family: "Inter", system-ui, sans-serif; font-size: 1.4rem; font-weight: 600;
-      color: #8A7560; padding: 1rem 1.4rem; border-radius: 1rem 1rem 0 0;
-      position: relative; white-space: nowrap; transition: color .18s ease, background .18s ease;
+      flex: none; appearance: none; cursor: pointer;
+      font-family: "Inter", system-ui, sans-serif; font-size: 1.35rem; font-weight: 600;
+      color: #5C3A1E; padding: 0.95rem 1.6rem; border-radius: 999px;
+      background: rgba(255,252,247,0.7); border: 1px solid rgba(92,58,30,0.16);
+      white-space: nowrap; transition: color .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
     }
-    #shopify-section-{{ section.id }} .eh-tabs__tab:hover { color: #5C3A1E; }
-    #shopify-section-{{ section.id }} .eh-tabs__tab.is-active { color: #2A1B0E; font-weight: 700; }
-    #shopify-section-{{ section.id }} .eh-tabs__tab.is-active::after {
-      content: ""; position: absolute; left: 1.4rem; right: 1.4rem; bottom: -1px; height: 2.5px;
-      background: linear-gradient(135deg,#5C3A1E,#8A5A2E); border-radius: 3px;
+    #shopify-section-{{ section.id }} .eh-tabs__tab:hover { border-color: #8A5A2E; }
+    #shopify-section-{{ section.id }} .eh-tabs__tab.is-active {
+      color: #FBF3E7; font-weight: 700;
+      background: linear-gradient(135deg,#5C3A1E,#8A5A2E);
+      border-color: transparent;
+      box-shadow: 0 8px 18px rgba(124,80,40,0.22);
     }
     #shopify-section-{{ section.id }} .eh-tabs__panel { display: none; }
     #shopify-section-{{ section.id }} .eh-tabs__panel.is-active {
