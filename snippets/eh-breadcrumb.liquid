@@ -29,13 +29,17 @@
 
 {%- style -%}
   .eh-crumb {
-    display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;
+    display: flex; align-items: center; flex-wrap: nowrap; gap: 0.5rem;
     font-family: "Inter", system-ui, sans-serif; font-size: 1.3rem; font-weight: 500;
-    color: #8A7560; margin: 0 0 1.4rem;
+    color: #8A7560; margin: 0 0 1.4rem; min-width: 0;
   }
-  .eh-crumb__link { color: #8A7560; text-decoration: none; transition: color .15s ease; }
+  .eh-crumb__link { color: #8A7560; text-decoration: none; transition: color .15s ease; flex: none; white-space: nowrap; }
   .eh-crumb__link:hover { color: #5C3A1E; }
-  .eh-crumb__sep { display: inline-flex; color: #C0A78E; }
+  .eh-crumb__sep { display: inline-flex; color: #C0A78E; flex: none; }
   .eh-crumb__sep svg { width: 1.4rem; height: 1.4rem; }
-  .eh-crumb__cur { color: #5C3A1E; font-weight: 700; }
+  /* Son öğe (ürün adı) tek satır; taşarsa … ile kısalır */
+  .eh-crumb__cur {
+    color: #5C3A1E; font-weight: 700;
+    min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
 {%- endstyle -%}
