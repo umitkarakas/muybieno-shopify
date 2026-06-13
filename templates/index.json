@@ -83,88 +83,6 @@
         "padding_bottom": 16
       }
     },
-    "category_icons_3Hcnn7": {
-      "type": "category-icons",
-      "blocks": {
-        "category_CLU34V": {
-          "type": "category",
-          "settings": {
-            "icon": "shopify://shop_images/4.png",
-            "label": "Kuruyemiş & Atıştırmalıklar",
-            "collection": "kuruyemis-atistirmaliklar",
-            "link": "shopify://collections/kuruyemis-atistirmaliklar"
-          }
-        },
-        "category_BHBEA8": {
-          "type": "category",
-          "settings": {
-            "icon": "shopify://shop_images/9.png",
-            "label": "",
-            "collection": "bitkisel-yaglar",
-            "link": "shopify://collections/bitkisel-yaglar"
-          }
-        },
-        "category_dYbwzk": {
-          "type": "category",
-          "settings": {
-            "icon": "shopify://shop_images/3.png",
-            "label": "",
-            "collection": "gida-takviyeleri",
-            "link": "shopify://collections/gida-takviyeleri"
-          }
-        },
-        "category_xxN7dp": {
-          "type": "category",
-          "settings": {
-            "icon": "shopify://shop_images/2.png",
-            "label": "",
-            "collection": "kisisel-bakim",
-            "link": ""
-          }
-        },
-        "category_PRLhJk": {
-          "type": "category",
-          "settings": {
-            "icon": "shopify://shop_images/5_915989ed-8404-47f9-b221-aab55cf529f4.png",
-            "label": "",
-            "collection": "saglikli-i̇cecekler",
-            "link": ""
-          }
-        },
-        "category_6iXA93": {
-          "type": "category",
-          "settings": {
-            "icon": "shopify://shop_images/3.png",
-            "label": "",
-            "collection": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "category_CLU34V",
-        "category_BHBEA8",
-        "category_dYbwzk",
-        "category_xxN7dp",
-        "category_PRLhJk",
-        "category_6iXA93"
-      ],
-      "name": "Kategori İkonları",
-      "settings": {
-        "title": "",
-        "heading_size": "h2",
-        "circle_color": "#5C3A1E",
-        "circle_size": 84,
-        "icon_size": 60,
-        "label_color": "#2A1B0E",
-        "columns_desktop": 7,
-        "columns_mobile": "3",
-        "swipe_on_mobile": true,
-        "color_scheme": "scheme-846a0592-79c8-4ec0-be7d-a2a42defb2b4",
-        "padding_top": 20,
-        "padding_bottom": 16
-      }
-    },
     "featured-collection": {
       "type": "featured-collection",
       "settings": {
@@ -231,12 +149,128 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "eh_category_grid": {
+      "type": "eh-category-grid",
+      "blocks": {
+        "cat_0": {
+          "type": "category",
+          "settings": {
+            "collection": "cekirdek-kahveler",
+            "icon": "coffee"
+          }
+        },
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "collection": "ogutulmus-filtre-kahveler",
+            "icon": "filter"
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "collection": "turk-kahvesi",
+            "icon": "droplet"
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "collection": "kapsul-kahveler",
+            "icon": "capsule"
+          }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": {
+            "collection": "pratik-hazir-kahveler",
+            "icon": "zap"
+          }
+        },
+        "cat_5": {
+          "type": "category",
+          "settings": {
+            "collection": "kiloluk-kahveler",
+            "icon": "box"
+          }
+        }
+      },
+      "block_order": [
+        "cat_0",
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4",
+        "cat_5"
+      ],
+      "settings": {
+        "eyebrow": "Kahveler",
+        "heading": "Damak zevkinize göre seçin",
+        "link_label": "Tümünü gör",
+        "link": "shopify://collections/all",
+        "padding_top": 44,
+        "padding_bottom": 20
+      }
+    },
+    "eh_category_row": {
+      "type": "eh-category-row",
+      "blocks": {
+        "eq_0": {
+          "type": "category",
+          "settings": {
+            "collection": "french-press",
+            "icon": "cup"
+          }
+        },
+        "eq_1": {
+          "type": "category",
+          "settings": {
+            "collection": "kagit-filtreler",
+            "icon": "file"
+          }
+        },
+        "eq_2": {
+          "type": "category",
+          "settings": {
+            "collection": "demleme-ekipmanlari",
+            "icon": "beaker"
+          }
+        },
+        "eq_3": {
+          "type": "category",
+          "settings": {
+            "collection": "termoslar",
+            "icon": "thermos"
+          }
+        },
+        "eq_4": {
+          "type": "category",
+          "settings": {
+            "collection": "hediye-setleri",
+            "icon": "gift"
+          }
+        }
+      },
+      "block_order": [
+        "eq_0",
+        "eq_1",
+        "eq_2",
+        "eq_3",
+        "eq_4"
+      ],
+      "settings": {
+        "eyebrow": "Ekipmanlar",
+        "padding_top": 20,
+        "padding_bottom": 24
+      }
     }
   },
   "order": [
     "eh_hero",
     "eh_feature_strip",
-    "category_icons_3Hcnn7",
+    "eh_category_grid",
+    "eh_category_row",
     "featured-collection",
     "image-with-text"
   ]

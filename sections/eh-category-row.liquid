@@ -1,0 +1,62 @@
+{% comment %} Muybieno — kategori sırası (dikey ortalı kart). EKİPMANLAR stili. {% endcomment %}
+{%- style -%}
+  #shopify-section-{{ section.id }} .eh-catr { max-width: 128rem; margin: 0 auto; padding: {{ section.settings.padding_top }}px 2.4rem {{ section.settings.padding_bottom }}px; font-family: "Inter", system-ui, sans-serif; }
+  #shopify-section-{{ section.id }} .eh-catr__eyebrow { font-size: 1.2rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #A0662F; margin-bottom: 1.6rem; }
+  #shopify-section-{{ section.id }} .eh-catr__grid { display: grid; grid-template-columns: repeat({{ section.blocks.size | at_most: 6 | at_least: 1 }}, 1fr); gap: 1.4rem; }
+  #shopify-section-{{ section.id }} .eh-catr__card {
+    display: flex; flex-direction: column; align-items: center; gap: 1.2rem; padding: 2.4rem 1.4rem; border-radius: 1.8rem; text-decoration: none;
+    background: rgba(255,252,247,0.55); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.68); box-shadow: 0 12px 30px rgba(74,44,23,0.06); transition: transform .2s, background .2s;
+  }
+  #shopify-section-{{ section.id }} .eh-catr__card:hover { transform: translateY(-3px); background: rgba(255,252,247,0.82); }
+  #shopify-section-{{ section.id }} .eh-catr__ico { width: 4.8rem; height: 4.8rem; border-radius: 1.4rem; background: rgba(138,90,46,0.10); display: flex; align-items: center; justify-content: center; }
+  #shopify-section-{{ section.id }} .eh-catr__ico svg { width: 2.3rem; height: 2.3rem; color: #6F4A2A; }
+  #shopify-section-{{ section.id }} .eh-catr__name { font-size: 1.35rem; font-weight: 700; color: #2A1B0E; text-align: center; line-height: 1.25; }
+  @media screen and (max-width: 749px) { #shopify-section-{{ section.id }} .eh-catr__grid { grid-template-columns: repeat(2, 1fr); } }
+{%- endstyle -%}
+
+<section class="eh-catr">
+  {%- if section.settings.eyebrow != blank -%}<div class="eh-catr__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
+  <div class="eh-catr__grid">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign col = block.settings.collection
+        assign label = block.settings.label | default: col.title
+        assign url = col.url | default: '#'
+      -%}
+      <a class="eh-catr__card" href="{{ url }}" {{ block.shopify_attributes }}>
+        <span class="eh-catr__ico">{% render 'eh-cat-icon', icon: block.settings.icon %}</span>
+        <span class="eh-catr__name">{{ label }}</span>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Muybieno Kategori Sırası",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Üst etiket", "default": "Ekipmanlar" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Üst boşluk", "default": 20 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Alt boşluk", "default": 24 }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Kategori",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Koleksiyon" },
+        { "type": "text", "id": "label", "label": "Başlık (boşsa koleksiyon adı)" },
+        { "type": "select", "id": "icon", "label": "İkon", "default": "cup", "options": [
+          { "value": "coffee", "label": "Kahve fincanı" }, { "value": "filter", "label": "Filtre" }, { "value": "droplet", "label": "Damla" },
+          { "value": "capsule", "label": "Kapsül" }, { "value": "zap", "label": "Şimşek" }, { "value": "box", "label": "Kutu" },
+          { "value": "cup", "label": "Bardak" }, { "value": "file", "label": "Kağıt" }, { "value": "beaker", "label": "Demlik" },
+          { "value": "thermos", "label": "Termos" }, { "value": "gift", "label": "Hediye" }
+        ] }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Muybieno Kategori Sırası", "blocks": [ { "type": "category" }, { "type": "category" }, { "type": "category" }, { "type": "category" }, { "type": "category" } ] } ]
+}
+{% endschema %}

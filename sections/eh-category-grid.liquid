@@ -1,0 +1,89 @@
+{% comment %} Muybieno — kategori grid (yatay kart + ürün sayısı + chevron). KAHVELER stili. {% endcomment %}
+{%- style -%}
+  #shopify-section-{{ section.id }} .eh-catg { max-width: 128rem; margin: 0 auto; padding: {{ section.settings.padding_top }}px 2.4rem {{ section.settings.padding_bottom }}px; font-family: "Inter", system-ui, sans-serif; }
+  #shopify-section-{{ section.id }} .eh-catg__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1.6rem; margin-bottom: 2.2rem; }
+  #shopify-section-{{ section.id }} .eh-catg__eyebrow { font-size: 1.2rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #A0662F; }
+  #shopify-section-{{ section.id }} .eh-catg__title { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-weight: 600; font-size: 3.4rem; line-height: 1.1; margin: 0.6rem 0 0; color: #2A1B0E; }
+  #shopify-section-{{ section.id }} .eh-catg__all { display: inline-flex; align-items: center; gap: 0.7rem; background: none; border: none; cursor: pointer; text-decoration: none; font-size: 1.4rem; font-weight: 700; color: #5C3A1E; transition: gap .2s ease; flex: none; }
+  #shopify-section-{{ section.id }} .eh-catg__all:hover { gap: 1.1rem; }
+  #shopify-section-{{ section.id }} .eh-catg__all svg { width: 1.6rem; height: 1.6rem; }
+  #shopify-section-{{ section.id }} .eh-catg__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
+  #shopify-section-{{ section.id }} .eh-catg__card {
+    display: flex; align-items: center; gap: 1.6rem; padding: 2rem; border-radius: 2rem; text-decoration: none;
+    background: rgba(255,252,247,0.62); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.72); box-shadow: 0 16px 38px rgba(74,44,23,0.07);
+    transition: transform .2s, box-shadow .2s;
+  }
+  #shopify-section-{{ section.id }} .eh-catg__card:hover { transform: translateY(-3px); box-shadow: 0 26px 60px rgba(74,44,23,0.14); }
+  #shopify-section-{{ section.id }} .eh-catg__ico { flex: none; width: 5.4rem; height: 5.4rem; border-radius: 1.5rem; background: linear-gradient(135deg,#6F4A2A,#A86A38); display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 24px rgba(124,80,40,0.22); }
+  #shopify-section-{{ section.id }} .eh-catg__ico svg { width: 2.4rem; height: 2.4rem; color: #FBF3E7; }
+  #shopify-section-{{ section.id }} .eh-catg__txt { flex: 1; min-width: 0; }
+  #shopify-section-{{ section.id }} .eh-catg__name { font-size: 1.6rem; font-weight: 700; color: #2A1B0E; }
+  #shopify-section-{{ section.id }} .eh-catg__count { font-size: 1.25rem; color: #8A7560; font-weight: 500; }
+  #shopify-section-{{ section.id }} .eh-catg__chev { flex: none; width: 1.8rem; height: 1.8rem; color: #C0A78E; }
+  @media screen and (max-width: 989px) { #shopify-section-{{ section.id }} .eh-catg__grid { grid-template-columns: 1fr 1fr; } }
+  @media screen and (max-width: 660px) { #shopify-section-{{ section.id }} .eh-catg__grid { grid-template-columns: 1fr; } #shopify-section-{{ section.id }} .eh-catg__title { font-size: 2.8rem; } }
+{%- endstyle -%}
+
+<section class="eh-catg">
+  <div class="eh-catg__head">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<div class="eh-catg__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="eh-catg__title">{{ section.settings.heading }}</h2>{%- endif -%}
+    </div>
+    {%- if section.settings.link_label != blank -%}
+      <a class="eh-catg__all" href="{{ section.settings.link | default: '/collections/all' }}">{{ section.settings.link_label }}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    {%- endif -%}
+  </div>
+  <div class="eh-catg__grid">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign col = block.settings.collection
+        assign label = block.settings.label | default: col.title
+        assign url = col.url | default: '#'
+      -%}
+      <a class="eh-catg__card" href="{{ url }}" {{ block.shopify_attributes }}>
+        <span class="eh-catg__ico">{% render 'eh-cat-icon', icon: block.settings.icon %}</span>
+        <span class="eh-catg__txt">
+          <span class="eh-catg__name">{{ label }}</span>
+          {%- if col != blank -%}<span class="eh-catg__count">{{ col.products_count }} ürün</span>{%- endif -%}
+        </span>
+        <svg class="eh-catg__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Muybieno Kategori Grid",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Üst etiket", "default": "Kahveler" },
+    { "type": "text", "id": "heading", "label": "Başlık", "default": "Damak zevkinize göre seçin" },
+    { "type": "text", "id": "link_label", "label": "Bağlantı etiketi", "default": "Tümünü gör" },
+    { "type": "url", "id": "link", "label": "Bağlantı" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Üst boşluk", "default": 44 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Alt boşluk", "default": 20 }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Kategori",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Koleksiyon" },
+        { "type": "text", "id": "label", "label": "Başlık (boşsa koleksiyon adı)" },
+        { "type": "select", "id": "icon", "label": "İkon", "default": "coffee", "options": [
+          { "value": "coffee", "label": "Kahve fincanı" }, { "value": "filter", "label": "Filtre" }, { "value": "droplet", "label": "Damla" },
+          { "value": "capsule", "label": "Kapsül" }, { "value": "zap", "label": "Şimşek" }, { "value": "box", "label": "Kutu" },
+          { "value": "cup", "label": "Bardak" }, { "value": "file", "label": "Kağıt" }, { "value": "beaker", "label": "Demlik" },
+          { "value": "thermos", "label": "Termos" }, { "value": "gift", "label": "Hediye" }
+        ] }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Muybieno Kategori Grid", "blocks": [ { "type": "category" }, { "type": "category" }, { "type": "category" } ] } ]
+}
+{% endschema %}
