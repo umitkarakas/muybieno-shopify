@@ -234,23 +234,24 @@
     color: var(--eh-on-surface);
   }
   @media screen and (max-width: 749px) {
-    /* Mobilde kompakt: ikon solda, yazı sağda; kart içeriği kadar — boşluk olmasın */
+    /* Mobilde carousel: dar kartlar, metin 2 satıra sarsın — az yer kaplasın */
     .eh-product-page .icon-with-text.icon-with-text--vertical {
-      flex-wrap: wrap;
-      gap: 0.8rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 0.9rem;
     }
+    .eh-product-page .icon-with-text--vertical::-webkit-scrollbar { display: none; }
     .eh-product-page .icon-with-text--vertical .icon-with-text__item {
-      flex: 1 1 100%;
-      flex-direction: row;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.1rem 1.4rem;
+      flex: 0 0 44%;
+      scroll-snap-align: start;
     }
-    .eh-product-page .icon-with-text--vertical .svg-wrapper,
-    .eh-product-page .icon-with-text--vertical .icon {
-      width: 3.2rem; height: 3.2rem; min-width: 3.2rem; min-height: 3.2rem; padding: 0.8rem;
+    .eh-product-page .icon-with-text--vertical .h4 {
+      white-space: normal;
+      font-size: 1.3rem;
+      line-height: 1.25;
     }
-    .eh-product-page .icon-with-text--vertical .h4 { font-size: 1.4rem; }
   }
 
   /* ---- İlgili ürünler — mobilde yatay carousel (masaüstü grid kalır) ---- */
