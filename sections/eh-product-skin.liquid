@@ -408,6 +408,18 @@
 
   /* Ürün kartı stilleri global snippet'e taşındı: snippets/eh-card-skin.liquid */
 
+  /* ---- Sütun bölünmesi: desktop'ta %50/%50 (galeri çok büyük olmasın) ---- */
+  @media screen and (min-width: 990px) {
+    .eh-product-page .product:not(.product--no-media) .product__media-wrapper {
+      max-width: 50%;
+      width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+    }
+    .eh-product-page .product:not(.product--no-media) .product__info-wrapper {
+      max-width: 50%;
+      width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+    }
+  }
+
   /* ---- Adım 1: Galeri (yuvarlak kart + thumbnail) ---- */
   .eh-product-page .product__media-item .media,
   .eh-product-page .product__media-item--single .media {
