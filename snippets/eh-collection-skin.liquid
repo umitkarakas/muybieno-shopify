@@ -10,6 +10,16 @@
   }
   .collection-hero__description { color: #8A7560; font-family: "Inter", system-ui, sans-serif; }
 
+  /* Z-index önceliği: açılan filtre/sıralama paneli ürün grid'inin üstünde kalsın
+     (aksi halde sonradan gelen .product-grid kartları paneli örter) */
+  .facets-container { position: relative; z-index: 5; }
+  .facets.small-hide,
+  facet-filters-form.facets { position: relative; z-index: 5; }
+  .facets__display,
+  .facets__display-vertical { z-index: 6; }
+  .product-grid,
+  #product-grid { position: relative; z-index: 0; }
+
   /* Filtre grup başlıkları */
   .facets__summary,
   .facets__heading,
