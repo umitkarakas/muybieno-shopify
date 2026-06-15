@@ -172,7 +172,14 @@
     }
     .eh-product-page .eh-buy-row .product-form__quantity { flex: 0 0 auto; margin: 0; }
     .eh-product-page .eh-buy-row .product-form__quantity .quantity__label { display: none; }
-    .eh-product-page .eh-buy-row .product-form__submit { flex: 1 1 auto; min-width: 50%; margin: 0; }
+    /* Sepete ekle: adet'in yanında kalsın. Dawn'ın button--full-width width:100%'ünü ez,
+       flex-basis'i sıfırla ki adet ile aynı satıra otursun (alt satıra kaçmasın). */
+    .eh-product-page .eh-buy-row .product-form__submit {
+      flex: 1 1 0;
+      width: auto !important;
+      min-width: 16rem;
+      margin: 0;
+    }
     .eh-product-page .eh-buy-row .shopify-payment-button { flex: 1 1 100%; margin-top: 0; }
     .eh-product-page .eh-buy-row .product-form__error-message-wrapper { flex: 1 1 100%; }
   }
