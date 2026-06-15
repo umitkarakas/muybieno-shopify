@@ -1,0 +1,75 @@
+{% comment %}
+  Muybieno — kahve yoğunluk ölçeği (Sertlik / Asidite / Gövde).
+  Kaynak: product.metafields.custom.sertlik / .asidite / .govde (number_integer 1-5).
+  Her satır 5 daireden oluşur, değer kadarı espresso dolu. Tüm alanlar boşsa render YOK.
+  Camsı krem kart; ürün bilgi sütununda fiyatın altında konumlanır.
+{% endcomment %}
+{%- liquid
+  assign mf = product.metafields.custom
+  assign rows = ''
+  if mf.sertlik != blank
+    assign rows = rows | append: 'Sertlik|' | append: mf.sertlik.value | append: '||'
+  endif
+  if mf.asidite != blank
+    assign rows = rows | append: 'Asidite|' | append: mf.asidite.value | append: '||'
+  endif
+  if mf.govde != blank
+    assign rows = rows | append: 'Gövde|' | append: mf.govde.value | append: '||'
+  endif
+-%}
+
+{%- if rows != blank -%}
+  <div class="eh-intensity" {{ block.shopify_attributes }}>
+    {%- assign items = rows | split: '||' -%}
+    {%- for item in items -%}
+      {%- assign parts = item | split: '|' -%}
+      {%- assign label = parts[0] -%}
+      {%- assign val = parts[1] | times: 1 -%}
+      <div class="eh-intensity__row">
+        <span class="eh-intensity__lbl">{{ label }}</span>
+        <span class="eh-intensity__dots" role="img" aria-label="{{ label }}: 5 üzerinden {{ val }}">
+          {%- for i in (1..5) -%}
+            <span class="eh-intensity__dot{% if i <= val %} is-on{% endif %}"></span>
+          {%- endfor -%}
+        </span>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- style -%}
+    #shopify-section-{{ section.id }} .eh-intensity {
+      display: grid;
+      gap: 0.9rem;
+      margin: 1.8rem 0 0;
+      padding: 1.6rem 1.8rem;
+      border-radius: 1.4rem;
+      background: rgba(255,252,247,0.55);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 12px 30px rgba(74,44,23,0.06);
+    }
+    #shopify-section-{{ section.id }} .eh-intensity__row {
+      display: grid;
+      grid-template-columns: 8rem 1fr;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    #shopify-section-{{ section.id }} .eh-intensity__lbl {
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: 1.3rem; font-weight: 600; color: #6E5947;
+    }
+    #shopify-section-{{ section.id }} .eh-intensity__dots {
+      display: inline-flex; gap: 0.7rem; align-items: center;
+    }
+    #shopify-section-{{ section.id }} .eh-intensity__dot {
+      width: 1.4rem; height: 1.4rem; border-radius: 50%;
+      background: rgba(92,58,30,0.14);
+      box-shadow: inset 0 0 0 1px rgba(92,58,30,0.10);
+    }
+    #shopify-section-{{ section.id }} .eh-intensity__dot.is-on {
+      background: linear-gradient(135deg,#5C3A1E,#8A5A2E);
+      box-shadow: 0 2px 6px rgba(124,80,40,0.28);
+    }
+  {%- endstyle -%}
+{%- endif -%}

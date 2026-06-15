@@ -27,8 +27,16 @@
           "type": "title",
           "settings": {}
         },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
         "price": {
           "type": "price",
+          "settings": {}
+        },
+        "eh_intensity": {
+          "type": "eh_intensity",
           "settings": {}
         },
         "eh_sp": {
@@ -46,16 +54,17 @@
             "show_gift_card_recipient": false
           }
         },
-        "perks": {
-          "type": "icon-with-text",
+        "eh_trust": {
+          "type": "eh_trust",
           "settings": {
-            "layout": "vertical",
-            "icon_1": "leaf",
-            "heading_1": "Siparişe özel hazırlanır",
-            "icon_2": "plane",
-            "heading_2": "Aynı gün kargo (14:00'a kadar)",
-            "icon_3": "return",
-            "heading_3": "14 gün koşulsuz iade"
+            "icon_1": "flame",
+            "heading_1": "Taze kavrulur",
+            "icon_2": "truck",
+            "heading_2": "Hızlı kargo",
+            "icon_3": "lock",
+            "heading_3": "Güvenli ödeme",
+            "icon_4": "percent",
+            "heading_4": "₺1.000 üzeri ücretsiz kargo"
           }
         },
         "eh_meta": {
@@ -78,11 +87,13 @@
       "block_order": [
         "vendor",
         "title",
+        "rating",
         "price",
+        "eh_intensity",
         "eh_sp",
         "quantity_selector",
         "buy_buttons",
-        "perks",
+        "eh_trust",
         "eh_meta",
         "eh_tabs",
         "share"

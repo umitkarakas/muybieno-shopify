@@ -1,0 +1,72 @@
+{% comment %}
+  Muybieno — ürün güven şeridi (4 düzenlenebilir ikonlu kutu).
+  İçerik block.settings'ten gelir (icon select + heading). Boş başlıklı kutu atlanır.
+  Camsı krem kart + espresso ikon tile. Mobilde 2×2 grid.
+  Render: main-product 'eh_trust' bloğu → {% render 'eh-trust-strip', block: block %}
+{% endcomment %}
+{%- liquid
+  assign s = block.settings
+  assign any = false
+  if s.heading_1 != blank or s.heading_2 != blank or s.heading_3 != blank or s.heading_4 != blank
+    assign any = true
+  endif
+-%}
+
+{%- if any -%}
+  <ul class="eh-trust" {{ block.shopify_attributes }}>
+    {%- for i in (1..4) -%}
+      {%- liquid
+        case i
+          when 1
+            assign heading = s.heading_1
+            assign icon = s.icon_1
+          when 2
+            assign heading = s.heading_2
+            assign icon = s.icon_2
+          when 3
+            assign heading = s.heading_3
+            assign icon = s.icon_3
+          when 4
+            assign heading = s.heading_4
+            assign icon = s.icon_4
+        endcase
+      -%}
+      {%- if heading != blank -%}
+        <li class="eh-trust__item">
+          <span class="eh-trust__ico">{% render 'eh-trust-icon', icon: icon %}</span>
+          <span class="eh-trust__txt">{{ heading }}</span>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+
+  {%- style -%}
+    #shopify-section-{{ section.id }} .eh-trust {
+      list-style: none; margin: 1.8rem 0 0; padding: 0;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+    }
+    #shopify-section-{{ section.id }} .eh-trust__item {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      gap: 0.8rem; padding: 1.4rem 1rem;
+      border-radius: 1.3rem;
+      background: rgba(255,252,247,0.55);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 12px 30px rgba(74,44,23,0.06);
+    }
+    #shopify-section-{{ section.id }} .eh-trust__ico {
+      flex: none; width: 3.6rem; height: 3.6rem; border-radius: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg,#5C3A1E,#8A5A2E); color: #FBF3E7;
+    }
+    #shopify-section-{{ section.id }} .eh-trust__ico svg { width: 1.9rem; height: 1.9rem; }
+    #shopify-section-{{ section.id }} .eh-trust__txt {
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: 1.25rem; font-weight: 600; line-height: 1.3; color: #3A2818;
+    }
+    @media screen and (max-width: 749px) {
+      #shopify-section-{{ section.id }} .eh-trust { grid-template-columns: 1fr 1fr; }
+    }
+  {%- endstyle -%}
+{%- endif -%}

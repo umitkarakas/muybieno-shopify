@@ -27,8 +27,20 @@
           "type": "title",
           "settings": {}
         },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
         "price": {
           "type": "price",
+          "settings": {}
+        },
+        "eh_intensity": {
+          "type": "eh_intensity",
+          "settings": {}
+        },
+        "eh_sp": {
+          "type": "eh_selling_plan",
           "settings": {}
         },
         "quantity_selector": {
@@ -42,41 +54,49 @@
             "show_gift_card_recipient": false
           }
         },
-        "perks": {
-          "type": "icon-with-text",
+        "eh_trust": {
+          "type": "eh_trust",
           "settings": {
-            "layout": "vertical",
-            "icon_1": "leaf",
-            "heading_1": "Siparişe özel hazırlanır",
-            "icon_2": "plane",
-            "heading_2": "Aynı gün kargo (14:00'a kadar)",
-            "icon_3": "return",
-            "heading_3": "14 gün koşulsuz iade"
+            "icon_1": "flame",
+            "heading_1": "Taze kavrulur",
+            "icon_2": "truck",
+            "heading_2": "Hızlı kargo",
+            "icon_3": "lock",
+            "heading_3": "Güvenli ödeme",
+            "icon_4": "percent",
+            "heading_4": "₺1.000 üzeri ücretsiz kargo"
           }
         },
-        "shipping": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Kargo & İade",
-            "icon": "truck",
-            "content": "<p>₺1.000 ve üzeri siparişlerde kargo ücretsizdir. 14:00'a kadar verilen siparişler aynı gün kargoya teslim edilir. Türkiye geneli ortalama teslimat süresi 1–3 iş günüdür. Memnun kalmazsanız 14 gün içinde koşulsuz iade hakkınız bulunur.</p>",
-            "page": ""
-          }
-        },
-        "description": {
-          "type": "description",
+        "eh_meta": {
+          "type": "eh_meta_grid",
           "settings": {}
+        },
+        "eh_tabs": {
+          "type": "eh_tabs",
+          "settings": {
+            "kargo_content": "<p>₺1.000 ve üzeri siparişlerde kargo ücretsizdir. 14:00'a kadar verilen siparişler aynı gün kargoya teslim edilir. Türkiye geneli ortalama teslimat süresi 1–3 iş günüdür. Memnun kalmazsanız 14 gün içinde koşulsuz iade hakkınız bulunur.</p>"
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Paylaş"
+          }
         }
       },
       "block_order": [
         "vendor",
         "title",
+        "rating",
         "price",
+        "eh_intensity",
+        "eh_sp",
         "quantity_selector",
         "buy_buttons",
-        "perks",
-        "shipping",
-        "description"
+        "eh_trust",
+        "eh_meta",
+        "eh_tabs",
+        "share"
       ],
       "settings": {
         "enable_sticky_info": true,

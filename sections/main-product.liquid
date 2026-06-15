@@ -680,6 +680,10 @@
                 {% render 'eh-product-tabs', product: product, block: block %}
               {%- when 'eh_selling_plan' -%}
                 {% render 'eh-selling-plan', product: product, block: block, section: section %}
+              {%- when 'eh_intensity' -%}
+                {% render 'eh-intensity', product: product, block: block %}
+              {%- when 'eh_trust' -%}
+                {% render 'eh-trust-strip', block: block %}
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -771,6 +775,49 @@
       ]
     },
     {
+      "type": "eh_intensity",
+      "name": "Muybieno yoğunluk ölçeği",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Sertlik · Asidite · Gövde metafield'larından (1-5) dolu daireli ölçek. Yalnız değer girilmiş satır görünür; hiçbiri yoksa kart gizlidir."
+        }
+      ]
+    },
+    {
+      "type": "eh_trust",
+      "name": "Muybieno güven şeridi",
+      "limit": 1,
+      "settings": [
+        { "type": "paragraph", "content": "4 ikonlu güven kutusu (ör. taze kavrulur · hızlı kargo · güvenli ödeme · ücretsiz kargo). Başlığı boş olan kutu gizlenir." },
+        { "type": "header", "content": "Kutu 1" },
+        { "type": "select", "id": "icon_1", "label": "İkon", "default": "flame",
+          "options": [
+            {"value":"flame","label":"Alev (taze kavrum)"},{"value":"truck","label":"Kamyon (kargo)"},{"value":"shield","label":"Kalkan (güvenli)"},{"value":"lock","label":"Kilit (güvenli ödeme)"},{"value":"return","label":"İade"},{"value":"clock","label":"Saat (hız)"},{"value":"leaf","label":"Yaprak"},{"value":"coffee","label":"Kahve"},{"value":"gift","label":"Hediye"},{"value":"percent","label":"Yüzde"}
+          ] },
+        { "type": "text", "id": "heading_1", "label": "Başlık", "default": "Taze kavrulur" },
+        { "type": "header", "content": "Kutu 2" },
+        { "type": "select", "id": "icon_2", "label": "İkon", "default": "truck",
+          "options": [
+            {"value":"flame","label":"Alev (taze kavrum)"},{"value":"truck","label":"Kamyon (kargo)"},{"value":"shield","label":"Kalkan (güvenli)"},{"value":"lock","label":"Kilit (güvenli ödeme)"},{"value":"return","label":"İade"},{"value":"clock","label":"Saat (hız)"},{"value":"leaf","label":"Yaprak"},{"value":"coffee","label":"Kahve"},{"value":"gift","label":"Hediye"},{"value":"percent","label":"Yüzde"}
+          ] },
+        { "type": "text", "id": "heading_2", "label": "Başlık", "default": "Hızlı kargo" },
+        { "type": "header", "content": "Kutu 3" },
+        { "type": "select", "id": "icon_3", "label": "İkon", "default": "lock",
+          "options": [
+            {"value":"flame","label":"Alev (taze kavrum)"},{"value":"truck","label":"Kamyon (kargo)"},{"value":"shield","label":"Kalkan (güvenli)"},{"value":"lock","label":"Kilit (güvenli ödeme)"},{"value":"return","label":"İade"},{"value":"clock","label":"Saat (hız)"},{"value":"leaf","label":"Yaprak"},{"value":"coffee","label":"Kahve"},{"value":"gift","label":"Hediye"},{"value":"percent","label":"Yüzde"}
+          ] },
+        { "type": "text", "id": "heading_3", "label": "Başlık", "default": "Güvenli ödeme" },
+        { "type": "header", "content": "Kutu 4" },
+        { "type": "select", "id": "icon_4", "label": "İkon", "default": "percent",
+          "options": [
+            {"value":"flame","label":"Alev (taze kavrum)"},{"value":"truck","label":"Kamyon (kargo)"},{"value":"shield","label":"Kalkan (güvenli)"},{"value":"lock","label":"Kilit (güvenli ödeme)"},{"value":"return","label":"İade"},{"value":"clock","label":"Saat (hız)"},{"value":"leaf","label":"Yaprak"},{"value":"coffee","label":"Kahve"},{"value":"gift","label":"Hediye"},{"value":"percent","label":"Yüzde"}
+          ] },
+        { "type": "text", "id": "heading_4", "label": "Başlık", "default": "₺1.000 üzeri ücretsiz kargo" }
+      ]
+    },
+    {
       "type": "eh_selling_plan",
       "name": "Muybieno abonelik seçici",
       "limit": 1,
@@ -788,13 +835,19 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "Ürün açıklaması (description) + Tat profili & Demleme önerisi (metafield) + Kargo & İade tek yatay sekmeli bileşende. İçeriği olmayan sekme gösterilmez."
+          "content": "Ürün açıklaması + Tadım notları & Demleme önerisi (metafield) + Teslimat & İade + opsiyonel Yorumlar. Masaüstünde yatay sekme, mobilde accordion. İçeriği olmayan sekme gösterilmez."
         },
         {
           "type": "richtext",
           "id": "kargo_content",
-          "label": "Kargo & İade içeriği",
+          "label": "Teslimat & İade içeriği",
           "default": "<p>₺1.000 ve üzeri siparişlerde kargo ücretsizdir. 14:00'a kadar verilen siparişler aynı gün kargoya teslim edilir. Türkiye geneli ortalama teslimat 1–3 iş günüdür. 14 gün içinde koşulsuz iade hakkınız bulunur.</p>"
+        },
+        {
+          "type": "liquid",
+          "id": "reviews_liquid",
+          "label": "Yorumlar (opsiyonel)",
+          "info": "Bir yorum uygulaması app block'u veya gömme kodu yapıştırın. Boş bırakılırsa Yorumlar sekmesi gizlenir."
         }
       ]
     },
