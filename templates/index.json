@@ -21,6 +21,65 @@
     },
     "eh_hero": {
       "type": "eh-hero",
+      "blocks": {
+        "s1": {
+          "type": "slide",
+          "settings": {
+            "badge": "Haftalık taze kavrum",
+            "heading": "<p>Her fincanda <em>muy bien</em> bir lezzet</p>",
+            "text": "<p>Dünyanın seçkin bölgelerinden, ustalıkla kavrulmuş tek origin çekirdekler. Siparişinizden hemen önce kavurur, tazeliğini kapınıza taşırız.</p>",
+            "button_label": "Kahveleri keşfet",
+            "button_link": "shopify://collections/all",
+            "button2_label": "Aboneliği incele",
+            "button2_link": "shopify://pages/abonelik",
+            "image": "shopify://shop_images/muybieno-dominik-barahana-250-gr-cekirdek-kahve-tum-urunler-muybieno-orta-amerika-kahveleri-1141-93-B.jpg",
+            "product_label": "Guatemala Huehuetenango",
+            "product_sub": "ORTA KAVRUM · TEK ORIGIN",
+            "float1_key": "Tat profili",
+            "float1_value": "Kakao · Narenciye",
+            "float2_value": "4.9",
+            "float2_key": "2.4K değerlendirme"
+          }
+        },
+        "s2": {
+          "type": "slide",
+          "settings": {
+            "badge": "Abonelikle %10 indirim",
+            "heading": "<p>Taze kahve, <em>her ay</em> kapında</p>",
+            "text": "<p>Seç, abone ol, gerisini bize bırak. Her teslimatta taze kavrulmuş çekirdekler; dilediğin zaman duraklat veya iptal et.</p>",
+            "button_label": "Aboneliği keşfet",
+            "button_link": "shopify://pages/abonelik",
+            "button2_label": "Kahveleri gör",
+            "button2_link": "shopify://collections/all",
+            "product_label": "Aylık Abonelik",
+            "product_sub": "TAZE KAVRUM · ESNEK PLAN",
+            "float1_key": "Teslimat",
+            "float1_value": "Her ay kapında",
+            "float2_value": "%10",
+            "float2_key": "abone indirimi"
+          }
+        },
+        "s3": {
+          "type": "slide",
+          "settings": {
+            "badge": "Demleme ekipmanları",
+            "heading": "<p>Evinde <em>barista</em> deneyimi</p>",
+            "text": "<p>V60, French press, dripper ve daha fazlası — her yönteme uygun ekipman ve taze öğütümle profesyonel demleme.</p>",
+            "button_label": "Ekipmanları keşfet",
+            "button_link": "shopify://collections/demleme-ekipmanlari",
+            "button2_label": "Tüm ürünler",
+            "button2_link": "shopify://collections/all",
+            "image": "shopify://shop_images/muybieno-siyah-seramik-dripper-ve-muybieno-demleme-kagidi-seti-50li-demleme-ekipmanlari-muybieno-ekipmanlar-992-93-B.jpg",
+            "product_label": "Demleme Setleri",
+            "product_sub": "V60 · FRENCH PRESS",
+            "float1_key": "Tat profili",
+            "float1_value": "Berrak & temiz",
+            "float2_value": "4.8",
+            "float2_key": "ekipman puanı"
+          }
+        }
+      },
+      "block_order": ["s1", "s2", "s3"],
       "settings": {
         "badge": "Haftalık taze kavrum",
         "heading": "<p>Her fincanda <em>muy bien</em> bir lezzet</p>",
