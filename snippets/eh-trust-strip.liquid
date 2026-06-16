@@ -82,8 +82,22 @@
       font-size: 1.25rem; font-weight: 600; line-height: 1.3; color: #3A2818;
     }
     @media screen and (max-width: 749px) {
-      /* Mobil: 2 sütun (her kutu ~yarım satır) */
-      #shopify-section-{{ section.id }} .eh-trust__item { flex: 1 1 40%; min-width: 0; }
+      /* Mobil: yatay kaydırılabilir carousel (scroll-snap) */
+      #shopify-section-{{ section.id }} .eh-trust {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        margin-inline: -1.5rem;        /* kenara taşıp tam genişlik kayma */
+        padding-inline: 1.5rem;
+      }
+      #shopify-section-{{ section.id }} .eh-trust::-webkit-scrollbar { display: none; }
+      #shopify-section-{{ section.id }} .eh-trust__item {
+        flex: 0 0 38%;
+        min-width: 0;
+        scroll-snap-align: start;
+      }
     }
   {%- endstyle -%}
 {%- endif -%}
