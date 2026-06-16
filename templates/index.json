@@ -5,6 +5,7 @@
  * This file may be updated by the Shopify admin theme editor
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
+ * Muybieno: hero öne çıkan ürün Guatemala Huehuetenango olarak güncellendi.
  * ------------------------------------------------------------
  */
 {
@@ -26,10 +27,10 @@
         "stat3_num": "9.8K",
         "stat3_label": "Mutlu kahve sever",
         "image": "shopify://shop_images/aloha-kahve-degirmeni-seti-cam-yedek-hazneli-demleme-ekipmanlari-aloha-ekipmanlar-964-92-B.jpg",
-        "product_label": "Etiyopya Yirgacheffe",
-        "product_sub": "AÇIK KAVRUM · TEK ORIGIN",
+        "product_label": "Guatemala Huehuetenango",
+        "product_sub": "ORTA KAVRUM · TEK ORIGIN",
         "float1_key": "Tat profili",
-        "float1_value": "Yasemin · Şeftali",
+        "float1_value": "Kakao · Narenciye",
         "float2_value": "4.9",
         "float2_key": "2.4K değerlendirme",
         "padding_top": 56,
