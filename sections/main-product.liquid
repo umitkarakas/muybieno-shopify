@@ -683,7 +683,7 @@
               {%- when 'eh_intensity' -%}
                 {% render 'eh-intensity', product: product, block: block %}
               {%- when 'eh_trust' -%}
-                {% render 'eh-trust-strip', block: block %}
+                {% render 'eh-trust-strip', block: block, product: product %}
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">

@@ -2,10 +2,17 @@
   Muybieno — ürün güven şeridi (4 düzenlenebilir ikonlu kutu).
   İçerik block.settings'ten gelir (icon select + heading). Boş başlıklı kutu atlanır.
   Camsı krem kart + espresso ikon tile. Mobilde 2×2 grid.
-  Render: main-product 'eh_trust' bloğu → {% render 'eh-trust-strip', block: block %}
+  "Taze kavrulur" (flame ikon / 'kavrul' içeren başlık) yalnız KAHVE ürünlerinde gösterilir;
+  kahve tespiti custom metafield (mensei/kavrum/tat_profili) varlığından. Ekipman/çikolata = kahve değil.
+  Render: main-product 'eh_trust' bloğu → {% render 'eh-trust-strip', block: block, product: product %}
 {% endcomment %}
 {%- liquid
   assign s = block.settings
+  assign mf = product.metafields.custom
+  assign is_coffee = false
+  if mf.mensei != blank or mf.kavrum != blank or mf.tat_profili != blank
+    assign is_coffee = true
+  endif
   assign any = false
   if s.heading_1 != blank or s.heading_2 != blank or s.heading_3 != blank or s.heading_4 != blank
     assign any = true
@@ -30,8 +37,15 @@
             assign heading = s.heading_4
             assign icon = s.icon_4
         endcase
+        assign hide = false
+        if is_coffee == false
+          assign hl = heading | downcase
+          if icon == 'flame' or hl contains 'kavrul'
+            assign hide = true
+          endif
+        endif
       -%}
-      {%- if heading != blank -%}
+      {%- if heading != blank and hide == false -%}
         <li class="eh-trust__item">
           <span class="eh-trust__ico">{% render 'eh-trust-icon', icon: icon %}</span>
           <span class="eh-trust__txt">{{ heading }}</span>
@@ -41,11 +55,13 @@
   </ul>
 
   {%- style -%}
+    /* Flex: kalan kutular satırı eşit doldurur (3 kutu kaldığında boşluk olmaz) */
     #shopify-section-{{ section.id }} .eh-trust {
       list-style: none; margin: 1.8rem 0 0; padding: 0;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+      display: flex; flex-wrap: wrap; gap: 1rem;
     }
     #shopify-section-{{ section.id }} .eh-trust__item {
+      flex: 1 1 0; min-width: 12rem;
       display: flex; flex-direction: column; align-items: center; text-align: center;
       gap: 0.8rem; padding: 1.4rem 1rem;
       border-radius: 1.3rem;
@@ -66,7 +82,8 @@
       font-size: 1.25rem; font-weight: 600; line-height: 1.3; color: #3A2818;
     }
     @media screen and (max-width: 749px) {
-      #shopify-section-{{ section.id }} .eh-trust { grid-template-columns: 1fr 1fr; }
+      /* Mobil: 2 sütun (her kutu ~yarım satır) */
+      #shopify-section-{{ section.id }} .eh-trust__item { flex: 1 1 40%; min-width: 0; }
     }
   {%- endstyle -%}
 {%- endif -%}
