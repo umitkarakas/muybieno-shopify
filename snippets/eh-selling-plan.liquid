@@ -1,28 +1,19 @@
 {% comment %}
-  Muybieno — PDP abonelik seçici (Tek seferlik / Abone ol + frekans).
-  Kaynak: product.selling_plan_groups (Shopify Subscriptions app).
-  Seçilen selling_plan id'si JS ile product-form'a hidden input olarak enjekte edilir.
-  Plan yoksa hiç render edilmez (mevcut tek-seferlik akış bozulmaz).
+  Muybieno — PDP abonelik aç/kapa (tek seferlik kartı kaldırıldı).
+  Varsayılan: KAPALI = tek seferlik satın al (selling_plan boş, normal "Sepete ekle").
+  Açık = abone ol; seçilen frekansın selling_plan id'si JS ile product-form'a enjekte edilir.
+  Plan yoksa hiç render edilmez (tek-seferlik akış bozulmaz).
 {% endcomment %}
 {%- if product.selling_plan_groups.size > 0 -%}
   <div class="eh-sp" id="EhSP-{{ section.id }}" {{ block.shopify_attributes }}>
-    <label class="eh-sp__opt is-active">
-      <input type="radio" name="eh-sp-mode-{{ section.id }}" value="onetime" checked>
-      <span class="eh-sp__radio" aria-hidden="true"></span>
-      <span class="eh-sp__body">
-        <span class="eh-sp__title">Tek seferlik satın al</span>
-        <span class="eh-sp__sub">{{ product.selected_or_first_available_variant.price | money }}</span>
-      </span>
-    </label>
-
-    <label class="eh-sp__opt">
-      <input type="radio" name="eh-sp-mode-{{ section.id }}" value="subscribe">
-      <span class="eh-sp__radio" aria-hidden="true"></span>
+    <label class="eh-sp__opt eh-sp__toggle">
+      <input type="checkbox" data-eh-sp-toggle>
       <span class="eh-sp__body">
         <span class="eh-sp__title">Abone ol &amp; tasarruf et</span>
         <span class="eh-sp__sub">Taze kavrum her ay kapında · istediğin zaman iptal</span>
       </span>
       <span class="eh-sp__save">indirimli</span>
+      <span class="eh-sp__switch" aria-hidden="true"><span class="eh-sp__knob"></span></span>
     </label>
 
     <div class="eh-sp__freq" hidden>
@@ -49,13 +40,6 @@
     }
     #shopify-section-{{ section.id }} .eh-sp__opt.is-active { border-color: #5C3A1E; background: rgba(138,90,46,0.06); }
     #shopify-section-{{ section.id }} .eh-sp__opt input { position: absolute; opacity: 0; width: 0; height: 0; }
-    #shopify-section-{{ section.id }} .eh-sp__radio {
-      flex: none; width: 2rem; height: 2rem; border-radius: 50%; border: 2px solid #C0A78E; position: relative; transition: border-color .15s ease;
-    }
-    #shopify-section-{{ section.id }} .eh-sp__opt.is-active .eh-sp__radio { border-color: #5C3A1E; }
-    #shopify-section-{{ section.id }} .eh-sp__opt.is-active .eh-sp__radio::after {
-      content: ""; position: absolute; inset: 3px; border-radius: 50%; background: linear-gradient(135deg,#5C3A1E,#8A5A2E);
-    }
     #shopify-section-{{ section.id }} .eh-sp__body { display: flex; flex-direction: column; gap: 0.2rem; flex: 1; min-width: 0; }
     #shopify-section-{{ section.id }} .eh-sp__title { font-family: "Inter", system-ui, sans-serif; font-size: 1.45rem; font-weight: 700; color: #2A1B0E; }
     #shopify-section-{{ section.id }} .eh-sp__sub { font-size: 1.25rem; color: #8A7560; font-weight: 500; }
@@ -63,6 +47,17 @@
       flex: none; font-size: 1.2rem; font-weight: 800; color: #FBF3E7; padding: 0.4rem 1rem; border-radius: 999px;
       background: linear-gradient(135deg,#5C3A1E,#8A5A2E);
     }
+    /* Aç/kapa switch */
+    #shopify-section-{{ section.id }} .eh-sp__switch {
+      flex: none; width: 4.4rem; height: 2.6rem; border-radius: 999px; position: relative;
+      background: rgba(92,58,30,0.22); transition: background .18s ease;
+    }
+    #shopify-section-{{ section.id }} .eh-sp__knob {
+      position: absolute; top: 0.3rem; left: 0.3rem; width: 2rem; height: 2rem; border-radius: 50%;
+      background: #FFFCF7; box-shadow: 0 2px 5px rgba(74,44,23,0.25); transition: transform .18s ease;
+    }
+    #shopify-section-{{ section.id }} .eh-sp__opt.is-active .eh-sp__switch { background: linear-gradient(135deg,#5C3A1E,#8A5A2E); }
+    #shopify-section-{{ section.id }} .eh-sp__opt.is-active .eh-sp__knob { transform: translateX(1.8rem); }
     #shopify-section-{{ section.id }} .eh-sp__freq { padding: 0.2rem 0.2rem 0.4rem; }
     #shopify-section-{{ section.id }} .eh-sp__freq-label { display: block; font-size: 1.3rem; font-weight: 700; color: #2A1B0E; margin-bottom: 0.7rem; }
     #shopify-section-{{ section.id }} .eh-sp__freq-field { position: relative; }
@@ -80,8 +75,8 @@
       var root = document.getElementById('EhSP-{{ section.id }}');
       if (!root || root.dataset.ehInit) return;
       root.dataset.ehInit = '1';
-      var opts = [].slice.call(root.querySelectorAll('.eh-sp__opt'));
-      var radios = [].slice.call(root.querySelectorAll('input[type="radio"]'));
+      var opt = root.querySelector('.eh-sp__opt');
+      var toggle = root.querySelector('[data-eh-sp-toggle]');
       var freq = root.querySelector('.eh-sp__freq');
       var planSelect = root.querySelector('[data-eh-sp-plan]');
 
@@ -103,18 +98,13 @@
         return inp;
       }
       function apply() {
-        var mode = (root.querySelector('input[type="radio"]:checked') || {}).value;
-        opts.forEach(function (o) { o.classList.toggle('is-active', !!o.querySelector('input:checked')); });
+        var on = toggle && toggle.checked;
+        if (opt) opt.classList.toggle('is-active', !!on);
+        if (freq) freq.hidden = !on;
         var inp = hiddenInput();
-        if (mode === 'subscribe') {
-          if (freq) freq.hidden = false;
-          if (inp && planSelect) inp.value = planSelect.value;
-        } else {
-          if (freq) freq.hidden = true;
-          if (inp) inp.value = '';
-        }
+        if (inp) inp.value = (on && planSelect) ? planSelect.value : '';
       }
-      radios.forEach(function (r) { r.addEventListener('change', apply); });
+      if (toggle) toggle.addEventListener('change', apply);
       if (planSelect) planSelect.addEventListener('change', apply);
       apply();
     })();
