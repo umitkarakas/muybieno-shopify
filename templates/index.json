@@ -10,6 +10,28 @@
  */
 {
   "sections": {
+    "eh_category_bar": {
+      "type": "eh-category-bar",
+      "blocks": {
+        "c1": { "type": "category", "settings": { "label": "Çekirdek", "icon": "coffee", "link": "shopify://collections/cekirdek-kahveler" } },
+        "c2": { "type": "category", "settings": { "label": "Öğütülmüş Filtre", "icon": "filter", "link": "shopify://collections/ogutulmus-filtre-kahveler" } },
+        "c3": { "type": "category", "settings": { "label": "Türk Kahvesi", "icon": "cup", "link": "shopify://collections/turk-kahvesi" } },
+        "c4": { "type": "category", "settings": { "label": "Kapsül", "icon": "capsule", "link": "shopify://collections/kapsul-kahveler" } },
+        "c5": { "type": "category", "settings": { "label": "Pratik & Hazır", "icon": "zap", "link": "shopify://collections/pratik-hazir-kahveler" } },
+        "c6": { "type": "category", "settings": { "label": "Kiloluk", "icon": "box", "link": "shopify://collections/kiloluk-kahveler" } },
+        "c7": { "type": "category", "settings": { "label": "French Press", "icon": "beaker", "link": "shopify://collections/french-press" } },
+        "c8": { "type": "category", "settings": { "label": "Demleme", "icon": "droplet", "link": "shopify://collections/demleme-ekipmanlari" } },
+        "c9": { "type": "category", "settings": { "label": "Termos", "icon": "thermos", "link": "shopify://collections/termoslar" } },
+        "c10": { "type": "category", "settings": { "label": "Hediye Setleri", "icon": "gift", "link": "shopify://collections/hediye-setleri" } }
+      },
+      "block_order": ["c1","c2","c3","c4","c5","c6","c7","c8","c9","c10"],
+      "settings": {
+        "heading": "Kategoriler",
+        "color_scheme": "background-1",
+        "padding_top": 20,
+        "padding_bottom": 8
+      }
+    },
     "eh_hero": {
       "type": "eh-hero",
       "settings": {
@@ -377,6 +399,7 @@
     }
   },
   "order": [
+    "eh_category_bar",
     "eh_hero",
     "eh_feature_strip",
     "eh_category_grid",

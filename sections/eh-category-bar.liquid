@@ -1,0 +1,128 @@
+{% comment %}
+  Muybieno — header altı kategori barı (kahve.com tarzı hızlı kategori erişimi).
+  Camsı krem çipler + espresso ikon tile; masaüstünde ortalı sarar, mobilde yatay scroll-snap.
+  Bloklar koleksiyona/linke bağlı (icon select + label + link). Lucide ikon seti: eh-cat-icon.
+{% endcomment %}
+
+<div class="eh-catbar color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <p class="eh-catbar__title">{{ section.settings.heading }}</p>
+    {%- endif -%}
+    <ul class="eh-catbar__list">
+      {%- for block in section.blocks -%}
+        {%- assign url = block.settings.link | default: '#' -%}
+        <li class="eh-catbar__item" {{ block.shopify_attributes }}>
+          <a class="eh-catbar__link" href="{{ url }}">
+            <span class="eh-catbar__ico">{% render 'eh-cat-icon', icon: block.settings.icon %}</span>
+            <span class="eh-catbar__label">{{ block.settings.label | escape }}</span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .eh-catbar {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+  #shopify-section-{{ section.id }} .eh-catbar__title {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 1.2rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #9C8773; margin: 0 0 1.2rem; text-align: center;
+  }
+  #shopify-section-{{ section.id }} .eh-catbar__list {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;
+  }
+  #shopify-section-{{ section.id }} .eh-catbar__item { flex: 0 0 auto; }
+  #shopify-section-{{ section.id }} .eh-catbar__link {
+    display: flex; align-items: center; gap: 0.85rem;
+    padding: 0.85rem 1.5rem 0.85rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(255,252,247,0.62);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.7);
+    box-shadow: 0 12px 30px rgba(74,44,23,0.06);
+    text-decoration: none;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  #shopify-section-{{ section.id }} .eh-catbar__link:hover {
+    transform: translateY(-2px);
+    border-color: rgba(138,90,46,0.45);
+    box-shadow: 0 16px 36px rgba(74,44,23,0.10);
+  }
+  #shopify-section-{{ section.id }} .eh-catbar__ico {
+    flex: none; width: 3.2rem; height: 3.2rem; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg,#5C3A1E 0%,#8A5A2E 55%,#B07A45 100%);
+    color: #FBF3E7;
+  }
+  #shopify-section-{{ section.id }} .eh-catbar__ico svg { width: 1.7rem; height: 1.7rem; }
+  #shopify-section-{{ section.id }} .eh-catbar__label {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 1.4rem; font-weight: 600; color: #3A2818; white-space: nowrap;
+  }
+
+  /* Mobil: yatay kaydırılabilir scroll-snap */
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .eh-catbar__list {
+      flex-wrap: nowrap; justify-content: flex-start;
+      overflow-x: auto; scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch; scrollbar-width: none;
+      margin-inline: -1.5rem; padding-inline: 1.5rem;
+    }
+    #shopify-section-{{ section.id }} .eh-catbar__list::-webkit-scrollbar { display: none; }
+    #shopify-section-{{ section.id }} .eh-catbar__item { scroll-snap-align: start; }
+    #shopify-section-{{ section.id }} .eh-catbar__label { font-size: 1.3rem; }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Muybieno kategori barı",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Header altında kahve.com tarzı hızlı kategori barı. Masaüstünde ortalı, mobilde yatay kaydırılır. Her blok bir koleksiyona/linke bağlanır." },
+    { "type": "text", "id": "heading", "label": "Üst başlık (opsiyonel)", "default": "Kategoriler" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Renk şeması", "default": "background-1" },
+    { "type": "range", "id": "padding_top", "label": "Üst boşluk", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 20 },
+    { "type": "range", "id": "padding_bottom", "label": "Alt boşluk", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 8 }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Kategori",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Etiket", "default": "Kategori" },
+        { "type": "url", "id": "link", "label": "Bağlantı (koleksiyon)" },
+        { "type": "select", "id": "icon", "label": "İkon", "default": "coffee",
+          "options": [
+            {"value":"coffee","label":"Kahve"},{"value":"filter","label":"Filtre"},{"value":"droplet","label":"Damla (demleme)"},{"value":"capsule","label":"Kapsül"},{"value":"zap","label":"Pratik"},{"value":"box","label":"Kutu (kiloluk)"},{"value":"cup","label":"Fincan (Türk)"},{"value":"file","label":"Kağıt filtre"},{"value":"beaker","label":"French press"},{"value":"thermos","label":"Termos"},{"value":"gift","label":"Hediye"}
+          ] }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Muybieno kategori barı",
+      "blocks": [
+        { "type": "category", "settings": { "label": "Çekirdek", "icon": "coffee" } },
+        { "type": "category", "settings": { "label": "Öğütülmüş Filtre", "icon": "filter" } },
+        { "type": "category", "settings": { "label": "Türk Kahvesi", "icon": "cup" } },
+        { "type": "category", "settings": { "label": "Kapsül", "icon": "capsule" } },
+        { "type": "category", "settings": { "label": "Pratik & Hazır", "icon": "zap" } },
+        { "type": "category", "settings": { "label": "Kiloluk", "icon": "box" } },
+        { "type": "category", "settings": { "label": "French Press", "icon": "beaker" } },
+        { "type": "category", "settings": { "label": "Demleme", "icon": "droplet" } },
+        { "type": "category", "settings": { "label": "Termos", "icon": "thermos" } },
+        { "type": "category", "settings": { "label": "Hediye Setleri", "icon": "gift" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
