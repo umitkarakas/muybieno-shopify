@@ -109,4 +109,17 @@
   .mobile-facets__open .icon,
   .mobile-facets__heading-display { color: #5C3A1E; }
   .mobile-facets__footer .button { border-radius: 13px; }
+
+  /* Mobil: filtre/sırala çekmecesi + "Uygula" footer'ı sabit alt menünün ÜSTÜNDE kalsın */
+  @media screen and (max-width: 749px) {
+    .mobile-facets__wrapper,
+    .mobile-facets,
+    .mobile-facets__inner { z-index: 60; }
+    .mobile-facets__footer {
+      position: sticky;
+      bottom: calc(5.8rem + env(safe-area-inset-bottom, 0px));
+      z-index: 61;
+      background: #FFFCF7;
+    }
+  }
 {%- endstyle -%}
