@@ -188,6 +188,11 @@
   .cart__empty-text + .button,
   .cart-page__continue { border-radius: 0.85rem; }
 
+  /* Sepet bildirimi (cart_type: notification) aktifken sayfa içeriğinin üstünde kalsın.
+     Dawn .active durumunda z-index yükseltmiyor (-1 kalıyor); koleksiyon filtre/sıralama
+     araç çubuğu (pozitif z-index) bildirimin üstüne biniyordu. */
+  .cart-notification.active { z-index: 100; }
+
   /* ---- Sepette aboneliğe teşvik bandı (CTA) ---- */
   .eh-sub-cta {
     display: flex; align-items: center; gap: 1.2rem;
