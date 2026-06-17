@@ -44,6 +44,13 @@
     padding: 14px 18px;
   }
 
+  /* Masaüstü: filtre butonlarını 'Filtre:' başlığıyla aynı yükseklikte kısalt */
+  @media screen and (min-width: 750px) {
+    .facets__wrapper { align-items: center; }
+    .facets__disclosure { padding-top: 0.5rem; padding-bottom: 0.5rem; border-radius: 12px; }
+    .facets__disclosure .facets__summary { padding-top: 0; padding-bottom: 0; line-height: 1.3; }
+  }
+
   /* Checkbox etiketleri + espresso accent */
   .facet-checkbox__text-label,
   .mobile-facets__label,
