@@ -188,6 +188,24 @@
   .cart__empty-text + .button,
   .cart-page__continue { border-radius: 0.85rem; }
 
+  /* ---- Abonelik satırı bilgilendirme rozeti (sepet + drawer) ---- */
+  .eh-sub-badge {
+    display: inline-flex; align-items: flex-start; gap: 0.6rem;
+    margin: 0.6rem 0 0; padding: 0.6rem 1rem;
+    border-radius: 0.9rem;
+    background: rgba(138,90,46,0.10);
+    border: 1px solid rgba(138,90,46,0.22);
+    color: var(--mb-espresso);
+    font-family: var(--mb-font-body, "Inter", system-ui, sans-serif);
+    font-size: 1.2rem; line-height: 1.35;
+  }
+  .eh-sub-badge svg { flex: none; width: 1.6rem; height: 1.6rem; margin-top: 0.1rem; color: var(--mb-umber, #8A5A2E); }
+  .eh-sub-badge__txt { font-weight: 500; }
+  .eh-sub-badge__txt strong { font-weight: 700; }
+  @media screen and (max-width: 749px) {
+    .eh-sub-badge { font-size: 1.1rem; padding: 0.5rem 0.8rem; }
+  }
+
   /* ---- Hesap / giriş (customer) ---- */
   .customer__title,
   .customer h1, .customer h2, .customer h3 {

@@ -216,7 +216,10 @@
                               {%- endfor -%}
                             </dl>
 
-                            <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+                            <div class="eh-sub-badge">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+                              <span class="eh-sub-badge__txt"><strong>Abonelik</strong> · {{ item.selling_plan_allocation.selling_plan.name }} — otomatik yenilenir</span>
+                            </div>
                           {%- endif -%}
 
                           <ul
