@@ -1,0 +1,29 @@
+{%- comment -%}
+  Muybieno — filtre etiketlerini Türkçeleştirir (Search & Discovery varsayılanları İngilizce gelebiliyor).
+  Kullanım: {% render 'eh-filter-label', filter: filter %}
+  param_name'e göre eşler; eşleşmeyen (ör. metafield/özel) filtreler kendi etiketiyle döner.
+{%- endcomment -%}
+{%- liquid
+  assign p = filter.param_name | downcase
+  assign out = filter.label
+  if p contains 'availability'
+    assign out = 'Stok durumu'
+  elsif p contains 'price'
+    assign out = 'Fiyat'
+  elsif p contains 'product_type'
+    assign out = 'Ürün türü'
+  elsif p contains 'vendor'
+    assign out = 'Marka'
+  else
+    assign l = filter.label | downcase
+    if l == 'availability'
+      assign out = 'Stok durumu'
+    elsif l == 'price'
+      assign out = 'Fiyat'
+    elsif l == 'product type'
+      assign out = 'Ürün türü'
+    elsif l == 'brand' or l == 'vendor'
+      assign out = 'Marka'
+    endif
+  endif
+-%}{{- out | escape -}}

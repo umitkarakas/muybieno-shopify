@@ -77,7 +77,7 @@
                     <facet-remove>
                       <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
                         <span class="active-facets__button-inner button button--tertiary">
-                          {{ filter.label | escape }}: {{ value.label | escape }}
+                          {%- render 'eh-filter-label', filter: filter -%}: {{ value.label | escape }}
                           <span class="svg-wrapper">
                             {{- 'icon-close-small.svg' | inline_asset_content -}}
                           </span>
@@ -135,11 +135,11 @@
                   >
                     <summary
                       class="facets__summary caption-large focus-offset"
-                      aria-label="{{ filter.label | escape }} ({{ 'products.facets.filters_selected.one' | t: count: filter.active_values.size }})"
+                      aria-label="{%- render 'eh-filter-label', filter: filter -%} ({{ 'products.facets.filters_selected.one' | t: count: filter.active_values.size }})"
                     >
                       <div>
                         <span class="facets__summary-label">
-                          {{- filter.label | escape }}
+                          {%- render 'eh-filter-label', filter: filter -%}
                           {%- if filter_type == 'vertical' -%}
                             <span class="facets__selected{% if filter.active_values.size == 0 %} hidden{% endif %}">
                               ({{ filter.active_values.size }})</span
@@ -178,7 +178,7 @@
                         </div>
                       {%- endif -%}
                       <fieldset class="facets-wrap parent-wrap {% if filter_type == 'vertical' %} facets-wrap-vertical{% endif %}">
-                        <legend class="visually-hidden">{{ filter.label | escape }}</legend>
+                        <legend class="visually-hidden">{%- render 'eh-filter-label', filter: filter -%}</legend>
                         {%- liquid
                           assign sorted_values = filter.values
                           # Keep the selected values grouped together when operator is AND
@@ -306,7 +306,7 @@
                   >
                     <summary class="facets__summary caption-large focus-offset">
                       <div>
-                        <span>{{ filter.label | escape }}</span>
+                        <span>{%- render 'eh-filter-label', filter: filter -%}</span>
                         {{- 'icon-caret.svg' | inline_asset_content -}}
                       </div>
                     </summary>
@@ -343,7 +343,7 @@
                   <facet-remove>
                     <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
                       <span class="active-facets__button-inner button button--tertiary">
-                        {{ filter.label | escape }}: {{ value.label | escape }}
+                        {%- render 'eh-filter-label', filter: filter -%}: {{ value.label | escape }}
                         <span class="svg-wrapper">
                           {{- 'icon-close-small.svg' | inline_asset_content -}}
                         </span>
@@ -527,7 +527,7 @@
                       >
                         <summary class="mobile-facets__summary focus-inset">
                           <div>
-                            <span>{{ filter.label | escape }}</span>
+                            <span>{%- render 'eh-filter-label', filter: filter -%}</span>
                             <span class="mobile-facets__arrow">
                               {{- 'icon-arrow.svg' | inline_asset_content -}}
                             </span>
@@ -543,7 +543,7 @@
                             type="button"
                           >
                             {{- 'icon-arrow.svg' | inline_asset_content -}}
-                            <span>{{ filter.label | escape }}</span>
+                            <span>{%- render 'eh-filter-label', filter: filter -%}</span>
                             {%- if filter.operator == 'AND' -%}
                               <span class="facets__and-helptext">
                                 {{ 'products.facets.filter_and_operator_subtitle' | t }}
@@ -669,7 +669,7 @@
                       >
                         <summary class="mobile-facets__summary focus-inset">
                           <div>
-                            <span>{{ filter.label | escape }}</span>
+                            <span>{%- render 'eh-filter-label', filter: filter -%}</span>
                             <span class="mobile-facets__arrow">
                               {{- 'icon-arrow.svg' | inline_asset_content -}}
                             </span>
@@ -685,7 +685,7 @@
                             type="button"
                           >
                             {{- 'icon-arrow.svg' | inline_asset_content -}}
-                            {{ filter.label | escape }}
+                            {%- render 'eh-filter-label', filter: filter -%}
                           </button>
 
                           {%- assign max_price_amount = filter.range_max | money | strip_html | escape -%}
@@ -788,7 +788,7 @@
         <facet-remove>
           <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
             <span class="active-facets__button-inner button button--tertiary">
-              {{ filter.label | escape }}: {{ value.label | escape }}
+              {%- render 'eh-filter-label', filter: filter -%}: {{ value.label | escape }}
               <span class="svg-wrapper">
                 {{- 'icon-close-small.svg' | inline_asset_content -}}
               </span>
@@ -897,7 +897,7 @@
               <facet-remove>
                 <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
                   <span class="active-facets__button-inner button button--tertiary">
-                    {{ filter.label | escape }}: {{ value.label | escape }}
+                    {%- render 'eh-filter-label', filter: filter -%}: {{ value.label | escape }}
                     <span class="svg-wrapper">
                       {{- 'icon-close-small.svg' | inline_asset_content -}}
                     </span>
