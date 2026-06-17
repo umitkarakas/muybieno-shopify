@@ -1,0 +1,16 @@
+{%- comment -%}
+  Muybieno — sepette aboneliğe teşvik bandı (mesaj + "Abone Ol" butonu).
+  Abonelik sayfasına yönlendirir. Stil: eh-global-skin .eh-sub-cta.
+{%- endcomment -%}
+{%- assign sub_url = '/pages/abonelik' -%}
+{%- if pages.abonelik != blank -%}{%- assign sub_url = pages.abonelik.url -%}{%- endif -%}
+<div class="eh-sub-cta">
+  <span class="eh-sub-cta__ico">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+  </span>
+  <div class="eh-sub-cta__body">
+    <p class="eh-sub-cta__title">Düzenli kahve içiyor musun?</p>
+    <p class="eh-sub-cta__text">Abone ol; her teslimatta <strong>%10 indirim</strong>, taze kavrum kapında. İstediğin zaman duraklat veya iptal et.</p>
+  </div>
+  <a class="eh-sub-cta__btn" href="{{ sub_url }}">Abone Ol</a>
+</div>

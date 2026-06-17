@@ -188,22 +188,41 @@
   .cart__empty-text + .button,
   .cart-page__continue { border-radius: 0.85rem; }
 
-  /* ---- Abonelik satırı bilgilendirme rozeti (sepet + drawer) ---- */
-  .eh-sub-badge {
-    display: inline-flex; align-items: flex-start; gap: 0.6rem;
-    margin: 0.6rem 0 0; padding: 0.6rem 1rem;
-    border-radius: 0.9rem;
-    background: rgba(138,90,46,0.10);
+  /* ---- Sepette aboneliğe teşvik bandı (CTA) ---- */
+  .eh-sub-cta {
+    display: flex; align-items: center; gap: 1.2rem;
+    margin: 0 0 1.6rem; padding: 1.4rem 1.6rem;
+    border-radius: 1.4rem;
+    background: linear-gradient(135deg, rgba(92,58,30,0.07), rgba(176,122,69,0.10));
     border: 1px solid rgba(138,90,46,0.22);
-    color: var(--mb-espresso);
-    font-family: var(--mb-font-body, "Inter", system-ui, sans-serif);
-    font-size: 1.2rem; line-height: 1.35;
   }
-  .eh-sub-badge svg { flex: none; width: 1.6rem; height: 1.6rem; margin-top: 0.1rem; color: var(--mb-umber, #8A5A2E); }
-  .eh-sub-badge__txt { font-weight: 500; }
-  .eh-sub-badge__txt strong { font-weight: 700; }
+  .eh-sub-cta__ico {
+    flex: none; width: 4rem; height: 4rem; border-radius: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg,#5C3A1E,#8A5A2E); color: #FBF3E7;
+  }
+  .eh-sub-cta__ico svg { width: 2rem; height: 2rem; }
+  .eh-sub-cta__body { flex: 1; min-width: 0; }
+  .eh-sub-cta__title {
+    font-family: var(--mb-font-head, "Bricolage Grotesque", sans-serif);
+    font-weight: 600; font-size: 1.55rem; color: #2A1B0E; margin: 0 0 0.2rem;
+  }
+  .eh-sub-cta__text {
+    font-family: var(--mb-font-body, "Inter", system-ui, sans-serif);
+    font-size: 1.3rem; line-height: 1.4; color: #6E5947; margin: 0;
+  }
+  .eh-sub-cta__btn {
+    flex: none; display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 1rem 1.8rem; border-radius: 0.9rem; text-decoration: none; white-space: nowrap;
+    font-family: var(--mb-font-body, "Inter", system-ui, sans-serif); font-weight: 700; font-size: 1.35rem;
+    background: linear-gradient(135deg,#5C3A1E 0%,#8A5A2E 55%,#B07A45 100%);
+    color: #FBF3E7; box-shadow: 0 12px 26px rgba(124,80,40,0.24);
+    transition: filter .2s, transform .2s;
+  }
+  .eh-sub-cta__btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
   @media screen and (max-width: 749px) {
-    .eh-sub-badge { font-size: 1.1rem; padding: 0.5rem 0.8rem; }
+    .eh-sub-cta { flex-wrap: wrap; gap: 1rem; padding: 1.2rem; }
+    .eh-sub-cta__btn { width: 100%; justify-content: center; }
   }
 
   /* ---- Hesap / giriş (customer) ---- */
