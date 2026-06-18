@@ -76,7 +76,11 @@
                   style="--animation-order: {{ forloop.index }};"
                 {% endif %}
               >
-                {%- if block.settings.heading != blank -%}
+                {%- if block.type == 'text' -%}
+                  <a href="{{ routes.root_url }}" class="footer__brand-logo" aria-label="{{ shop.name | escape }}">
+                    <img src="{{ 'muybieno-wordmark.png' | asset_url }}" alt="{{ shop.name | escape }}" width="1200" height="400" loading="lazy">
+                  </a>
+                {%- elsif block.settings.heading != blank -%}
                   <h2 class="footer-block__heading inline-richtext">{{- block.settings.heading -}}</h2>
                 {%- endif -%}
 

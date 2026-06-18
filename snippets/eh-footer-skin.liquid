@@ -52,6 +52,17 @@
   .footer .list-social__link { color: rgba(242, 240, 240, 0.72); }
   .footer .list-social__link:hover { color: #fff; }
 
+  /* Footer marka logosu (MuyBieno wordmark) — koyu zeminde cream görünsün */
+  .footer .footer__brand-logo { display: inline-block; margin-bottom: 1.4rem; }
+  .footer .footer__brand-logo img {
+    width: 18rem; max-width: 60%; height: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+  }
+  @media screen and (max-width: 749px) {
+    .footer .footer__brand-logo img { width: 15rem; }
+  }
+
   /* Bülten bandı önceki bölüme bitişik durmasın — üstten boşluk */
   .shopify-section-group-footer-group .newsletter { margin-top: 4rem; }
   @media screen and (max-width: 749px) {
