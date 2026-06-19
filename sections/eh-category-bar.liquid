@@ -8,7 +8,10 @@
 {% endcomment %}
 
 {%- liquid
-  assign cats = 'cekirdek-kahveler|Çekirdek Kahve|coffee,ogutulmus-filtre-kahveler|Öğütülmüş Filtre|filter,turk-kahvesi|Türk Kahvesi|cup,kapsul-kahveler|Kapsül Kahve|capsule,pratik-hazir-kahveler|Pratik & Hazır|zap,kiloluk-kahveler|Kiloluk Kahve|box,demleme-ekipmanlari|Ekipman|beaker,hediye-setleri|Hediye Setleri|gift' | split: ','
+  comment
+    Liste: handle|etiket|görsel(asset). Görseller assets/ içindeki cat-*.png dosyaları.
+  endcomment
+  assign cats = 'cekirdek-kahveler|Çekirdek Kahve|cat-cekirdek.png,ogutulmus-filtre-kahveler|Öğütülmüş Filtre|cat-ogutulmus.png,turk-kahvesi|Türk Kahvesi|cat-turk.png,kapsul-kahveler|Kapsül Kahve|cat-kapsul.png,pratik-hazir-kahveler|Kolay Kahve|cat-kolay.png,kiloluk-kahveler|Kiloluk Kahve|cat-kiloluk.png,ekipmanlar|Ekipman|cat-ekipman.png' | split: ','
   assign cat_count = cats.size
 -%}
 
@@ -23,22 +26,14 @@
           assign parts = c | split: '|'
           assign handle = parts[0]
           assign label = parts[1]
-          assign icon = parts[2]
+          assign asset = parts[2]
           assign col = collections[handle]
-          assign img = col.image
-          if img == blank and col.products.first != blank
-            assign img = col.products.first.featured_image
-          endif
           assign url = col.url | default: '#'
         -%}
         <li class="eh-catbar__item">
           <a class="eh-catbar__link" href="{{ url }}">
             <span class="eh-catbar__card">
-              {%- if img != blank -%}
-                {{ img | image_url: width: 440 | image_tag: loading: 'lazy', class: 'eh-catbar__img', alt: label, widths: '220,330,440' }}
-              {%- else -%}
-                <span class="eh-catbar__ph">{% render 'eh-cat-icon', icon: icon %}</span>
-              {%- endif -%}
+              <img src="{{ asset | asset_url }}" class="eh-catbar__img" alt="{{ label | escape }}" loading="lazy" width="440" height="440">
             </span>
             <span class="eh-catbar__label">{{ label | escape }}</span>
           </a>
