@@ -71,15 +71,17 @@
     font-weight: 700;
     font-size: 3.4rem;
     line-height: 1;
-    color: var(--eh-primary);
+    color: var(--eh-primary) !important;
     letter-spacing: -0.02em;
   }
-  /* Üstü çizili eski fiyat (ürün bilgi sütunu) */
+  /* İndirimli (satış) fiyat — espresso, belirgin */
+  .eh-product-page .product__info-container .price--on-sale .price-item--sale { color: #5C3A1E !important; }
+  /* Üstü çizili eski fiyat — krem zeminde görünür muted kahve (beyaz değil) */
   .eh-product-page .product__info-container .price__sale s.price-item--regular,
   .eh-product-page .product__info-container .price__sale .price-item--regular {
     font-family: var(--font-body);
     font-weight: 500;
-    color: var(--eh-outline);
+    color: #9C8773 !important;
     font-size: 1.8rem;
     letter-spacing: 0;
   }
