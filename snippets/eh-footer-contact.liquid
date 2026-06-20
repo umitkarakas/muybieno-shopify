@@ -31,7 +31,12 @@
 </div>
 
 {%- style -%}
+  /* Adres & İletişim bloğunu en sağa (son sütun) taşı */
+  .footer .footer-block.eh-footer-block--contact { order: 9; }
   .eh-foot-contact { max-width: 42rem; text-align: left; margin-top: 0.4rem; }
+  @media screen and (min-width: 990px) {
+    .footer .footer-block.eh-footer-block--contact .eh-foot-contact { margin-left: auto; }
+  }
   .eh-foot-contact__title {
     font-family: "Bricolage Grotesque", system-ui, sans-serif;
     font-size: 1.8rem; font-weight: 700; color: #D9B892; margin: 0 0 1.6rem;
