@@ -159,32 +159,16 @@
         "padding_bottom": 16
       }
     },
-    "featured-collection": {
-      "type": "featured-collection",
+    "eh_featured_carousel": {
+      "type": "eh-featured-carousel",
       "settings": {
+        "heading": "Öne çıkan kahveler",
         "collection": "kahveler",
-        "products_to_show": 5,
-        "title": "Öne çıkan kahveler",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 5,
-        "enable_desktop_slider": true,
-        "full_width": true,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-55cc3106-dfb4-45b0-9a7a-a7a898c339d2",
-        "image_ratio": "portrait",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "standard",
-        "columns_mobile": "2",
-        "swipe_on_mobile": true,
+        "link_label": "Tümünü gör",
+        "limit": 12,
+        "color_scheme": "scheme-1",
         "padding_top": 56,
-        "padding_bottom": 68
+        "padding_bottom": 56
       }
     },
     "eh_category_grid": {
@@ -401,7 +385,7 @@
     "eh_category_bar",
     "eh_hero",
     "eh_feature_strip",
-    "featured-collection",
+    "eh_featured_carousel",
     "eh_category_grid",
     "eh_tab_carousel",
     "eh_showcase",
