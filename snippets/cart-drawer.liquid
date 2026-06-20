@@ -86,6 +86,7 @@
           method="post"
         >
           <div id="CartDrawer-CartItems" class="drawer__contents js-contents">
+            {%- render 'eh-free-shipping' -%}
             {%- if cart != empty -%}
               <div class="drawer__cart-items-wrapper">
                 <table class="cart-items" role="table">

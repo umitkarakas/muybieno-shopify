@@ -1,0 +1,43 @@
+{%- comment -%}
+  Muybieno — sepet ücretsiz kargo barı. Eşik 1.000 ₺ (100000). cart.total_price
+  üzerinden hesaplar; sepet güncellendiğinde içeren section re-render olduğu için yenilenir.
+{%- endcomment -%}
+{%- assign eh_fs_threshold = 100000 -%}
+{%- if cart != empty and cart.item_count > 0 -%}
+  {%- assign eh_fs_remaining = eh_fs_threshold | minus: cart.total_price -%}
+  {%- if eh_fs_remaining > 0 -%}
+    {%- assign eh_fs_pct = cart.total_price | times: 100 | divided_by: eh_fs_threshold -%}
+  {%- else -%}
+    {%- assign eh_fs_pct = 100 -%}
+  {%- endif -%}
+  <div class="eh-free-ship{% if eh_fs_remaining <= 0 %} eh-free-ship--done{% endif %}">
+    {%- if eh_fs_remaining > 0 -%}
+      <p class="eh-free-ship__msg">Ücretsiz kargoya <strong>{{ eh_fs_remaining | money }}</strong> kaldı</p>
+    {%- else -%}
+      <p class="eh-free-ship__msg">🎉 Ücretsiz kargo kazandınız!</p>
+    {%- endif -%}
+    <div class="eh-free-ship__bar"><span style="width: {{ eh_fs_pct }}%;"></span></div>
+  </div>
+  {%- style -%}
+    .eh-free-ship {
+      margin: 0 0 1.6rem; padding: 1.2rem 1.4rem; border-radius: 12px;
+      background: rgba(255,252,247,0.62); border: 1px solid rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+    }
+    .eh-free-ship__msg {
+      margin: 0 0 0.9rem; font-family: "Inter", system-ui, sans-serif;
+      font-size: 1.3rem; font-weight: 500; color: #5C3A1E; text-align: center;
+    }
+    .eh-free-ship__msg strong { font-weight: 700; }
+    .eh-free-ship__bar {
+      height: 7px; border-radius: 999px; overflow: hidden;
+      background: rgba(92,58,30,0.14);
+    }
+    .eh-free-ship__bar span {
+      display: block; height: 100%; border-radius: 999px;
+      background: linear-gradient(135deg,#5C3A1E,#8A5A2E,#B07A45);
+      transition: width .4s ease;
+    }
+    .eh-free-ship--done .eh-free-ship__msg { color: #5C3A1E; }
+  {%- endstyle -%}
+{%- endif -%}
