@@ -1,8 +1,8 @@
 {%- comment -%}
-  Muybieno — sepet ücretsiz kargo barı. Eşik 1.000 ₺ (100000). cart.total_price
+  Muybieno — sepet ücretsiz kargo barı. Eşik 879 ₺ (87900). cart.total_price
   üzerinden hesaplar; sepet güncellendiğinde içeren section re-render olduğu için yenilenir.
 {%- endcomment -%}
-{%- assign eh_fs_threshold = 100000 -%}
+{%- assign eh_fs_threshold = 87900 -%}
 {%- if cart != empty and cart.item_count > 0 -%}
   {%- assign eh_fs_remaining = eh_fs_threshold | minus: cart.total_price -%}
   {%- if eh_fs_remaining > 0 -%}
