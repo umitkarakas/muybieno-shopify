@@ -162,7 +162,7 @@
     "featured-collection": {
       "type": "featured-collection",
       "settings": {
-        "collection": "all",
+        "collection": "kahveler",
         "products_to_show": 5,
         "title": "Öne çıkan kahveler",
         "heading_size": "h2",
