@@ -305,14 +305,14 @@
         "c2": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/kahve-t-c.png",
-            "collection": "french-press",
+            "image": "shopify://shop_images/muybieno-500-ml-paslanmaz-celik-termos-950-92-B.jpg",
+            "collection": "termoslar",
             "link": "",
             "eyebrow": "",
-            "heading": "Öğütücüler",
+            "heading": "Termoslar",
             "subtitle": "",
             "button_label": "",
-            "icon": "coffee",
+            "icon": "thermos",
             "custom_svg": ""
           }
         },
