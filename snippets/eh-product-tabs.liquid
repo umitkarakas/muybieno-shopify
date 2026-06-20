@@ -26,24 +26,24 @@
   <div class="eh-tabs" id="EhTabs-{{ section.id }}" {{ block.shopify_attributes }}>
     {%- comment -%} Masaüstü sekme şeridi {%- endcomment -%}
     <div class="eh-tabs__strip" role="tablist">
-      {%- if desc != blank -%}<button type="button" class="eh-tabs__tab is-active" data-eh-tab="d" role="tab">Ürün açıklaması</button>{%- endif -%}
       {%- if tat != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="t" role="tab">Tadım notları</button>{%- endif -%}
+      {%- if desc != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="d" role="tab">Ürün açıklaması</button>{%- endif -%}
       {%- if dem != blank or ogutum != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="b" role="tab">Demleme önerisi</button>{%- endif -%}
       {%- if kargo != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="k" role="tab">Teslimat &amp; İade</button>{%- endif -%}
       {%- if reviews != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="r" role="tab">Yorumlar</button>{%- endif -%}
     </div>
 
     <div class="eh-tabs__panels">
-      {%- if desc != blank -%}
-        <div class="eh-tabs__item" data-eh-item="d">
-          <button type="button" class="eh-tabs__head is-active" data-eh-tab="d">Ürün açıklaması<span class="eh-tabs__chev" aria-hidden="true"></span></button>
-          <div class="eh-tabs__panel is-active rte" data-eh-panel="d" role="tabpanel">{{ desc }}</div>
-        </div>
-      {%- endif -%}
       {%- if tat != blank -%}
         <div class="eh-tabs__item" data-eh-item="t">
           <button type="button" class="eh-tabs__head" data-eh-tab="t">Tadım notları<span class="eh-tabs__chev" aria-hidden="true"></span></button>
-          <div class="eh-tabs__panel" data-eh-panel="t" role="tabpanel">{{ tat | newline_to_br }}</div>
+          <div class="eh-tabs__panel rte" data-eh-panel="t" role="tabpanel">{{ tat | newline_to_br }}</div>
+        </div>
+      {%- endif -%}
+      {%- if desc != blank -%}
+        <div class="eh-tabs__item" data-eh-item="d">
+          <button type="button" class="eh-tabs__head" data-eh-tab="d">Ürün açıklaması<span class="eh-tabs__chev" aria-hidden="true"></span></button>
+          <div class="eh-tabs__panel rte" data-eh-panel="d" role="tabpanel">{{ desc }}</div>
         </div>
       {%- endif -%}
       {%- if dem != blank or ogutum != blank -%}
@@ -167,14 +167,15 @@
         h.addEventListener('click', function () { toggleAccordion(h.getAttribute('data-eh-tab')); });
       });
 
-      // İlk yüklemede masaüstü için ilk panel aktif kalsın; mobil için hepsi kapalı başlasın
+      // İlk panel (Tadım notları) varsayılan açık — hem masaüstü hem mobil.
+      // Mobilde diğerleri kapalı başlar; kullanıcı açıklamaya tıklayarak açar.
       function syncForViewport() {
         if (mq.matches) {
-          // mobil: tüm panelleri kapat (accordion)
-          panels.forEach(function (p) { p.classList.remove('is-active'); });
-          heads.forEach(function (h) { h.classList.remove('is-active'); });
+          // mobil: sadece ilk panel açık, diğerleri kapalı
+          panels.forEach(function (p, i) { p.classList.toggle('is-active', i === 0); });
+          heads.forEach(function (h, i) { h.classList.toggle('is-active', i === 0); });
         } else {
-          // masaüstü: ilk sekmeyi aç
+          // masaüstü: ilk sekme aktif
           if (!root.querySelector('.eh-tabs__panel.is-active') && panels[0]) {
             activateTab(panels[0].getAttribute('data-eh-panel'));
           }
