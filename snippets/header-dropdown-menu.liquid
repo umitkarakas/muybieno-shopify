@@ -34,9 +34,16 @@
                 {%- endif -%}
                 {{- 'icon-caret.svg' | inline_asset_content -}}
               </summary>
+              {%- liquid
+                assign mega_obj = link.object
+                assign mega_img = mega_obj.image
+                if mega_img == blank and mega_obj.products.first
+                  assign mega_img = mega_obj.products.first.featured_image
+                endif
+              -%}
               <ul
                 id="HeaderMenu-MenuList-{{ forloop.index }}"
-                class="header__submenu list-menu list-menu--disclosure color-{{ section.settings.menu_color_scheme }} gradient caption-large motion-reduce global-settings-popup"
+                class="header__submenu list-menu list-menu--disclosure color-{{ section.settings.menu_color_scheme }} gradient caption-large motion-reduce global-settings-popup eh-mega{% if mega_img != blank %} eh-mega--has-media{% endif %}"
                 role="list"
                 tabindex="-1"
               >
@@ -85,6 +92,11 @@
                     {%- endif -%}
                   </li>
                 {%- endfor -%}
+                {%- if mega_img != blank -%}
+                  <li class="eh-mega__media" aria-hidden="true">
+                    {{ mega_img | image_url: width: 520 | image_tag: loading: 'lazy', widths: '260,400,520', sizes: '280px', alt: link.title }}
+                  </li>
+                {%- endif -%}
               </ul>
             </details>
           </header-menu>
