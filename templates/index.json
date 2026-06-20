@@ -159,16 +159,32 @@
         "padding_bottom": 16
       }
     },
-    "eh_featured_carousel": {
-      "type": "eh-featured-carousel",
+    "featured-collection": {
+      "type": "featured-collection",
       "settings": {
-        "heading": "Öne çıkan kahveler",
         "collection": "kahveler",
-        "link_label": "Tümünü gör",
-        "limit": 12,
-        "color_scheme": "scheme-1",
+        "products_to_show": 5,
+        "title": "Öne çıkan kahveler",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 5,
+        "enable_desktop_slider": true,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-55cc3106-dfb4-45b0-9a7a-a7a898c339d2",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
         "padding_top": 56,
-        "padding_bottom": 56
+        "padding_bottom": 68
       }
     },
     "eh_category_grid": {
@@ -289,14 +305,14 @@
         "c2": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/muybieno-500-ml-paslanmaz-celik-termos-950-92-B.jpg",
+            "image": "shopify://shop_images/450-ml-paslanmaz-celik-siyah-termos-termoslar-muybieno-ekipmanlar-1147-98-B.png",
             "collection": "termoslar",
             "link": "",
             "eyebrow": "",
             "heading": "Termoslar",
             "subtitle": "",
             "button_label": "",
-            "icon": "thermos",
+            "icon": "coffee",
             "custom_svg": ""
           }
         },
@@ -307,8 +323,8 @@
             "collection": "kagit-filtreler",
             "link": "",
             "eyebrow": "",
-            "heading": "Aksesuarlar",
-            "subtitle": "Tartılar, kağıt filtreler ve daha fazlası.",
+            "heading": "Aksesuarlar <br>",
+            "subtitle": "Tartılar, kağıt filtreler ve daha fazlası",
             "button_label": "Tümünü Gör",
             "icon": "filter",
             "custom_svg": ""
@@ -323,7 +339,7 @@
       ],
       "settings": {
         "padding_top": 20,
-        "padding_bottom": 26
+        "padding_bottom": 24
       }
     },
     "eh_story": {
@@ -385,7 +401,7 @@
     "eh_category_bar",
     "eh_hero",
     "eh_feature_strip",
-    "eh_featured_carousel",
+    "featured-collection",
     "eh_category_grid",
     "eh_tab_carousel",
     "eh_showcase",
