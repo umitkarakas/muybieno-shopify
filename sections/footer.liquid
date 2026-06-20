@@ -77,9 +77,7 @@
                 {% endif %}
               >
                 {%- if block.type == 'text' -%}
-                  <a href="{{ routes.root_url }}" class="footer__brand-logo" aria-label="{{ shop.name | escape }}">
-                    <img src="{{ 'muybieno-wordmark.png' | asset_url }}" alt="{{ shop.name | escape }}" width="1200" height="400" loading="lazy">
-                  </a>
+                  {%- comment -%} Marka logosu footer'ın en altına taşındı; metin bloğu yalnız Adres & İletişim render eder {%- endcomment -%}
                 {%- elsif block.settings.heading != blank -%}
                   <h2 class="footer-block__heading inline-richtext">{{- block.settings.heading -}}</h2>
                 {%- endif -%}
@@ -252,6 +250,17 @@
       </div>
     {%- endunless -%}
   {%- endif -%}
+
+  <div class="eh-footer-logo page-width">
+    <a href="{{ routes.root_url }}" class="eh-footer-logo__link" aria-label="{{ shop.name | escape }}">
+      <img src="{{ 'muybieno-wordmark.png' | asset_url }}" alt="{{ shop.name | escape }}" width="1200" height="400" loading="lazy">
+    </a>
+  </div>
+  {%- style -%}
+    .eh-footer-logo { display: flex; justify-content: center; padding: 1.2rem 0 0.4rem; }
+    .eh-footer-logo__link { display: inline-block; line-height: 0; }
+    .eh-footer-logo__link img { width: auto; height: 4.4rem; max-width: 90%; object-fit: contain; filter: brightness(0) invert(1); }
+  {%- endstyle -%}
 
   <div
     class="footer__content-bottom{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
