@@ -27,13 +27,6 @@
           <a class="eh-hero__btn eh-hero__btn--ghost" href="{{ s.button2_link | default: '#' }}">{{ s.button2_label }}</a>
         {%- endif -%}
       </div>
-      {%- if st.stat1_num != blank or st.stat2_num != blank or st.stat3_num != blank -%}
-        <div class="eh-hero__stats">
-          {%- if st.stat1_num != blank -%}<div><div class="eh-hero__stat-num">{{ st.stat1_num }}</div><div class="eh-hero__stat-lbl">{{ st.stat1_label }}</div></div>{%- endif -%}
-          {%- if st.stat2_num != blank -%}<div class="eh-hero__divider"></div><div><div class="eh-hero__stat-num">{{ st.stat2_num }}</div><div class="eh-hero__stat-lbl">{{ st.stat2_label }}</div></div>{%- endif -%}
-          {%- if st.stat3_num != blank -%}<div class="eh-hero__divider"></div><div><div class="eh-hero__stat-num">{{ st.stat3_num }}</div><div class="eh-hero__stat-lbl">{{ st.stat3_label }}</div></div>{%- endif -%}
-        </div>
-      {%- endif -%}
     </div>
 
     <div class="eh-hero__visual">
