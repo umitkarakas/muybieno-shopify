@@ -1,0 +1,71 @@
+{%- comment -%}
+  Muybieno — footer sol-alt "Adres & İletişim" bloğu (muybieno.com footer'ından).
+  Adres/telefon/e-posta + sosyal & pazaryeri ikon satırı (tema asset'leri).
+{%- endcomment -%}
+<div class="eh-foot-contact">
+  <h2 class="eh-foot-contact__title">Adres &amp; İletişim</h2>
+
+  <div class="eh-foot-contact__row">
+    <span class="eh-foot-contact__label">Adres</span>
+    <p class="eh-foot-contact__val">Göktürk Merkez Mah. Nazlı sokak No:1 Countrylife Officies Kat:3 POSITIVO İSTANBUL/Eyüpsultan</p>
+  </div>
+
+  <div class="eh-foot-contact__row">
+    <span class="eh-foot-contact__label">Telefon</span>
+    <p class="eh-foot-contact__val"><a href="tel:+905102208123">+90 510 220 8123</a></p>
+  </div>
+
+  <div class="eh-foot-contact__row">
+    <span class="eh-foot-contact__label">E-Posta</span>
+    <p class="eh-foot-contact__val"><a href="mailto:info@muybieno.com">info@muybieno.com</a></p>
+  </div>
+
+  <ul class="eh-foot-contact__icons list-unstyled" role="list">
+    <li><a href="https://whatsapp.com/channel/0029Vb76KjwC1FuBKGRZsE0y" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="{{ 'eh-ic-whatsapp.svg' | asset_url }}" alt="WhatsApp" width="22" height="22" loading="lazy"></a></li>
+    <li><a href="https://www.instagram.com/muybienocom" target="_blank" rel="noopener" aria-label="Instagram"><img src="{{ 'eh-ic-instagram.png' | asset_url }}" alt="Instagram" width="22" height="22" loading="lazy"></a></li>
+    <li><a href="https://ty.gl/i5g1ov3lz3v38" target="_blank" rel="noopener" aria-label="Trendyol"><img src="{{ 'eh-ic-trendyol.jpg' | asset_url }}" alt="Trendyol" width="22" height="22" loading="lazy"></a></li>
+    <li><a href="https://www.hepsiburada.com/magaza/muybieno" target="_blank" rel="noopener" aria-label="Hepsiburada"><img src="{{ 'eh-ic-hepsiburada.png' | asset_url }}" alt="Hepsiburada" width="22" height="22" loading="lazy"></a></li>
+    <li><a href="https://www.pazarama.com/magaza/muybieno" target="_blank" rel="noopener" aria-label="Pazarama"><img src="{{ 'eh-ic-pazarama.jpg' | asset_url }}" alt="Pazarama" width="22" height="22" loading="lazy"></a></li>
+    <li><a href="https://www.n11.com/magaza/muybieno" target="_blank" rel="noopener" aria-label="n11"><img src="{{ 'eh-ic-n11.png' | asset_url }}" alt="n11" width="22" height="22" loading="lazy"></a></li>
+  </ul>
+</div>
+
+{%- style -%}
+  /* Alt bar: iletişim solda, ödeme/telif sağda; üstte hizala */
+  .footer .footer__content-bottom-wrapper {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2.4rem;
+  }
+  .footer__column--contact { flex: 1 1 34rem; text-align: left; }
+  @media screen and (max-width: 749px) {
+    .footer__column--contact { flex-basis: 100%; }
+  }
+
+  .eh-foot-contact { max-width: 42rem; text-align: left; }
+  .eh-foot-contact__title {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: 1.8rem; font-weight: 700; color: #D9B892; margin: 0 0 1.6rem;
+  }
+  .eh-foot-contact__row { margin-bottom: 1.4rem; }
+  .eh-foot-contact__label {
+    display: block; font-family: "Inter", system-ui, sans-serif;
+    font-size: 1.3rem; font-weight: 700; color: #F3E6D3; margin-bottom: 0.3rem;
+  }
+  .eh-foot-contact__val {
+    margin: 0; font-family: "Inter", system-ui, sans-serif;
+    font-size: 1.35rem; line-height: 1.55; color: #C9B49E;
+  }
+  .eh-foot-contact__val a { color: #C9B49E; text-decoration: none; }
+  .eh-foot-contact__val a:hover { color: #F3E6D3; }
+  .eh-foot-contact__icons { display: flex; flex-wrap: wrap; gap: 1rem; margin: 2rem 0 0; padding: 0; }
+  .eh-foot-contact__icons li { margin: 0; }
+  .eh-foot-contact__icons a {
+    display: grid; place-items: center; width: 4rem; height: 4rem;
+    background: #fff; border-radius: 1.1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .eh-foot-contact__icons a:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.28); }
+  .eh-foot-contact__icons img { width: 2.4rem; height: 2.4rem; object-fit: contain; border-radius: 0.5rem; display: block; }
+{%- endstyle -%}
