@@ -128,34 +128,48 @@
     color: var(--eh-primary);
   }
 
-  /* ---- Üst seviye MEGA menü (3 sütun link + sağda öne çıkan görsel) ---- */
+  /* ---- Üst seviye MEGA menü: TAM GENİŞLİK (header'a sabit, page-width) ---- */
   .header-wrapper .eh-mega__media { display: none; }
   @media screen and (min-width: 990px) {
+    /* Paneli header genişliğinde açmak için: details'in relative'ini kaldır → anchor = .header */
+    .header-wrapper .header { position: relative; }
+    .header-wrapper .header__inline-menu > .list-menu > li > header-menu > details { position: static; }
     .header-wrapper .header__inline-menu .eh-mega .eh-mega__media { display: block; }
+
     .header-wrapper .header__inline-menu .eh-mega {
-      width: min(86rem, 92vw);
-      max-width: 92vw;
-      padding: 2.4rem 2.8rem;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 0.8rem);
+      width: auto;
+      min-width: 0;
+      max-width: none;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 2.8rem 3.6rem;
+      border-radius: 1.4rem;
+      z-index: 5;
       display: grid;
       grid-auto-flow: column;
       grid-template-rows: repeat(2, auto);
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      column-gap: 2.4rem;
-      row-gap: 0.4rem;
+      grid-template-columns: repeat(3, max-content) 1fr;
+      column-gap: 3.2rem;
+      row-gap: 0.2rem;
       align-content: start;
     }
     .header-wrapper .header__inline-menu .eh-mega.eh-mega--has-media {
-      grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(22rem, 28rem);
+      grid-template-columns: repeat(3, max-content) 1fr minmax(26rem, 34rem);
     }
     .header-wrapper .header__inline-menu .eh-mega > li { width: 100%; }
     .header-wrapper .header__inline-menu .eh-mega > li .header__menu-item {
       font-size: 1.5rem;
       font-weight: 600;
-      padding: 1.15rem 1rem;
+      padding: 1.15rem 1.2rem;
+      white-space: nowrap;
     }
-    /* Sağdaki görsel — tüm satırları kaplar */
+    /* Sağdaki görsel — son sütun, tüm satırları kaplar */
     .header-wrapper .header__inline-menu .eh-mega .eh-mega__media {
-      grid-column: 4;
+      grid-column: -2 / -1;
       grid-row: 1 / -1;
       align-self: stretch;
       margin: 0;
@@ -164,10 +178,10 @@
     .header-wrapper .header__inline-menu .eh-mega .eh-mega__media img {
       width: 100%;
       height: 100%;
-      min-height: 22rem;
-      max-height: 30rem;
+      min-height: 20rem;
+      max-height: 28rem;
       object-fit: cover;
-      border-radius: 1.4rem;
+      border-radius: 1.2rem;
       display: block;
     }
   }
