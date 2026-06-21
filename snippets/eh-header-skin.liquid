@@ -172,7 +172,9 @@
     .header-wrapper .header__icons { grid-area: icons; }
     .header-wrapper .header__inline-menu { grid-area: nav; margin: 0; justify-content: flex-start; }
     /* inline arama varken modal arama ikonunu gizle */
-    .header-wrapper .header__search { display: none; }
+    .header-wrapper .header__search,
+    .header-wrapper .header__icons .header__icon--search,
+    .header-wrapper .header__icons details-modal.header__search { display: none !important; }
   }
 
   /* ---- Üst seviye MEGA menü: TAM GENİŞLİK (header'a sabit, page-width) ---- */
