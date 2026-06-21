@@ -1,0 +1,112 @@
+{% comment %}
+  Muybieno — tek kategori ürün carousel'i (sekmesiz).
+  eh-tab-carousel'in tek-kategori hâli: yan yana 5 ürün + oklu yatay kaydırma, tema card-product.
+  Her kategori için ayrı ayrı eklenebilir. Başlık boşsa koleksiyonun adı kullanılır.
+{% endcomment %}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'quick-add.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign col = collections[section.settings.collection]
+  assign title = section.settings.heading
+  if title == blank and col != blank
+    assign title = col.title
+  endif
+-%}
+
+<div class="eh-ccar page-width color-{{ section.settings.color_scheme }}" id="EhCcar-{{ section.id }}">
+  <div class="eh-ccar__head">
+    {%- if title != blank -%}<h2 class="eh-ccar__heading">{{ title }}</h2>{%- endif -%}
+    {%- if section.settings.link_label != blank and col != blank -%}
+      <a class="eh-ccar__viewall" href="{{ col.url }}">{{ section.settings.link_label }}</a>
+    {%- endif -%}
+  </div>
+
+  <div class="eh-ccar__panel">
+    {%- if col != blank and col.products.size > 0 -%}
+      <button type="button" class="eh-ccar__nav eh-ccar__nav--prev" aria-label="Önceki">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <ul class="eh-ccar__row" role="list">
+        {%- for product in col.products limit: section.settings.limit -%}
+          <li class="eh-ccar__item">
+            {% render 'card-product',
+              card_product: product,
+              media_aspect_ratio: 'portrait',
+              show_secondary_image: true,
+              show_vendor: false,
+              show_rating: false,
+              section_id: section.id,
+              quick_add: 'standard'
+            %}
+          </li>
+        {%- endfor -%}
+      </ul>
+      <button type="button" class="eh-ccar__nav eh-ccar__nav--next" aria-label="Sonraki">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    {%- else -%}
+      <p class="eh-ccar__empty">Bu kategoride ürün bulunamadı. Bölüm ayarlarından bir koleksiyon seçin.</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .eh-ccar { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; }
+  #shopify-section-{{ section.id }} .eh-ccar__head { display: flex; align-items: baseline; justify-content: space-between; gap: 1.6rem; margin: 0 0 2rem; }
+  #shopify-section-{{ section.id }} .eh-ccar__heading { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-weight: 600; font-size: 3.4rem; line-height: 1.1; margin: 0; color: #2A1B0E; }
+  #shopify-section-{{ section.id }} .eh-ccar__viewall { flex: none; font-family: "Inter", system-ui, sans-serif; font-size: 1.4rem; font-weight: 600; color: #5C3A1E; text-decoration: none; padding: .9rem 1.8rem; border-radius: 999px; background: rgba(255,252,247,.7); border: 1px solid rgba(92,58,30,.16); transition: border-color .18s ease, background .18s ease; }
+  #shopify-section-{{ section.id }} .eh-ccar__viewall:hover { border-color: #8A5A2E; }
+  #shopify-section-{{ section.id }} .eh-ccar__panel { position: relative; }
+  #shopify-section-{{ section.id }} .eh-ccar__row { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 4 * 1.6rem) / 5); gap: 1.6rem; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; scroll-behavior: smooth; }
+  #shopify-section-{{ section.id }} .eh-ccar__row::-webkit-scrollbar { display: none; }
+  #shopify-section-{{ section.id }} .eh-ccar__item { scroll-snap-align: start; min-width: 0; }
+  #shopify-section-{{ section.id }} .eh-ccar__nav { position: absolute; top: 38%; transform: translateY(-50%); z-index: 2; width: 4.4rem; height: 4.4rem; border-radius: 50%; cursor: pointer; background: #FFFCF7; border: 1px solid rgba(92,58,30,.16); box-shadow: 0 10px 24px rgba(74,44,23,.12); color: #5C3A1E; display: none; align-items: center; justify-content: center; }
+  #shopify-section-{{ section.id }} .eh-ccar__nav svg { width: 2rem; height: 2rem; }
+  #shopify-section-{{ section.id }} .eh-ccar__nav--prev { left: -2.2rem; }
+  #shopify-section-{{ section.id }} .eh-ccar__nav--next { right: -2.2rem; }
+  #shopify-section-{{ section.id }} .eh-ccar__empty { color: #8A7560; font-family: "Inter", system-ui, sans-serif; }
+  @media screen and (min-width: 990px) { #shopify-section-{{ section.id }} .eh-ccar__nav { display: flex; } }
+  @media screen and (max-width: 989px) { #shopify-section-{{ section.id }} .eh-ccar__row { grid-auto-columns: 44%; } }
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .eh-ccar__heading { font-size: 2.8rem; }
+    #shopify-section-{{ section.id }} .eh-ccar__row { grid-auto-columns: 62%; }
+  }
+{%- endstyle -%}
+
+<script>
+  (function () {
+    var root = document.getElementById('EhCcar-{{ section.id }}');
+    if (!root || root.dataset.ehInit) return;
+    root.dataset.ehInit = '1';
+    root.addEventListener('click', function (e) {
+      var btn = e.target.closest('.eh-ccar__nav');
+      if (!btn) return;
+      var row = root.querySelector('.eh-ccar__row');
+      if (!row) return;
+      var amount = row.clientWidth * 0.8;
+      row.scrollBy({ left: btn.classList.contains('eh-ccar__nav--prev') ? -amount : amount, behavior: 'smooth' });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Muybieno kategori carousel",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Tek bir kategoriyi yan yana 5 ürünlü oklu carousel olarak gösterir. Her kategori için ayrı ekleyebilirsiniz." },
+    { "type": "collection", "id": "collection", "label": "Kategori (koleksiyon)" },
+    { "type": "text", "id": "heading", "label": "Başlık", "info": "Boş bırakılırsa kategori adı kullanılır." },
+    { "type": "text", "id": "link_label", "label": "Bağlantı etiketi", "default": "Tümünü gör" },
+    { "type": "range", "id": "limit", "label": "Ürün sayısı", "min": 4, "max": 16, "step": 1, "default": 10 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Renk şeması", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Üst boşluk", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 36 },
+    { "type": "range", "id": "padding_bottom", "label": "Alt boşluk", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 36 }
+  ],
+  "presets": [ { "name": "Muybieno kategori carousel" } ]
+}
+{% endschema %}
