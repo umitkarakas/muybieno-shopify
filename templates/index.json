@@ -134,8 +134,8 @@
           "type": "feature",
           "settings": {
             "icon": "clock",
-            "title": "Aynı Gün Kargo",
-            "text": "14:00'a kadar siparişler"
+            "title": "Hızlı Gönderim",
+            "text": "12:00'a verdiğiniz siparişler aynı gün kargoda"
           }
         },
         "f4": {
