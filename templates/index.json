@@ -342,6 +342,24 @@
         "padding_bottom": 24
       }
     },
+    "featured_blog_hw9Vhx": {
+      "type": "featured-blog",
+      "name": "t:sections.featured-blog.presets.name",
+      "settings": {
+        "blog": "blog",
+        "post_limit": 3,
+        "heading": "Kahveye Dair",
+        "heading_size": "h1",
+        "columns_desktop": 3,
+        "show_view_all": true,
+        "show_image": true,
+        "show_date": true,
+        "show_author": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "eh_story": {
       "type": "eh-story",
       "blocks": {
@@ -405,6 +423,7 @@
     "eh_category_grid",
     "eh_tab_carousel",
     "eh_showcase",
+    "featured_blog_hw9Vhx",
     "eh_story"
   ]
 }
