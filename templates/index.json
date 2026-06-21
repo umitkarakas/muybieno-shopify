@@ -141,9 +141,9 @@
         "f4": {
           "type": "feature",
           "settings": {
-            "icon": "return",
-            "title": "Kolay İade",
-            "text": "14 gün koşulsuz iade"
+            "icon": "lock",
+            "title": "Güvenli Ödeme",
+            "text": "256-bit SSL ile"
           }
         }
       },

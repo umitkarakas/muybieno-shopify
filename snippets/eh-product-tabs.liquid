@@ -4,7 +4,7 @@
     d  Ürün açıklaması     → product.description
     t  Tadım notları       → custom.tat_profili
     b  Demleme önerisi     → custom.demleme_onerisi (+ custom.ogutum_onerisi satırı)
-    k  Teslimat & İade      → block.settings.kargo_content
+    k  Teslimat      → block.settings.kargo_content
     r  Yorumlar            → block.settings.reviews_liquid (opsiyonel; boşsa gizli)
   Masaüstü: pill sekme şeridi + tek aktif panel. Mobil: her panel başlığı accordion toggle.
 {% endcomment %}
@@ -29,7 +29,7 @@
       {%- if tat != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="t" role="tab">Tadım notları</button>{%- endif -%}
       {%- if desc != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="d" role="tab">Ürün açıklaması</button>{%- endif -%}
       {%- if dem != blank or ogutum != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="b" role="tab">Demleme önerisi</button>{%- endif -%}
-      {%- if kargo != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="k" role="tab">Teslimat &amp; İade</button>{%- endif -%}
+      {%- if kargo != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="k" role="tab">Teslimat</button>{%- endif -%}
       {%- if reviews != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="r" role="tab">Yorumlar</button>{%- endif -%}
     </div>
 
@@ -57,7 +57,7 @@
       {%- endif -%}
       {%- if kargo != blank -%}
         <div class="eh-tabs__item" data-eh-item="k">
-          <button type="button" class="eh-tabs__head" data-eh-tab="k">Teslimat &amp; İade<span class="eh-tabs__chev" aria-hidden="true"></span></button>
+          <button type="button" class="eh-tabs__head" data-eh-tab="k">Teslimat<span class="eh-tabs__chev" aria-hidden="true"></span></button>
           <div class="eh-tabs__panel rte" data-eh-panel="k" role="tabpanel">{{ kargo }}</div>
         </div>
       {%- endif -%}
