@@ -128,6 +128,53 @@
     color: var(--eh-primary);
   }
 
+  /* ============ kahve.com tarzı header: logo + uzun arama üstte, kategoriler altta ============ */
+  .header-wrapper .eh-search { display: none; position: relative; }
+  /* arama çubuğu görünümü (masaüstü) */
+  .header-wrapper .eh-search__form .field { position: relative; display: flex; align-items: center; margin: 0; }
+  .header-wrapper .eh-search__form .search__input {
+    width: 100%; height: 4.6rem; border-radius: 999px;
+    border: 1px solid rgba(92,58,30,0.18); background: #FFFCF7;
+    padding: 0 4.6rem 0 1.8rem; margin: 0;
+    font-family: "Inter", system-ui, sans-serif; font-size: 1.4rem; color: #2A1B0E;
+  }
+  .header-wrapper .eh-search__form .search__input::placeholder { color: #9C8773; }
+  .header-wrapper .eh-search__form .search__input:focus {
+    border-color: #8A5A2E; outline: none; box-shadow: 0 0 0 3px rgba(138,90,46,0.12);
+  }
+  .header-wrapper .eh-search__form .field__label { display: none; }
+  .header-wrapper .eh-search__form .search__button {
+    position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%);
+    width: 3.8rem; height: 3.8rem; border-radius: 50%; display: grid; place-items: center;
+    color: #5C3A1E; background: none; border: none; cursor: pointer;
+  }
+  .header-wrapper .eh-search__form .search__button .svg-wrapper svg { width: 2rem; height: 2rem; }
+  .header-wrapper .eh-search__form .reset__button { position: absolute; right: 4.4rem; top: 50%; transform: translateY(-50%); }
+  .header-wrapper .eh-search .predictive-search {
+    position: absolute; top: calc(100% + 0.6rem); left: 0; right: 0; z-index: 6;
+    border-radius: 1.2rem; overflow: hidden;
+  }
+
+  @media screen and (min-width: 990px) {
+    /* 2 satırlı grid: 1. satır logo|arama|ikonlar, 2. satır kategoriler tam genişlik */
+    .header-wrapper .header {
+      grid-template-areas:
+        'heading search icons'
+        'nav nav nav' !important;
+      grid-template-columns: auto minmax(30rem, 1fr) auto !important;
+      column-gap: 2.4rem;
+      row-gap: 1.4rem;
+      align-items: center;
+    }
+    .header-wrapper .header__heading,
+    .header-wrapper .header > .header__heading-link { grid-area: heading; margin: 0; justify-self: start; }
+    .header-wrapper .eh-search { grid-area: search; display: block; width: 100%; }
+    .header-wrapper .header__icons { grid-area: icons; }
+    .header-wrapper .header__inline-menu { grid-area: nav; margin: 0; justify-content: flex-start; }
+    /* inline arama varken modal arama ikonunu gizle */
+    .header-wrapper .header__search { display: none; }
+  }
+
   /* ---- Üst seviye MEGA menü: TAM GENİŞLİK (header'a sabit, page-width) ---- */
   .header-wrapper .eh-mega__media { display: none; }
   @media screen and (min-width: 990px) {
