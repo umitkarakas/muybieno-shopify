@@ -9,7 +9,7 @@
   #shopify-section-{{ section.id }} .eh-hero {
     max-width: 128rem;
     margin: 0 auto;
-    padding: {{ section.settings.padding_top }}px 2.4rem {{ section.settings.padding_bottom }}px;
+    padding: 32px 2.4rem 28px;
     font-family: "Inter", system-ui, sans-serif;
   }
 
@@ -40,8 +40,8 @@
   #shopify-section-{{ section.id }} .eh-hero__badge svg { width: 1.4rem; height: 1.4rem; }
   #shopify-section-{{ section.id }} .eh-hero__title {
     font-family: "Bricolage Grotesque", system-ui, sans-serif;
-    font-weight: 600; font-size: 6rem; line-height: 1.04; letter-spacing: -0.01em;
-    margin: 2rem 0 0; color: #2A1B0E;
+    font-weight: 600; font-size: 4.2rem; line-height: 1.05; letter-spacing: -0.01em;
+    margin: 1.4rem 0 0; color: #2A1B0E;
   }
   #shopify-section-{{ section.id }} .eh-hero__title em { color: #5C3A1E; font-style: normal; font-weight: 800; }
   #shopify-section-{{ section.id }} .eh-hero__text {
@@ -76,7 +76,7 @@
   /* Görsel kart */
   #shopify-section-{{ section.id }} .eh-hero__visual { position: relative; }
   #shopify-section-{{ section.id }} .eh-hero__card {
-    position: relative; aspect-ratio: 1/1; border-radius: 2.8rem; overflow: hidden;
+    position: relative; aspect-ratio: 16/11; max-height: 40rem; border-radius: 2.8rem; overflow: hidden;
     background: radial-gradient(circle at 32% 26%, #B07A45 0%, #6F4A2A 48%, #3A220F 100%);
     border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 30px 70px rgba(58,34,15,0.32);
     display: flex; align-items: center; justify-content: center;
@@ -112,7 +112,7 @@
 
   /* ---- Göstergeler: içerik hizalı çizgi noktalar (sayfaya gömülü) ---- */
   #shopify-section-{{ section.id }} .eh-hero__dots {
-    display: flex; gap: 0.8rem; margin: 3rem 0 0; padding: 0;
+    display: flex; gap: 0.8rem; margin: 1.8rem 0 0; padding: 0;
   }
   #shopify-section-{{ section.id }} .eh-hero__dot {
     width: 2.6rem; height: 0.45rem; border-radius: 999px; padding: 0; border: none; cursor: pointer;
