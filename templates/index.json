@@ -159,32 +159,17 @@
         "padding_bottom": 16
       }
     },
-    "featured-collection": {
-      "type": "featured-collection",
+    "eh_featured_carousel_WqgRDm": {
+      "type": "eh-featured-carousel",
+      "name": "Öne çıkan carousel",
       "settings": {
-        "collection": "kahveler",
-        "products_to_show": 5,
-        "title": "Öne çıkan kahveler",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 5,
-        "enable_desktop_slider": true,
-        "full_width": true,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-55cc3106-dfb4-45b0-9a7a-a7a898c339d2",
-        "image_ratio": "portrait",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "standard",
-        "columns_mobile": "2",
-        "swipe_on_mobile": true,
+        "heading": "Öne çıkan kahveler",
+        "collection": "avantaj-paketleri",
+        "link_label": "Tümünü gör",
+        "limit": 12,
+        "color_scheme": "",
         "padding_top": 56,
-        "padding_bottom": 68
+        "padding_bottom": 56
       }
     },
     "eh_category_grid": {
@@ -360,6 +345,19 @@
         "padding_bottom": 36
       }
     },
+    "eh_featured_carousel_XPncrB": {
+      "type": "eh-featured-carousel",
+      "name": "Öne çıkan carousel",
+      "settings": {
+        "heading": "Filtre Kahveler",
+        "collection": "ogutulmus-filtre-kahveler",
+        "link_label": "Tümünü gör",
+        "limit": 12,
+        "color_scheme": "",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
     "eh_story": {
       "type": "eh-story",
       "blocks": {
@@ -419,11 +417,12 @@
     "eh_category_bar",
     "eh_hero",
     "eh_feature_strip",
-    "featured-collection",
+    "eh_featured_carousel_WqgRDm",
     "eh_category_grid",
     "eh_tab_carousel",
     "eh_showcase",
     "featured_blog_hw9Vhx",
+    "eh_featured_carousel_XPncrB",
     "eh_story"
   ]
 }
