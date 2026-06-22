@@ -327,6 +327,19 @@
         "padding_bottom": 24
       }
     },
+    "eh_featured_carousel_XPncrB": {
+      "type": "eh-featured-carousel",
+      "name": "Öne çıkan carousel",
+      "settings": {
+        "heading": "Filtre Kahveler",
+        "collection": "ogutulmus-filtre-kahveler",
+        "link_label": "Tümünü gör",
+        "limit": 12,
+        "color_scheme": "",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
     "featured_blog_hw9Vhx": {
       "type": "featured-blog",
       "name": "t:sections.featured-blog.presets.name",
@@ -345,12 +358,12 @@
         "padding_bottom": 36
       }
     },
-    "eh_featured_carousel_XPncrB": {
+    "eh_featured_carousel_7yD4Vk": {
       "type": "eh-featured-carousel",
       "name": "Öne çıkan carousel",
       "settings": {
-        "heading": "Filtre Kahveler",
-        "collection": "ogutulmus-filtre-kahveler",
+        "heading": "Muybieno.com'a Özel",
+        "collection": "cekirdek-kahveler",
         "link_label": "Tümünü gör",
         "limit": 12,
         "color_scheme": "",
@@ -421,8 +434,9 @@
     "eh_category_grid",
     "eh_tab_carousel",
     "eh_showcase",
-    "featured_blog_hw9Vhx",
     "eh_featured_carousel_XPncrB",
+    "featured_blog_hw9Vhx",
+    "eh_featured_carousel_7yD4Vk",
     "eh_story"
   ]
 }
