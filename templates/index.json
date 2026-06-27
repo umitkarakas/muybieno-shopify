@@ -19,146 +19,6 @@
         "padding_bottom": 8
       }
     },
-    "eh_hero": {
-      "type": "eh-hero",
-      "blocks": {
-        "s1": {
-          "type": "slide",
-          "settings": {
-            "badge": "Haftalık taze kavrum",
-            "heading": "<p>Her fincanda <em>eşsiz</em> bir lezzet</p>",
-            "text": "<p>Dünyanın seçkin bölgelerinden, ustalıkla kavrulmuş tek origin çekirdekler. Siparişinizden hemen önce kavurur, tazeliğini kapınıza taşırız.</p>",
-            "button_label": "Kahveleri keşfet",
-            "button_link": "shopify://collections/all",
-            "button2_label": "Aboneliği incele",
-            "button2_link": "shopify://pages/abonelik",
-            "image": "shopify://shop_images/muybieno-guatemala-huehuetenango-250-gr-cekirdek-kahve-tum-urunler-muybieno-orta-amerika-kahveleri-1137-94-B.jpg",
-            "product_label": "Guatemala Huehuetenango",
-            "product_sub": "ORTA KAVRUM · TEK ORIGIN",
-            "float1_key": "Tat profili",
-            "float1_value": "Kakao · Narenciye",
-            "float2_value": "4.9",
-            "float2_key": "2.4K değerlendirme"
-          }
-        },
-        "s2": {
-          "type": "slide",
-          "settings": {
-            "badge": "Abonelikle %10 indirim",
-            "heading": "<p>Taze kahve, <em>her ay</em> kapında</p>",
-            "text": "<p>Seç, abone ol, gerisini bize bırak. Her teslimatta taze kavrulmuş çekirdekler; dilediğin zaman duraklat veya iptal et.</p>",
-            "button_label": "Aboneliği keşfet",
-            "button_link": "shopify://pages/abonelik",
-            "button2_label": "Kahveleri gör",
-            "button2_link": "shopify://collections/all",
-            "image": "shopify://shop_images/muybieno-cift-cam-french-press-350-ml-french-press-muybieno-ekipmanlar-961-93-B.png",
-            "product_label": "Aylık Abonelik",
-            "product_sub": "TAZE KAVRUM · ESNEK PLAN",
-            "float1_key": "Teslimat",
-            "float1_value": "Her ay kapında",
-            "float2_value": "%10",
-            "float2_key": "abone indirimi"
-          }
-        },
-        "s3": {
-          "type": "slide",
-          "settings": {
-            "badge": "Demleme ekipmanları",
-            "heading": "<p>Evinde <em>barista</em> deneyimi</p>",
-            "text": "<p>V60, French press, dripper ve daha fazlası — her yönteme uygun ekipman ve taze öğütümle profesyonel demleme.</p>",
-            "button_label": "Ekipmanları keşfet",
-            "button_link": "shopify://collections/demleme-ekipmanlari",
-            "button2_label": "Tüm ürünler",
-            "button2_link": "shopify://collections/all",
-            "image": "shopify://shop_images/muybieno-siyah-seramik-dripper-ve-muybieno-demleme-kagidi-seti-50li-demleme-ekipmanlari-muybieno-ekipmanlar-992-93-B.jpg",
-            "product_label": "Demleme Setleri",
-            "product_sub": "V60 · FRENCH PRESS",
-            "float1_key": "Tat profili",
-            "float1_value": "Berrak & temiz",
-            "float2_value": "4.8",
-            "float2_key": "ekipman puanı"
-          }
-        }
-      },
-      "block_order": [
-        "s1",
-        "s2",
-        "s3"
-      ],
-      "settings": {
-        "autoplay_speed": 6,
-        "stat1_num": "12+",
-        "stat1_label": "Tek origin bölge",
-        "stat2_num": "48 sa",
-        "stat2_label": "Kavrumdan teslime",
-        "stat3_num": "9.8K",
-        "stat3_label": "Mutlu kahve sever",
-        "badge": "Haftalık taze kavrum",
-        "heading": "<p>Her fincanda <em>muy bien</em> bir lezzet</p>",
-        "text": "<p>Dünyanın seçkin bölgelerinden, ustalıkla kavrulmuş tek origin çekirdekler ve demleme ekipmanları. Siparişinizden hemen önce kavurur, tazeliğini kapınıza taşırız.</p>",
-        "button_label": "Kahveleri keşfet",
-        "button_link": "shopify://collections/all",
-        "button2_label": "Aboneliği incele",
-        "button2_link": "",
-        "image": "shopify://shop_images/aloha-kahve-degirmeni-seti-cam-yedek-hazneli-demleme-ekipmanlari-aloha-ekipmanlar-964-92-B.jpg",
-        "product_label": "Guatemala Huehuetenango",
-        "product_sub": "ORTA KAVRUM · TEK ORIGIN",
-        "float1_key": "Tat profili",
-        "float1_value": "Kakao · Narenciye",
-        "float2_value": "4.9",
-        "float2_key": "2.4K değerlendirme",
-        "padding_top": 56,
-        "padding_bottom": 20
-      }
-    },
-    "eh_feature_strip": {
-      "type": "eh-feature-strip",
-      "blocks": {
-        "f1": {
-          "type": "feature",
-          "settings": {
-            "icon": "leaf",
-            "title": "Her zaman en taze",
-            "text": "Özenle kavrularak tazeliğini korur"
-          }
-        },
-        "f2": {
-          "type": "feature",
-          "settings": {
-            "icon": "truck",
-            "title": "Ücretsiz Kargo",
-            "text": "₺879 üzeri siparişlerde"
-          }
-        },
-        "f3": {
-          "type": "feature",
-          "settings": {
-            "icon": "clock",
-            "title": "Hızlı Gönderim",
-            "text": "12:00'a verdiğiniz siparişler aynı gün kargoda"
-          }
-        },
-        "f4": {
-          "type": "feature",
-          "settings": {
-            "icon": "lock",
-            "title": "Güvenli Ödeme",
-            "text": "256-bit SSL ile"
-          }
-        }
-      },
-      "block_order": [
-        "f1",
-        "f2",
-        "f3",
-        "f4"
-      ],
-      "settings": {
-        "color_scheme": "background-1",
-        "padding_top": 16,
-        "padding_bottom": 16
-      }
-    },
     "eh_featured_carousel_WqgRDm": {
       "type": "eh-featured-carousel",
       "name": "Öne çıkan carousel",
@@ -247,6 +107,145 @@
         "padding_bottom": 20
       }
     },
+    "eh_feature_strip": {
+      "type": "eh-feature-strip",
+      "blocks": {
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "icon": "leaf",
+            "title": "Her zaman en taze",
+            "text": "Özenle kavrularak tazeliğini korur"
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "title": "Ücretsiz Kargo",
+            "text": "₺879 üzeri siparişlerde"
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "icon": "clock",
+            "title": "Hızlı Gönderim",
+            "text": "12:00'a verdiğiniz siparişler aynı gün kargoda"
+          }
+        },
+        "f4": {
+          "type": "feature",
+          "settings": {
+            "icon": "lock",
+            "title": "Güvenli Ödeme",
+            "text": "256-bit SSL ile"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "eh_hero": {
+      "type": "eh-hero",
+      "blocks": {
+        "s1": {
+          "type": "slide",
+          "settings": {
+            "badge": "Haftalık taze kavrum",
+            "heading": "<p>Her fincanda <em>eşsiz</em> bir lezzet</p>",
+            "text": "<p>Dünyanın seçkin bölgelerinden, ustalıkla kavrulmuş tek origin çekirdekler. Siparişinizden hemen önce kavurur, tazeliğini kapınıza taşırız.</p>",
+            "button_label": "Kahveleri keşfet",
+            "button_link": "shopify://collections/all",
+            "button2_label": "Aboneliği incele",
+            "button2_link": "shopify://pages/abonelik",
+            "product_label": "Guatemala Huehuetenango",
+            "product_sub": "ORTA KAVRUM · TEK ORIGIN",
+            "float1_key": "Tat profili",
+            "float1_value": "Kakao · Narenciye",
+            "float2_value": "4.9",
+            "float2_key": "2.4K değerlendirme"
+          }
+        },
+        "s2": {
+          "type": "slide",
+          "settings": {
+            "badge": "Abonelikle %10 indirim",
+            "heading": "<p>Taze kahve, <em>her ay</em> kapında</p>",
+            "text": "<p>Seç, abone ol, gerisini bize bırak. Her teslimatta taze kavrulmuş çekirdekler; dilediğin zaman duraklat veya iptal et.</p>",
+            "button_label": "Aboneliği keşfet",
+            "button_link": "shopify://pages/abonelik",
+            "button2_label": "Kahveleri gör",
+            "button2_link": "shopify://collections/all",
+            "image": "shopify://shop_images/muybieno-cift-cam-french-press-350-ml-french-press-muybieno-ekipmanlar-961-93-B.png",
+            "product_label": "Aylık Abonelik",
+            "product_sub": "TAZE KAVRUM · ESNEK PLAN",
+            "float1_key": "Teslimat",
+            "float1_value": "Her ay kapında",
+            "float2_value": "%10",
+            "float2_key": "abone indirimi"
+          }
+        },
+        "s3": {
+          "type": "slide",
+          "settings": {
+            "badge": "Demleme ekipmanları",
+            "heading": "<p>Evinde <em>barista</em> deneyimi</p>",
+            "text": "<p>V60, French press, dripper ve daha fazlası — her yönteme uygun ekipman ve taze öğütümle profesyonel demleme.</p>",
+            "button_label": "Ekipmanları keşfet",
+            "button_link": "shopify://collections/demleme-ekipmanlari",
+            "button2_label": "Tüm ürünler",
+            "button2_link": "shopify://collections/all",
+            "product_label": "Demleme Setleri",
+            "product_sub": "V60 · FRENCH PRESS",
+            "float1_key": "Tat profili",
+            "float1_value": "Berrak & temiz",
+            "float2_value": "4.8",
+            "float2_key": "ekipman puanı"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "disabled": true,
+      "settings": {
+        "autoplay_speed": 6,
+        "stat1_num": "12+",
+        "stat1_label": "Tek origin bölge",
+        "stat2_num": "48 sa",
+        "stat2_label": "Kavrumdan teslime",
+        "stat3_num": "9.8K",
+        "stat3_label": "Mutlu kahve sever",
+        "badge": "Haftalık taze kavrum",
+        "heading": "<p>Her fincanda <em>muy bien</em> bir lezzet</p>",
+        "text": "<p>Dünyanın seçkin bölgelerinden, ustalıkla kavrulmuş tek origin çekirdekler ve demleme ekipmanları. Siparişinizden hemen önce kavurur, tazeliğini kapınıza taşırız.</p>",
+        "button_label": "Kahveleri keşfet",
+        "button_link": "shopify://collections/all",
+        "button2_label": "Aboneliği incele",
+        "button2_link": "",
+        "image": "shopify://shop_images/aloha-kahve-degirmeni-seti-cam-yedek-hazneli-demleme-ekipmanlari-aloha-ekipmanlar-964-92-B.jpg",
+        "product_label": "Guatemala Huehuetenango",
+        "product_sub": "ORTA KAVRUM · TEK ORIGIN",
+        "float1_key": "Tat profili",
+        "float1_value": "Kakao · Narenciye",
+        "float2_value": "4.9",
+        "float2_key": "2.4K değerlendirme",
+        "padding_top": 56,
+        "padding_bottom": 20
+      }
+    },
     "eh_tab_carousel": {
       "type": "eh-tab-carousel",
       "settings": {
@@ -262,7 +261,6 @@
         "c0": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/muybieno-dominik-barahana-250-gr-cekirdek-kahve-tum-urunler-muybieno-orta-amerika-kahveleri-1141-93-B.jpg",
             "collection": "cekirdek-kahveler",
             "link": "",
             "eyebrow": "Premium Seçim<br>",
@@ -276,7 +274,6 @@
         "c1": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/muybieno-siyah-seramik-dripper-ve-muybieno-demleme-kagidi-seti-50li-demleme-ekipmanlari-muybieno-ekipmanlar-992-93-B.jpg",
             "collection": "demleme-ekipmanlari",
             "link": "",
             "eyebrow": "",
@@ -304,7 +301,6 @@
         "c3": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/muybieno-siyah-seramik-dripper-ve-muybieno-demleme-kagidi-seti-50li-demleme-ekipmanlari-muybieno-ekipmanlar-992-93-B.jpg",
             "collection": "kagit-filtreler",
             "link": "",
             "eyebrow": "",
@@ -417,7 +413,6 @@
         "eyebrow": "Hikayemiz",
         "heading": "Çekirdekten fincana, ustalıkla",
         "text": "Muybieno, kahveyi bir ritüel olarak görenler için kuruldu. Üreticiyle doğrudan çalışır, küçük partiler hâlinde kavururuz. Amacımız basit: her fincanda bölgenin karakterini taze ve dürüst biçimde sunmak.",
-        "image": "shopify://shop_images/kahve-iconu-200-x-200.png",
         "placeholder_label": "kavurma atölyesi fotoğrafı",
         "button_label": "Hikayemiz",
         "button_link": "shopify://pages/hikayemiz",
@@ -428,15 +423,15 @@
   },
   "order": [
     "eh_category_bar",
-    "eh_hero",
-    "eh_feature_strip",
     "eh_featured_carousel_WqgRDm",
     "eh_category_grid",
+    "eh_featured_carousel_7yD4Vk",
+    "eh_feature_strip",
+    "eh_hero",
     "eh_tab_carousel",
     "eh_showcase",
     "eh_featured_carousel_XPncrB",
     "featured_blog_hw9Vhx",
-    "eh_featured_carousel_7yD4Vk",
     "eh_story"
   ]
 }
