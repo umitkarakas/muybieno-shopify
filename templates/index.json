@@ -24,7 +24,7 @@
       "name": "Öne çıkan carousel",
       "settings": {
         "heading": "Öne çıkan kahveler",
-        "collection": "avantaj-paketleri",
+        "collection": "avantaj-paketleri-1",
         "link_label": "Tümünü gör",
         "limit": 12,
         "color_scheme": "",
@@ -105,6 +105,19 @@
         "link": "shopify://collections/all",
         "padding_top": 44,
         "padding_bottom": 20
+      }
+    },
+    "eh_featured_carousel_7yD4Vk": {
+      "type": "eh-featured-carousel",
+      "name": "Öne çıkan carousel",
+      "settings": {
+        "heading": "Muybieno.com'a Özel",
+        "collection": "cekirdek-kahveler",
+        "link_label": "Tümünü gör",
+        "limit": 12,
+        "color_scheme": "",
+        "padding_top": 56,
+        "padding_bottom": 56
       }
     },
     "eh_feature_strip": {
@@ -352,19 +365,6 @@
         "color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
-      }
-    },
-    "eh_featured_carousel_7yD4Vk": {
-      "type": "eh-featured-carousel",
-      "name": "Öne çıkan carousel",
-      "settings": {
-        "heading": "Muybieno.com'a Özel",
-        "collection": "cekirdek-kahveler",
-        "link_label": "Tümünü gör",
-        "limit": 12,
-        "color_scheme": "",
-        "padding_top": 56,
-        "padding_bottom": 56
       }
     },
     "eh_story": {
