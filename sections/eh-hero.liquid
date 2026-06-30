@@ -1,162 +1,89 @@
 {% comment %}
-  Muybieno — bespoke hero SLIDER (iki kolon: metin + espresso ürün kartı).
-  Sayfayla bütünleşik: klasik ok/çerçeve yok; slide'lar yumuşak crossfade ile geçer,
-  içerik hizalı minimal çizgi göstergeler, otomatik geçiş, mobilde kaydırma.
+  Muybieno — SADE hero slider: sol espresso panel (başlık + alt yazı + buton) + sağ görsel.
   Slide'lar 'slide' blokları; blok yoksa section.settings'ten tek slide (geri uyum).
+  Crossfade + oklar + noktalar + otomatik geçiş + mobilde kaydırma.
 {% endcomment %}
 {%- style -%}
-  #shopify-section-{{ section.id }} { background: transparent; }
-  #shopify-section-{{ section.id }} .eh-hero {
-    max-width: 128rem;
-    margin: 0 auto;
-    padding: 32px 2.4rem 28px;
-    font-family: "Inter", system-ui, sans-serif;
-  }
+  #shopify-section-{{ section.id }} .eh-hero2 { position: relative; max-width: 128rem; margin: 0 auto; padding: 24px 2.4rem 8px; }
+  #shopify-section-{{ section.id }} .eh-hero2__frame { position: relative; border-radius: 2rem; overflow: hidden; box-shadow: 0 20px 50px rgba(58,34,15,0.14); }
+  #shopify-section-{{ section.id }} .eh-hero2__slides { display: grid; }
+  #shopify-section-{{ section.id }} .eh-hero__slide { grid-area: 1 / 1; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .5s ease; }
+  #shopify-section-{{ section.id }} .eh-hero__slide.is-active { opacity: 1; visibility: visible; pointer-events: auto; }
 
-  /* ---- Slider sarmalayıcı: slide'lar aynı hücrede yığılır, crossfade ---- */
-  #shopify-section-{{ section.id }} .eh-hero__slides { display: grid; }
-  #shopify-section-{{ section.id }} .eh-hero__slide {
-    grid-area: 1 / 1;
-    opacity: 0; visibility: hidden; pointer-events: none;
-    transition: opacity .6s ease;
+  #shopify-section-{{ section.id }} .eh-hero2__in { display: grid; grid-template-columns: 1fr 1fr; min-height: 42rem; }
+  #shopify-section-{{ section.id }} .eh-hero2__text {
+    background: linear-gradient(135deg, #5C3A1E 0%, #43280F 100%);
+    color: #FBF3E7; padding: 4.5rem 4.5rem; display: flex; flex-direction: column; justify-content: center;
   }
-  #shopify-section-{{ section.id }} .eh-hero__slide.is-active {
-    opacity: 1; visibility: visible; pointer-events: auto;
+  #shopify-section-{{ section.id }} .eh-hero2__badge {
+    align-self: flex-start; display: inline-block; margin: 0 0 1.6rem;
+    font-family: "Inter", system-ui, sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #E8C9A0; padding: 0.6rem 1.2rem; border: 1px solid rgba(232,201,160,0.4); border-radius: 999px;
   }
+  #shopify-section-{{ section.id }} .eh-hero2__title { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-weight: 700; font-size: 4.4rem; line-height: 1.08; color: #FBF3E7; }
+  #shopify-section-{{ section.id }} .eh-hero2__title p { margin: 0; }
+  #shopify-section-{{ section.id }} .eh-hero2__title em { font-style: normal; color: #E8C9A0; }
+  #shopify-section-{{ section.id }} .eh-hero2__sub { font-family: "Inter", system-ui, sans-serif; font-size: 1.7rem; line-height: 1.55; color: #E8D5BE; margin: 1.6rem 0 0; }
+  #shopify-section-{{ section.id }} .eh-hero2__sub p { margin: 0; }
+  #shopify-section-{{ section.id }} .eh-hero2__btn {
+    align-self: flex-start; margin-top: 2.8rem; background: #FFFCF7; color: #3A2818;
+    font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 1.5rem;
+    padding: 1.3rem 2.8rem; border-radius: 999px; text-decoration: none; transition: transform .15s ease, filter .15s ease;
+  }
+  #shopify-section-{{ section.id }} .eh-hero2__btn:hover { transform: translateY(-2px); filter: brightness(0.97); }
+  #shopify-section-{{ section.id }} .eh-hero2__media { position: relative; background: #EFE3D2; }
+  #shopify-section-{{ section.id }} .eh-hero2__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  #shopify-section-{{ section.id }} .eh-hero2__media-ph { width: 100%; height: 100%; min-height: 42rem; background: radial-gradient(circle at 40% 35%, #B07A45, #4A2C17); }
 
-  #shopify-section-{{ section.id }} .eh-hero__grid {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 4rem;
-    align-items: center;
+  #shopify-section-{{ section.id }} .eh-hero2__nav {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+    width: 4rem; height: 4rem; border-radius: 50%; border: none; cursor: pointer;
+    background: rgba(255,252,247,0.92); color: #5C3A1E; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18); transition: background .15s ease;
   }
-  #shopify-section-{{ section.id }} .eh-hero__badge {
-    display: inline-flex; align-items: center; gap: 0.8rem;
-    padding: 0.7rem 1.4rem; border-radius: 999px;
-    background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.75);
-    font-size: 1.2rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-    color: #A0662F; box-shadow: 0 8px 20px rgba(74,44,23,0.06);
-  }
-  #shopify-section-{{ section.id }} .eh-hero__badge svg { width: 1.4rem; height: 1.4rem; }
-  #shopify-section-{{ section.id }} .eh-hero__title {
-    font-family: "Bricolage Grotesque", system-ui, sans-serif;
-    font-weight: 600; font-size: 4.2rem; line-height: 1.05; letter-spacing: -0.01em;
-    margin: 1.4rem 0 0; color: #2A1B0E;
-  }
-  #shopify-section-{{ section.id }} .eh-hero__title em { color: #5C3A1E; font-style: normal; font-weight: 800; }
-  #shopify-section-{{ section.id }} .eh-hero__text {
-    font-size: 1.7rem; line-height: 1.6; color: #6E5947; margin: 2rem 0 0;
-    max-width: 46rem; font-weight: 500;
-  }
-  #shopify-section-{{ section.id }} .eh-hero__cta { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: 2.8rem; }
-  #shopify-section-{{ section.id }} .eh-hero__btn {
-    display: inline-flex; align-items: center; gap: 0.9rem; height: 5.2rem; padding: 0 2.6rem;
-    border-radius: 1.4rem; border: none; cursor: pointer; text-decoration: none;
-    font-size: 1.5rem; font-weight: 700; transition: transform .2s, filter .2s, background .2s;
-  }
-  #shopify-section-{{ section.id }} .eh-hero__btn--primary {
-    background: linear-gradient(135deg,#5C3A1E 0%,#8A5A2E 55%,#B07A45 100%);
-    color: #FBF3E7; box-shadow: 0 18px 34px rgba(124,80,40,0.28);
-  }
-  #shopify-section-{{ section.id }} .eh-hero__btn--primary:hover { filter: brightness(1.06); transform: translateY(-2px); }
-  #shopify-section-{{ section.id }} .eh-hero__btn--primary svg { width: 1.8rem; height: 1.8rem; }
-  #shopify-section-{{ section.id }} .eh-hero__btn--ghost {
-    background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.8);
-    color: #3A2818; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
-    box-shadow: 0 12px 28px rgba(74,44,23,0.06);
-  }
-  #shopify-section-{{ section.id }} .eh-hero__btn--ghost:hover { background: rgba(255,255,255,0.85); transform: translateY(-2px); }
-  #shopify-section-{{ section.id }} .eh-hero__stats { display: flex; gap: 2.8rem; margin-top: 3.6rem; flex-wrap: wrap; }
-  #shopify-section-{{ section.id }} .eh-hero__stat-num {
-    font-family: "Bricolage Grotesque", system-ui, sans-serif; font-size: 3rem; font-weight: 700; color: #5C3A1E;
-  }
-  #shopify-section-{{ section.id }} .eh-hero__stat-lbl { font-size: 1.25rem; color: #8A7560; font-weight: 600; }
-  #shopify-section-{{ section.id }} .eh-hero__divider { width: 1px; background: rgba(92,58,30,0.14); }
+  #shopify-section-{{ section.id }} .eh-hero2__nav:hover { background: #fff; }
+  #shopify-section-{{ section.id }} .eh-hero2__nav svg { width: 2rem; height: 2rem; }
+  #shopify-section-{{ section.id }} .eh-hero2__nav--prev { left: 1.4rem; }
+  #shopify-section-{{ section.id }} .eh-hero2__nav--next { right: 1.4rem; }
 
-  /* Görsel kart */
-  #shopify-section-{{ section.id }} .eh-hero__visual { position: relative; }
-  #shopify-section-{{ section.id }} .eh-hero__card {
-    position: relative; aspect-ratio: 16/11; max-height: 40rem; border-radius: 2.8rem; overflow: hidden;
-    background: radial-gradient(circle at 32% 26%, #B07A45 0%, #6F4A2A 48%, #3A220F 100%);
-    border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 30px 70px rgba(58,34,15,0.32);
-    display: flex; align-items: center; justify-content: center;
-  }
-  #shopify-section-{{ section.id }} .eh-hero__card img { width: 100%; height: 100%; object-fit: cover; }
-  #shopify-section-{{ section.id }} .eh-hero__card-ico { width: 12rem; height: 12rem; color: rgba(251,243,231,0.30); }
-  #shopify-section-{{ section.id }} .eh-hero__card-shade {
-    position: absolute; left: 0; right: 0; bottom: 0; height: 42%;
-    background: linear-gradient(to top, rgba(42,27,14,0.55), transparent);
-  }
-  #shopify-section-{{ section.id }} .eh-hero__card-label { position: absolute; left: 2.2rem; bottom: 2rem; color: #FBF3E7; }
-  #shopify-section-{{ section.id }} .eh-hero__card-label .t { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-size: 2.4rem; font-weight: 600; }
-  #shopify-section-{{ section.id }} .eh-hero__card-label .s { font-size: 1.25rem; color: #E8D5B5; font-weight: 600; letter-spacing: 0.04em; }
+  #shopify-section-{{ section.id }} .eh-hero__dots { display: flex; gap: 0.7rem; justify-content: center; margin: 1.6rem 0 0; padding: 0; }
+  #shopify-section-{{ section.id }} .eh-hero__dot { width: 1rem; height: 1rem; border-radius: 50%; padding: 0; border: none; cursor: pointer; background: rgba(92,58,30,0.22); transition: background .2s ease, transform .2s ease; }
+  #shopify-section-{{ section.id }} .eh-hero__dot.is-active { background: #5C3A1E; transform: scale(1.15); }
 
-  #shopify-section-{{ section.id }} .eh-hero__float {
-    position: absolute; display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.6rem;
-    border-radius: 1.6rem; background: rgba(251,247,241,0.7); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 18px 40px rgba(74,44,23,0.14);
-  }
-  #shopify-section-{{ section.id }} .eh-hero__float--tl { left: -1.8rem; top: 3rem; animation: eh-floaty 5s ease-in-out infinite; }
-  #shopify-section-{{ section.id }} .eh-hero__float--br { right: -1.4rem; bottom: 3.4rem; animation: eh-floaty 6s ease-in-out infinite 0.6s; }
-  #shopify-section-{{ section.id }} .eh-hero__float-ico {
-    width: 3.8rem; height: 3.8rem; border-radius: 1.1rem; flex: none;
-    background: linear-gradient(135deg,#8A5A2E,#B07A45); display: flex; align-items: center; justify-content: center;
-  }
-  #shopify-section-{{ section.id }} .eh-hero__float-ico svg { width: 1.8rem; height: 1.8rem; color: #FBF3E7; }
-  #shopify-section-{{ section.id }} .eh-hero__float .k { font-size: 1.1rem; color: #8A7560; font-weight: 600; }
-  #shopify-section-{{ section.id }} .eh-hero__float .v { font-size: 1.35rem; font-weight: 700; color: #3A2818; }
-  #shopify-section-{{ section.id }} .eh-hero__float--br .star { width: 2rem; height: 2rem; color: #C99A5B; flex: none; }
-  #shopify-section-{{ section.id }} .eh-hero__float--br .v { font-size: 1.5rem; font-weight: 800; }
-
-  @keyframes eh-floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-
-  /* ---- Göstergeler: içerik hizalı çizgi noktalar (sayfaya gömülü) ---- */
-  #shopify-section-{{ section.id }} .eh-hero__dots {
-    display: flex; gap: 0.8rem; margin: 1.8rem 0 0; padding: 0;
-  }
-  #shopify-section-{{ section.id }} .eh-hero__dot {
-    width: 2.6rem; height: 0.45rem; border-radius: 999px; padding: 0; border: none; cursor: pointer;
-    background: rgba(92,58,30,0.18); transition: background .25s ease, width .25s ease;
-  }
-  #shopify-section-{{ section.id }} .eh-hero__dot:hover { background: rgba(92,58,30,0.34); }
-  #shopify-section-{{ section.id }} .eh-hero__dot.is-active {
-    width: 4rem; background: linear-gradient(135deg,#5C3A1E,#8A5A2E);
-  }
-
-  @media screen and (max-width: 900px) {
-    #shopify-section-{{ section.id }} .eh-hero { padding-top: 3.2rem; padding-bottom: 1.6rem; }
-    #shopify-section-{{ section.id }} .eh-hero__grid { grid-template-columns: 1fr; gap: 2.4rem; }
-    #shopify-section-{{ section.id }} .eh-hero__title { font-size: 4rem; margin-top: 1.6rem; }
-    #shopify-section-{{ section.id }} .eh-hero__text { font-size: 1.55rem; margin-top: 1.4rem; }
-    #shopify-section-{{ section.id }} .eh-hero__cta { margin-top: 2rem; }
-    #shopify-section-{{ section.id }} .eh-hero__stats { gap: 1.8rem; margin-top: 2.4rem; }
-    #shopify-section-{{ section.id }} .eh-hero__visual { max-width: 38rem; margin: 0 auto; width: 100%; }
-    #shopify-section-{{ section.id }} .eh-hero__dots { justify-content: center; margin-top: 2.4rem; }
-  }
-  @media screen and (max-width: 560px) {
-    #shopify-section-{{ section.id }} .eh-hero__title { font-size: 3.4rem; }
-    #shopify-section-{{ section.id }} .eh-hero__stats {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem;
-    }
-    #shopify-section-{{ section.id }} .eh-hero__divider { display: none; }
-    #shopify-section-{{ section.id }} .eh-hero__stat-num { font-size: 2.4rem; }
-    #shopify-section-{{ section.id }} .eh-hero__stat-lbl { font-size: 1.1rem; line-height: 1.25; }
-    #shopify-section-{{ section.id }} .eh-hero__btn { height: 4.8rem; }
+  @media screen and (max-width: 860px) {
+    #shopify-section-{{ section.id }} .eh-hero2 { padding: 16px 1.4rem 6px; }
+    #shopify-section-{{ section.id }} .eh-hero2__in { grid-template-columns: 1fr; min-height: 0; }
+    #shopify-section-{{ section.id }} .eh-hero2__media { order: -1; aspect-ratio: 16 / 11; }
+    #shopify-section-{{ section.id }} .eh-hero2__media-ph { min-height: 0; aspect-ratio: 16 / 11; }
+    #shopify-section-{{ section.id }} .eh-hero2__text { padding: 2.8rem 2rem; }
+    #shopify-section-{{ section.id }} .eh-hero2__title { font-size: 3rem; }
+    #shopify-section-{{ section.id }} .eh-hero2__sub { font-size: 1.5rem; }
+    #shopify-section-{{ section.id }} .eh-hero2__nav { width: 3.4rem; height: 3.4rem; }
   }
   @media (prefers-reduced-motion: reduce) {
-    #shopify-section-{{ section.id }} .eh-hero__float { animation: none !important; }
     #shopify-section-{{ section.id }} .eh-hero__slide { transition: none; }
   }
 {%- endstyle -%}
 
-<section class="eh-hero" data-eh-hero data-eh-autoplay="{{ section.settings.autoplay_speed | times: 1000 }}">
-  <div class="eh-hero__slides">
-    {%- if section.blocks.size > 0 -%}
-      {%- for block in section.blocks -%}
-        {% render 'eh-hero-slide', s: block.settings, st: section.settings, index: forloop.index0, active: forloop.first, attrs: block.shopify_attributes %}
-      {%- endfor -%}
-    {%- else -%}
-      {% render 'eh-hero-slide', s: section.settings, st: section.settings, index: 0, active: true %}
+<section class="eh-hero2" data-eh-hero data-eh-autoplay="{{ section.settings.autoplay_speed | times: 1000 }}">
+  <div class="eh-hero2__frame">
+    <div class="eh-hero2__slides">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {% render 'eh-hero-slide', s: block.settings, active: forloop.first, attrs: block.shopify_attributes %}
+        {%- endfor -%}
+      {%- else -%}
+        {% render 'eh-hero-slide', s: section.settings, active: true %}
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 1 -%}
+      <button type="button" class="eh-hero2__nav eh-hero2__nav--prev" data-eh-prev aria-label="Önceki">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button type="button" class="eh-hero2__nav eh-hero2__nav--next" data-eh-next aria-label="Sonraki">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
     {%- endif -%}
   </div>
 
@@ -183,25 +110,22 @@
 
     function show(k) {
       i = (k + n) % n;
-      slides.forEach(function (sl, idx) {
-        var on = idx === i;
-        sl.classList.toggle('is-active', on);
-        if (on) { sl.removeAttribute('aria-hidden'); } else { sl.setAttribute('aria-hidden', 'true'); }
-      });
+      slides.forEach(function (sl, idx) { sl.classList.toggle('is-active', idx === i); });
       dots.forEach(function (d, idx) { d.classList.toggle('is-active', idx === i); });
     }
     function next() { show(i + 1); }
+    function prev() { show(i - 1); }
     function start() { if (reduce) return; stop(); timer = setInterval(next, speed); }
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
 
-    dots.forEach(function (d, idx) {
-      d.addEventListener('click', function () { show(idx); start(); });
-    });
+    dots.forEach(function (d, idx) { d.addEventListener('click', function () { show(idx); start(); }); });
+    var pb = root.querySelector('[data-eh-prev]'); if (pb) pb.addEventListener('click', function () { prev(); start(); });
+    var nb = root.querySelector('[data-eh-next]'); if (nb) nb.addEventListener('click', function () { next(); start(); });
+
     root.addEventListener('mouseenter', stop);
     root.addEventListener('mouseleave', start);
     document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
 
-    /* Mobilde kaydırma */
     var x0 = null;
     root.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; stop(); }, { passive: true });
     root.addEventListener('touchend', function (e) {
@@ -222,33 +146,16 @@
   "class": "eh-hero-section",
   "max_blocks": 5,
   "settings": [
-    { "type": "paragraph", "content": "Slayt eklemek için aşağıdan 'Slayt' bloğu ekleyin. Slayt yoksa aşağıdaki tekil ayarlar kullanılır. İstatistikler ve boşluk tüm slaytlarda ortaktır." },
+    { "type": "paragraph", "content": "Slayt eklemek için aşağıdan 'Slayt' bloğu ekleyin. Her slayt: sol espresso panel (başlık + alt yazı + buton) + sağ görsel." },
     { "type": "range", "id": "autoplay_speed", "min": 3, "max": 12, "step": 1, "unit": "sn", "label": "Otomatik geçiş süresi", "default": 6 },
-    { "type": "header", "content": "İstatistikler (tüm slaytlarda ortak)" },
-    { "type": "text", "id": "stat1_num", "label": "1 — değer", "default": "12+" },
-    { "type": "text", "id": "stat1_label", "label": "1 — etiket", "default": "Tek origin bölge" },
-    { "type": "text", "id": "stat2_num", "label": "2 — değer", "default": "48 sa" },
-    { "type": "text", "id": "stat2_label", "label": "2 — etiket", "default": "Kavrumdan teslime" },
-    { "type": "text", "id": "stat3_num", "label": "3 — değer", "default": "9.8K" },
-    { "type": "text", "id": "stat3_label", "label": "3 — etiket", "default": "Mutlu kahve sever" },
     { "type": "header", "content": "Tekil içerik (slayt bloğu yoksa kullanılır)" },
     { "type": "text", "id": "badge", "label": "Rozet metni", "default": "Haftalık taze kavrum" },
-    { "type": "richtext", "id": "heading", "label": "Başlık", "default": "<p>Her fincanda <em>muy bien</em> bir lezzet</p>" },
-    { "type": "richtext", "id": "text", "label": "Açıklama", "default": "<p>Dünyanın seçkin bölgelerinden, ustalıkla kavrulmuş tek origin çekirdekler ve demleme ekipmanları. Siparişinizden hemen önce kavurur, tazeliğini kapınıza taşırız.</p>" },
-    { "type": "text", "id": "button_label", "label": "Birincil buton", "default": "Kahveleri keşfet" },
-    { "type": "url", "id": "button_link", "label": "Birincil buton linki" },
-    { "type": "text", "id": "button2_label", "label": "İkincil buton", "default": "Aboneliği incele" },
-    { "type": "url", "id": "button2_link", "label": "İkincil buton linki" },
-    { "type": "image_picker", "id": "image", "label": "Ürün görseli" },
-    { "type": "text", "id": "product_label", "label": "Ürün adı", "default": "Guatemala Huehuetenango" },
-    { "type": "text", "id": "product_sub", "label": "Ürün alt etiketi", "default": "ORTA KAVRUM · TEK ORIGIN" },
-    { "type": "text", "id": "float1_key", "label": "Sol kart — üst", "default": "Tat profili" },
-    { "type": "text", "id": "float1_value", "label": "Sol kart — alt", "default": "Kakao · Narenciye" },
-    { "type": "text", "id": "float2_value", "label": "Sağ kart — değer", "default": "4.9" },
-    { "type": "text", "id": "float2_key", "label": "Sağ kart — etiket", "default": "2.4K değerlendirme" },
-    { "type": "header", "content": "Boşluk" },
-    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Üst boşluk", "default": 56 },
-    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Alt boşluk", "default": 20 }
+    { "type": "richtext", "id": "heading", "label": "Başlık", "default": "<p>Her fincanda <em>eşsiz</em> bir lezzet</p>" },
+    { "type": "richtext", "id": "text", "label": "Açıklama", "default": "<p>Dünyanın seçkin bölgelerinden, ustalıkla kavrulmuş tek origin çekirdekler.</p>" },
+    { "type": "text", "id": "button_label", "label": "Buton metni", "default": "Kahveleri keşfet" },
+    { "type": "url", "id": "button_link", "label": "Buton linki" },
+    { "type": "image_picker", "id": "image", "label": "Görsel" },
+    { "type": "text", "id": "product_label", "label": "Görsel alt metni (erişilebilirlik)" }
   ],
   "blocks": [
     {
@@ -256,19 +163,12 @@
       "name": "Slayt",
       "settings": [
         { "type": "text", "id": "badge", "label": "Rozet metni" },
-        { "type": "richtext", "id": "heading", "label": "Başlık", "info": "<em>...</em> espresso renginde vurgu." },
+        { "type": "richtext", "id": "heading", "label": "Başlık", "info": "<em>...</em> krem renginde vurgu." },
         { "type": "richtext", "id": "text", "label": "Açıklama" },
-        { "type": "text", "id": "button_label", "label": "Birincil buton" },
-        { "type": "url", "id": "button_link", "label": "Birincil buton linki" },
-        { "type": "text", "id": "button2_label", "label": "İkincil buton" },
-        { "type": "url", "id": "button2_link", "label": "İkincil buton linki" },
-        { "type": "image_picker", "id": "image", "label": "Ürün görseli" },
-        { "type": "text", "id": "product_label", "label": "Ürün adı" },
-        { "type": "text", "id": "product_sub", "label": "Ürün alt etiketi" },
-        { "type": "text", "id": "float1_key", "label": "Sol kart — üst" },
-        { "type": "text", "id": "float1_value", "label": "Sol kart — alt" },
-        { "type": "text", "id": "float2_value", "label": "Sağ kart — değer" },
-        { "type": "text", "id": "float2_key", "label": "Sağ kart — etiket" }
+        { "type": "text", "id": "button_label", "label": "Buton metni" },
+        { "type": "url", "id": "button_link", "label": "Buton linki" },
+        { "type": "image_picker", "id": "image", "label": "Görsel" },
+        { "type": "text", "id": "product_label", "label": "Görsel alt metni (erişilebilirlik)" }
       ]
     }
   ],
