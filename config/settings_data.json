@@ -11,7 +11,7 @@
   "current": {
     "logo": "shopify://shop_images/logo_-_Eko_Kuruyemis.jpg",
     "logo_width": 70,
-    "favicon": "shopify://shop_images/logo_-_Eko_Kuruyemis.jpg",
+    "favicon": "shopify://shop_images/Muybieno_Logo_Kare_5b066f91-f61d-4fdf-acfb-a671a4a9bb68.png",
     "type_header_font": "poppins_n4",
     "heading_scale": 120,
     "type_body_font": "poppins_n4",
@@ -146,90 +146,90 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#FDF8EF",
+          "background": "#fdf8ef",
           "background_gradient": "linear-gradient(180deg, rgba(255, 252, 247, 1) 2%, rgba(245, 233, 215, 1) 98%)",
-          "text": "#2A1B0E",
-          "button": "#5C3A1E",
-          "button_label": "#FBF3E7",
-          "secondary_button_label": "#5C3A1E",
-          "shadow": "#4A2C17"
+          "text": "#2a1b0e",
+          "button": "#5c3a1e",
+          "button_label": "#fbf3e7",
+          "secondary_button_label": "#5c3a1e",
+          "shadow": "#4a2c17"
         }
       },
       "scheme-2": {
         "settings": {
-          "background": "#F3E3CB",
+          "background": "#f3e3cb",
           "background_gradient": "radial-gradient(rgba(255, 252, 247, 1), rgba(245, 233, 215, 1) 25%, rgba(232, 213, 181, 1) 100%)",
-          "text": "#2A1B0E",
-          "button": "#5C3A1E",
-          "button_label": "#FBF3E7",
-          "secondary_button_label": "#5C3A1E",
-          "shadow": "#4A2C17"
+          "text": "#2a1b0e",
+          "button": "#5c3a1e",
+          "button_label": "#fbf3e7",
+          "secondary_button_label": "#5c3a1e",
+          "shadow": "#4a2c17"
         }
       },
       "scheme-3": {
         "settings": {
-          "background": "#2A1B0E",
+          "background": "#2a1b0e",
           "background_gradient": "",
-          "text": "#FBF3E7",
-          "button": "#FBF3E7",
-          "button_label": "#5C3A1E",
-          "secondary_button_label": "#FBF3E7",
-          "shadow": "#2A1B0E"
+          "text": "#fbf3e7",
+          "button": "#fbf3e7",
+          "button_label": "#5c3a1e",
+          "secondary_button_label": "#fbf3e7",
+          "shadow": "#2a1b0e"
         }
       },
       "scheme-5": {
         "settings": {
-          "background": "#5C3A1E",
+          "background": "#5c3a1e",
           "background_gradient": "linear-gradient(135deg, rgba(92, 58, 30, 1) 0%, rgba(138, 90, 46, 1) 55%, rgba(176, 122, 69, 1) 100%)",
-          "text": "#FBF3E7",
-          "button": "#FBF3E7",
-          "button_label": "#5C3A1E",
-          "secondary_button_label": "#FBF3E7",
-          "shadow": "#2A1B0E"
+          "text": "#fbf3e7",
+          "button": "#fbf3e7",
+          "button_label": "#5c3a1e",
+          "secondary_button_label": "#fbf3e7",
+          "shadow": "#2a1b0e"
         }
       },
       "scheme-55cc3106-dfb4-45b0-9a7a-a7a898c339d2": {
         "settings": {
-          "background": "#FFFCF7",
+          "background": "#fffcf7",
           "background_gradient": "radial-gradient(rgba(255, 252, 247, 1) 2%, rgba(251, 243, 231, 0.52) 46%)",
-          "text": "#2A1B0E",
-          "button": "#5C3A1E",
-          "button_label": "#FBF3E7",
-          "secondary_button_label": "#5C3A1E",
-          "shadow": "#4A2C17"
+          "text": "#2a1b0e",
+          "button": "#5c3a1e",
+          "button_label": "#fbf3e7",
+          "secondary_button_label": "#5c3a1e",
+          "shadow": "#4a2c17"
         }
       },
       "scheme-9653f80b-6136-4f75-bc0e-991df51f8bfc": {
         "settings": {
-          "background": "#FFFCF7",
+          "background": "#fffcf7",
           "background_gradient": "linear-gradient(180deg, rgba(255, 252, 247, 1), rgba(251, 243, 231, 1) 100%)",
-          "text": "#2A1B0E",
-          "button": "#5C3A1E",
-          "button_label": "#FBF3E7",
-          "secondary_button_label": "#5C3A1E",
-          "shadow": "#4A2C17"
+          "text": "#2a1b0e",
+          "button": "#5c3a1e",
+          "button_label": "#fbf3e7",
+          "secondary_button_label": "#5c3a1e",
+          "shadow": "#4a2c17"
         }
       },
       "scheme-846a0592-79c8-4ec0-be7d-a2a42defb2b4": {
         "settings": {
-          "background": "#FFFCF7",
+          "background": "#fffcf7",
           "background_gradient": "linear-gradient(180deg, rgba(255, 252, 247, 1), rgba(251, 243, 231, 1) 100%)",
-          "text": "#5C3A1E",
-          "button": "#5C3A1E",
-          "button_label": "#FBF3E7",
-          "secondary_button_label": "#9C8773",
-          "shadow": "#C9B79C"
+          "text": "#5c3a1e",
+          "button": "#5c3a1e",
+          "button_label": "#fbf3e7",
+          "secondary_button_label": "#9c8773",
+          "shadow": "#c9b79c"
         }
       },
       "scheme-8c71cbf4-013c-46a4-b09e-a82b95f95bbb": {
         "settings": {
-          "background": "#FDF8EF",
+          "background": "#fdf8ef",
           "background_gradient": "linear-gradient(180deg, rgba(251, 243, 231, 1), rgba(245, 233, 215, 1) 100%)",
-          "text": "#2A1B0E",
-          "button": "#5C3A1E",
-          "button_label": "#FBF3E7",
-          "secondary_button_label": "#5C3A1E",
-          "shadow": "#4A2C17"
+          "text": "#2a1b0e",
+          "button": "#5c3a1e",
+          "button_label": "#fbf3e7",
+          "secondary_button_label": "#5c3a1e",
+          "shadow": "#4a2c17"
         }
       }
     }
