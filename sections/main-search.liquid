@@ -322,6 +322,7 @@
               {%- if paginate.pages > 1 -%}
                 {% render 'pagination', paginate: paginate %}
               {%- endif -%}
+              {% render 'eh-load-more', paginate: paginate, section_id: section.id, container: '#product-grid ul.grid', item: '.grid__item' %}
             </div>
           {%- endif -%}
         </div>

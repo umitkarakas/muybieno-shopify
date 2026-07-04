@@ -16,7 +16,8 @@
   }
 {%- endstyle -%}
 
-{%- paginate blog.articles by 6 -%}
+{%- assign eh_articles_per_page = section.settings.articles_per_page | default: 12 -%}
+{%- paginate blog.articles by eh_articles_per_page -%}
   <div class="main-blog page-width section-{{ section.id }}-padding">
     <h1 class="title--primary{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       {{ blog.title | escape }}
@@ -48,6 +49,7 @@
       {%- render 'pagination', paginate: paginate -%}
       {%- render 'eh-infinite-scroll', scope_id: section.id, grid_selector: '.blog-articles', item_selector: '.blog-articles__article' -%}
     {%- endif -%}
+    {% render 'eh-load-more', paginate: paginate, section_id: section.id, container: '.blog-articles', item: '.blog-articles__article' %}
   </div>
 {%- endpaginate -%}
 
@@ -72,6 +74,15 @@
       ],
       "default": "collage",
       "label": "t:sections.main-blog.settings.layout.label"
+    },
+    {
+      "type": "range",
+      "id": "articles_per_page",
+      "min": 6,
+      "max": 24,
+      "step": 3,
+      "default": 12,
+      "label": "Sayfa başına yazı sayısı"
     },
     {
       "type": "checkbox",

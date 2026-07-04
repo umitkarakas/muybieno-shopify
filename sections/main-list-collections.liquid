@@ -45,6 +45,7 @@
       {%- endfor -%}
     </ul>
     {% render 'pagination', paginate: paginate %}
+    {% render 'eh-load-more', paginate: paginate, section_id: section.id, container: '.collection-list', item: '.collection-list__item' %}
   {%- endpaginate -%}
 </div>
 {% schema %}

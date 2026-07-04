@@ -1,0 +1,106 @@
+{% comment %}
+  Hibrit infinite scroll — pagination'ın yerine geçer (Muybieno).
+  İlk auto_pages sayfa scroll ile otomatik yüklenir, sonrası "Daha fazla göster" butonu.
+  Pagination render'ının HEMEN ARDINA konur; paginate.pages <= 1 ise hiçbir şey basmaz.
+  No-JS/crawler: element görünmez kalır, native pagination çalışır (JS gizler).
+
+  Accepts:
+    - paginate: {Object} paginate objesi (zorunlu)
+    - section_id: {String} section.id (zorunlu — Section Rendering API)
+    - container: {String} eklenecek liste seçicisi, ör. '#product-grid' (zorunlu)
+    - item: {String} öğe seçicisi (default '.grid__item')
+    - auto_pages: {Number} otomatik yüklenecek sayfa sayısı (default 2)
+
+  Usage:
+  {% render 'eh-load-more', paginate: paginate, section_id: section.id, container: '#product-grid', item: '.grid__item' %}
+{% endcomment %}
+{%- if paginate.pages > 1 -%}
+  <script src="{{ 'eh-infinite-scroll.js' | asset_url }}" defer="defer"></script>
+  <eh-infinite-scroll
+    hidden
+    data-section-id="{{ section_id }}"
+    data-container="{{ container }}"
+    data-item="{{ item | default: '.grid__item' }}"
+    {% if paginate.next %}
+      data-next-url="{{ paginate.next.url }}"
+    {% endif %}
+    data-current-page="{{ paginate.current_page }}"
+    data-total-pages="{{ paginate.pages }}"
+    data-auto-pages="{{ auto_pages | default: 2 }}"
+  >
+    <div class="eh-load-more__spinner" hidden>
+      {% render 'loading-spinner', class: 'eh-load-more__spinner-svg' %}
+    </div>
+    <button type="button" class="button eh-load-more__btn" hidden>Daha fazla göster</button>
+    <p class="eh-load-more__error" hidden>Yüklenemedi, lütfen tekrar deneyin.</p>
+    <span class="eh-load-more__status visually-hidden" role="status" aria-live="polite"></span>
+  </eh-infinite-scroll>
+  {% style %}
+    eh-infinite-scroll {
+      display: block;
+      text-align: center;
+      margin: 2.4rem 0 1rem;
+      min-height: 1px;
+    }
+    eh-infinite-scroll:not(:defined) {
+      display: none !important;
+    }
+    eh-infinite-scroll[hidden] {
+      display: none;
+    }
+    .pagination-wrapper.eh-hidden {
+      display: none;
+    }
+    .eh-load-more__btn {
+      border-radius: 0.85rem;
+      min-width: 22rem;
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+    .eh-load-more__btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+    .eh-load-more__spinner {
+      display: flex;
+      justify-content: center;
+      padding: 0.6rem 0;
+    }
+    .eh-load-more__spinner-svg .spinner {
+      width: 2.8rem;
+      height: 2.8rem;
+    }
+    .eh-load-more__spinner-svg .spinner .path {
+      stroke: #5C3A1E;
+    }
+    .eh-load-more__error {
+      margin: 0.8rem 0 0;
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      font-size: 1.3rem;
+      color: #8A5A2E;
+    }
+    .eh-infscroll-appended {
+      animation: ehFadeUp 0.45s ease both;
+    }
+    @keyframes ehFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .eh-infscroll-appended {
+        animation: none;
+      }
+      .eh-load-more__btn:hover {
+        transform: none;
+      }
+    }
+  {% endstyle %}
+{%- endif -%}
