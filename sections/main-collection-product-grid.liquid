@@ -185,7 +185,6 @@
 
             {%- if paginate.pages > 1 -%}
               {% render 'pagination', paginate: paginate, anchor: '' %}
-              {%- render 'eh-infinite-scroll', scope_id: section.id, grid_selector: '#product-grid', item_selector: 'li' -%}
             {%- endif -%}
             {% render 'eh-load-more', paginate: paginate, section_id: section.id, container: '#product-grid', item: '.grid__item' %}
           </div>

@@ -47,7 +47,6 @@
 
     {%- if paginate.pages > 1 -%}
       {%- render 'pagination', paginate: paginate -%}
-      {%- render 'eh-infinite-scroll', scope_id: section.id, grid_selector: '.blog-articles', item_selector: '.blog-articles__article' -%}
     {%- endif -%}
     {% render 'eh-load-more', paginate: paginate, section_id: section.id, container: '.blog-articles', item: '.blog-articles__article' %}
   </div>
