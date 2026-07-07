@@ -43,12 +43,13 @@
         "slide_RWhmz4": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/dd.jpg",
             "image_overlay_opacity": 0,
-            "heading": "Görsel slaytı",
+            "heading": "Kahvenin hatırlanan hali",
             "heading_size": "h1",
-            "subheading": "Görsellerle marka öykünüzü anlatın",
-            "button_label": "Düğme etiketi",
-            "link": "",
+            "subheading": "Özenle kavrulmuş kahvelerle günlük keyfinize sıcak bir dokunuş katın.",
+            "button_label": "Kahveleri İncele",
+            "link": "shopify://collections/all",
             "button_style_secondary": false,
             "show_text_box": true,
             "box_align": "middle-center",
