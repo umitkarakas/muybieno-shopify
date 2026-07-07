@@ -9,6 +9,11 @@
     --font-body: "Inter", system-ui, sans-serif;
   }
 
+  /* Sticky header'ı sayfa içeriğinin kesinlikle üstünde tut. Dawn varsayılanı
+     z-index:3; kart quick-add gibi z-index:3 içerik denk gelip menünün üstüne
+     çıkabiliyordu. Sepet bildirimi (z-index:100) hâlâ header'ın önünde kalır. */
+  .section-header.shopify-section-group-header-group { z-index: 10; }
+
   /* Metinli logo (görsel + marka adı + alt başlık) */
   .header-wrapper .header__heading-link {
     display: inline-flex;

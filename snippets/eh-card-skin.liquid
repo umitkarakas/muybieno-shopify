@@ -9,6 +9,10 @@
     --font-head: "Bricolage Grotesque", system-ui, sans-serif;
     --font-body: "Inter", system-ui, sans-serif;
     position: relative;
+    /* Kartın kendi stacking context'ini kur: quick-add "+" (z-index:3) kök
+       bağlama sızıp sticky header'la (z-index:3) eşitlenmesin (menünün üstüne
+       çıkma hatası). */
+    isolation: isolate;
   }
 
   .card-wrapper .card__media,
