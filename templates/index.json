@@ -19,6 +19,61 @@
         "padding_bottom": 8
       }
     },
+    "slideshow_biwWhT": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_wkwaNk": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/1131.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "Görsel slaytı",
+            "heading_size": "h1",
+            "subheading": "Görsellerle marka öykünüzü anlatın",
+            "button_label": "Düğme etiketi",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": true,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-3"
+          }
+        },
+        "slide_RWhmz4": {
+          "type": "slide",
+          "settings": {
+            "image_overlay_opacity": 0,
+            "heading": "Görsel slaytı",
+            "heading_size": "h1",
+            "subheading": "Görsellerle marka öykünüzü anlatın",
+            "button_label": "Düğme etiketi",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": true,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_wkwaNk",
+        "slide_RWhmz4"
+      ],
+      "name": "t:sections.slideshow.presets.name",
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "medium",
+        "slider_visual": "counter",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "image_behavior": "none",
+        "show_text_below": true,
+        "accessibility_info": "Markamız hakkında slayt gösterisi"
+      }
+    },
     "eh_featured_carousel_WqgRDm": {
       "type": "eh-featured-carousel",
       "name": "Öne çıkan carousel",
@@ -271,15 +326,16 @@
     "eh_showcase": {
       "type": "eh-showcase",
       "blocks": {
-        "c0": {
+        "card_wWpXmh": {
           "type": "card",
           "settings": {
-            "collection": "cekirdek-kahveler",
-            "link": "",
-            "eyebrow": "Premium Seçim<br>",
-            "heading": "Espresso Sanatı",
+            "image": "shopify://shop_images/muybieno-guatemala-huehuetenango-1000-gr-ogutulmus-kahve-1022-95-B.jpg",
+            "collection": "turk-kahvesi",
+            "link": "shopify://collections",
+            "eyebrow": "",
+            "heading": "",
             "subtitle": "",
-            "button_label": "Koleksiyonu Gör",
+            "button_label": "",
             "icon": "coffee",
             "custom_svg": ""
           }
@@ -287,6 +343,7 @@
         "c1": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/993.jpg",
             "collection": "demleme-ekipmanlari",
             "link": "",
             "eyebrow": "",
@@ -314,10 +371,11 @@
         "c3": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/1113.jpg",
             "collection": "kagit-filtreler",
             "link": "",
             "eyebrow": "",
-            "heading": "Aksesuarlar <br>",
+            "heading": "Aksesuarlar",
             "subtitle": "Tartılar, kağıt filtreler ve daha fazlası",
             "button_label": "Tümünü Gör",
             "icon": "filter",
@@ -326,7 +384,7 @@
         }
       },
       "block_order": [
-        "c0",
+        "card_wWpXmh",
         "c1",
         "c2",
         "c3"
@@ -423,6 +481,7 @@
   },
   "order": [
     "eh_category_bar",
+    "slideshow_biwWhT",
     "eh_featured_carousel_WqgRDm",
     "eh_category_grid",
     "eh_featured_carousel_7yD4Vk",
