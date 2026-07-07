@@ -25,12 +25,12 @@
         "slide_wkwaNk": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/1131.jpg",
+            "image": "shopify://shop_images/Copy_of_Eko_kuruyemis_Slider_0b11daac-3723-42ab-8397-24fca4c81aee.jpg",
             "image_overlay_opacity": 0,
-            "heading": "Görsel slaytı",
+            "heading": "Kahvenin konforlu hali",
             "heading_size": "h1",
-            "subheading": "Görsellerle marka öykünüzü anlatın",
-            "button_label": "Düğme etiketi",
+            "subheading": "Taze, lezzetli ve doğru fiyatlı kahve seçeneklerini keşfedin.",
+            "button_label": "Kahveleri İncele",
             "link": "",
             "button_style_secondary": false,
             "show_text_box": true,
