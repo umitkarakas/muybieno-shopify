@@ -137,6 +137,13 @@
   .header-wrapper .eh-search { display: none; position: relative; }
   /* arama çubuğu görünümü (masaüstü) */
   .header-wrapper .eh-search__form .field { position: relative; display: flex; align-items: center; margin: 0; }
+  /* Dawn native .field::before/::after çerçeve halkasını (radius 10px köşeli
+     dikdörtgen, box-shadow ile çizili) sustur — bizim pill input border'ımızla
+     iç içe geçmiş çift çerçeve yaratıyordu. Tek çerçeve input'ta kalsın. */
+  .header-wrapper .eh-search__form .field::before,
+  .header-wrapper .eh-search__form .field::after {
+    box-shadow: none; border: none; background: transparent;
+  }
   .header-wrapper .eh-search__form .search__input {
     width: 100%; height: 4.6rem; border-radius: 999px;
     border: 1px solid rgba(92,58,30,0.18); background: #FFFCF7;
