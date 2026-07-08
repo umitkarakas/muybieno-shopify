@@ -171,6 +171,10 @@
     padding: 0.8rem 1rem; max-height: 62vh; overflow: auto;
   }
   .card-wrapper.eh-sub-open .sealsubs-container { display: block !important; }
+  /* Seal seçenek kutularının dolu beyaz zemini → şeffaf, camsı panel görünsün */
+  .card-wrapper.eh-sub-open .sealsubs-container,
+  .card-wrapper.eh-sub-open .sls-option-container { background: transparent !important; }
+  .card-wrapper.eh-sub-open .sls-option-container.sls-active { background: rgba(92, 58, 30, 0.08) !important; }
   /* Dawn .quick-add'e position:relative veriyor → popover ona (44px "+") tutunup
      dar şerit oluyordu. Açıkken static yap → popover geniş .eh-price-row'a tutunur. */
   .card-wrapper.eh-sub-open .quick-add { position: static; }

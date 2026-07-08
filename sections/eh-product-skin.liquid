@@ -424,6 +424,10 @@
       box-shadow: 0 -8px 24px rgba(74, 44, 23, 0.16);
       padding: 1.2rem 1.5rem; max-height: 60vh; overflow: auto;
     }
+    /* Seal seçenek kutularının dolu beyaz zemini → şeffaf, camsı panel görünsün */
+    .eh-mobile-buybar.eh-sub-open .sealsubs-container,
+    .eh-mobile-buybar.eh-sub-open .sls-option-container { background: transparent !important; }
+    .eh-mobile-buybar.eh-sub-open .sls-option-container.sls-active { background: rgba(92, 58, 30, 0.08) !important; }
     .eh-mobile-buybar .shopify-payment-button { display: none; }
     .eh-mobile-buybar .product-form__error-message-wrapper { display: none; }
     /* Adet sayacı — butonun solunda, dikey ▲▼ kompakt */
