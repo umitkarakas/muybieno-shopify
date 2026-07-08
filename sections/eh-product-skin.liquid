@@ -389,7 +389,7 @@
     .eh-mobile-buybar .product-form__buttons { display: block; margin: 0; }
     /* "Sepete ekle" → kompakt sepet-ikonu kare buton (metin gizli). */
     .eh-mobile-buybar .product-form__submit {
-      width: 5.4rem; height: 5.4rem; min-width: 0; margin: 0; padding: 0;
+      width: 5rem; height: 5rem; box-sizing: border-box; min-width: 0; margin: 0; padding: 0;
       border-radius: 1rem; display: grid; place-items: center; font-size: 0 !important;
     }
     .eh-mobile-buybar .product-form__submit > span,
@@ -401,7 +401,8 @@
     .eh-mobile-buybar .eh-sub-toggle {
       flex: 0 0 auto; display: inline-flex; align-items: center; gap: 0.4rem;
       border: 1px solid rgba(92,58,30,0.22); background: rgba(92,58,30,0.06);
-      color: #5C3A1E; border-radius: 1rem; padding: 0.85rem 1rem; cursor: pointer;
+      color: #5C3A1E; border-radius: 1rem; padding: 0 1.1rem; cursor: pointer;
+      height: 5rem; box-sizing: border-box;
       font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 1.2rem; line-height: 1;
     }
     .eh-mobile-buybar .eh-sub-toggle > svg:first-child { width: 1.5rem; height: 1.5rem; flex: none; }
@@ -430,12 +431,13 @@
     .eh-mobile-buybar .quantity {
       display: grid;
       grid-template-columns: auto 2.8rem;
-      grid-template-rows: 2.5rem 2.5rem;
+      grid-template-rows: 1fr 1fr;
       border: 1px solid var(--eh-stone);
       border-radius: var(--eh-r);
       overflow: hidden;
       width: auto;
-      height: auto;
+      height: 5rem;
+      box-sizing: border-box;
     }
     .eh-mobile-buybar .quantity__input {
       grid-column: 1;
