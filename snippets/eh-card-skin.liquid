@@ -153,6 +153,30 @@
     box-shadow: 0 4px 12px rgba(124,40,30,0.3) !important;
     text-transform: none !important;
   }
+
+  /* Slim "Abone ol −%10" çipi — yalnızca abonelenebilir (Seal planı olan)
+     kartlarda, fiyatın yanında. ÜRÜN SAYFASINA götürür: abonelik orada seçilir.
+     NOT: Seal'ın kart-içi widget'ı tembel/tutarsız render olduğu için
+     sepete-direkt-abone-ekleme güvenilir değil → PDP'ye yönlendiriyoruz.
+     Çip JS ile yalnızca .sealsubs-target-element bulunan karta eklenir. */
+  .eh-sub-chip {
+    position: relative; z-index: 3; order: 2;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: var(--font-body); font-weight: 700; font-size: 1.15rem; line-height: 1;
+    color: #5C3A1E; text-decoration: none; white-space: nowrap; cursor: pointer;
+    background: rgba(92,58,30,0.07); border: 1px solid rgba(92,58,30,0.20);
+    border-radius: 999px; padding: 0.5rem 1.05rem;
+    transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
+  }
+  .eh-sub-chip svg { width: 1.4rem; height: 1.4rem; flex: none; }
+  .eh-sub-chip:hover {
+    background: linear-gradient(135deg,#5C3A1E,#8A5A2E); color: #FBF3E7;
+    border-color: transparent; transform: translateY(-1px);
+  }
+  /* Fiyat solda, çip yanında, "+" alta sarabilsin */
+  .card-wrapper .eh-price-row { flex-wrap: wrap; }
+  .card-wrapper .eh-price-row .price { order: 1; }
+  .card-wrapper .eh-price-row .quick-add { order: 3; }
 {%- endstyle -%}
 
 <script>
@@ -184,14 +208,37 @@
         }
       });
     }
-    function run() { wrapCards(document); }
+    /* Abonelenebilir kartlara (Seal .sealsubs-target-element enjekte ettiği)
+       slim "Abone ol −%10" çip-linki ekle → ürün sayfasına götürür.
+       Seal async enjekte ettiği için MutationObserver'dan da çağrılır. */
+    function addSubChips(root) {
+      (root || document).querySelectorAll('.card-wrapper').forEach(function (card) {
+        if (card.dataset.ehSubChip) return;
+        var seal = card.querySelector('.sealsubs-target-element');
+        if (!seal) return;
+        var row = card.querySelector('.eh-price-row');
+        var link = card.querySelector('.card__heading a') || card.querySelector('a[href*="/products/"]');
+        if (!row || !link || !link.getAttribute('href')) return;
+        card.dataset.ehSubChip = '1';
+        var pct = ' −%10';
+        var m = (seal.textContent || '').match(/%\s?(\d{1,2})/);
+        if (m) pct = ' −%' + m[1];
+        var a = document.createElement('a');
+        a.className = 'eh-sub-chip';
+        a.href = link.getAttribute('href');
+        a.setAttribute('aria-label', 'Abone ol' + pct + ' — ürün sayfası');
+        a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg><span>Abone ol' + pct + '</span>';
+        row.appendChild(a);
+      });
+    }
+    function run() { wrapCards(document); addSubChips(document); }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
     else run();
     var pending = false;
     new MutationObserver(function () {
       if (pending) return;
       pending = true;
-      requestAnimationFrame(function () { pending = false; wrapCards(document); });
+      requestAnimationFrame(function () { pending = false; wrapCards(document); addSubChips(document); });
     }).observe(document.body, { childList: true, subtree: true });
   })();
 </script>
