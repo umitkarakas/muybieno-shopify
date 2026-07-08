@@ -215,7 +215,7 @@
       (root || document).querySelectorAll('.card-wrapper').forEach(function (card) {
         if (card.dataset.ehSubChip) return;
         var seal = card.querySelector('.sealsubs-target-element');
-        if (!seal) return;
+        if (!seal || !seal.querySelector('input[type="radio"]')) return; // boş Seal placeholder (abonelenemez ürün) → çip yok
         var row = card.querySelector('.eh-price-row');
         var link = card.querySelector('.card__heading a') || card.querySelector('a[href*="/products/"]');
         if (!row || !link || !link.getAttribute('href')) return;

@@ -409,7 +409,9 @@
     .eh-mobile-buybar .eh-sub-toggle__chev { width: 1.3rem; height: 1.3rem; flex: none; transition: transform .18s ease; }
     .eh-mobile-buybar.eh-sub-open .eh-sub-toggle { background: linear-gradient(135deg,#5C3A1E,#8A5A2E); color: #FBF3E7; border-color: transparent; }
     .eh-mobile-buybar.eh-sub-open .eh-sub-toggle__chev { transform: rotate(180deg); }
-    .eh-mobile-buybar:not(:has(.sealsubs-target-element)) .eh-sub-toggle { display: none; }
+    /* Seal abonelenemeyen ürünlere de BOŞ placeholder enjekte ediyor → toggle'ı
+       yalnızca gerçek abonelik seçeneği (radio) varsa göster. */
+    .eh-mobile-buybar:not(:has(.sealsubs-target-element input)) .eh-sub-toggle { display: none; }
     /* Seal abonelik widget'ı: barda varsayılan GİZLİ; toggle açınca barın üstünde panel */
     .eh-mobile-buybar .sealsubs-target-element { display: none !important; }
     .eh-mobile-buybar.eh-sub-open .sealsubs-target-element {
