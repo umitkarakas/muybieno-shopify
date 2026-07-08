@@ -388,6 +388,16 @@
     .eh-mobile-buybar .product-form { flex: 1; min-width: 0; }
     .eh-mobile-buybar .product-form__buttons { display: block; margin: 0; }
     .eh-mobile-buybar .product-form__submit { width: 100%; margin: 0; }
+    /* Proxy "Sepete ekle" — bar artık formu İÇERMEZ (Seal widget'ı ana formda
+       kalsın diye); bu buton ana formun gerçek add butonunu tetikler. */
+    .eh-mobile-buybar .eh-buybar__add {
+      flex: 1; min-width: 0; border: none; cursor: pointer;
+      font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 1.5rem;
+      color: #FBF3E7; border-radius: 0.9rem; padding: 1.35rem 1.6rem;
+      background: linear-gradient(135deg,#5C3A1E 0%,#8A5A2E 55%,#B07A45 100%);
+      box-shadow: 0 6px 16px rgba(92,58,30,0.28);
+    }
+    .eh-mobile-buybar .eh-buybar__add:active { filter: brightness(0.95); transform: translateY(1px); }
     .eh-mobile-buybar .shopify-payment-button { display: none; }
     .eh-mobile-buybar .product-form__error-message-wrapper { display: none; }
     /* Adet sayacı — butonun solunda, dikey ▲▼ kompakt */
@@ -567,6 +577,11 @@
 
       function place() {
         if (mq.matches) {
+          /* MOBİL: formu bara TAŞIMA — Seal abonelik widget'ı formun içinde,
+             widget form dışına taşınınca Seal aboneliği uygulamıyor (canlı test
+             edildi). Bu yüzden form (+ Seal widget'ı) ana ürün alanında kalır;
+             bar yalnızca fiyat + ana formun "Sepete ekle"sini tetikleyen proxy
+             buton içerir → bar temiz, abonelik ana alanda seçilir. */
           if (!bar) {
             bar = document.createElement('div');
             bar.className = 'eh-mobile-buybar';
@@ -575,14 +590,30 @@
             priceWrap = document.createElement('div');
             priceWrap.className = 'eh-buybar__price';
             row.appendChild(priceWrap);
+            var proxy = document.createElement('button');
+            proxy.type = 'button';
+            proxy.className = 'eh-buybar__add';
+            proxy.textContent = 'Sepete ekle';
+            proxy.addEventListener('click', function () {
+              var realBtn = form.querySelector('button[name="add"]')
+                         || form.querySelector('.product-form__submit')
+                         || form.querySelector('button[type="submit"]');
+              if (realBtn) realBtn.click();
+            });
+            row.appendChild(proxy);
             bar.appendChild(row);
             document.body.appendChild(bar);
             if (priceEl && window.MutationObserver) {
               new MutationObserver(syncPrice).observe(priceEl, { childList: true, subtree: true, characterData: true });
             }
           }
-          if (qty && qty.parentNode !== row) row.appendChild(qty);
-          if (form.parentNode !== row) row.appendChild(form);
+          /* form + qty ana alanda kalsın (desktop düzeninden gelmiş olabilir → geri koy) */
+          if (placeholder.parentNode && form.parentNode !== placeholder.parentNode) {
+            placeholder.parentNode.insertBefore(form, placeholder);
+          }
+          if (qty && qtyPlaceholder && qtyPlaceholder.parentNode && qty.parentNode !== qtyPlaceholder.parentNode) {
+            qtyPlaceholder.parentNode.insertBefore(qty, qtyPlaceholder);
+          }
           syncPrice();
         } else {
           if (placeholder.parentNode && form.parentNode !== placeholder.parentNode) {
