@@ -394,10 +394,9 @@
     }
     .eh-mobile-buybar .product-form__submit > span,
     .eh-mobile-buybar .product-form__submit .loading__spinner { display: none; }
-    .eh-mobile-buybar .product-form__submit::before {
-      content: ""; width: 2.5rem; height: 2.5rem; display: block;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FBF3E7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='8' cy='21' r='1'/%3E%3Ccircle cx='19' cy='21' r='1'/%3E%3Cpath d='M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12'/%3E%3C/svg%3E") center/contain no-repeat;
-    }
+    /* Sepet ikonu JS ile <svg> olarak enjekte edilir (.eh-cart-ico) */
+    .eh-mobile-buybar .product-form__submit .eh-cart-ico { display: grid; place-items: center; color: #FBF3E7; font-size: 0; }
+    .eh-mobile-buybar .product-form__submit .eh-cart-ico svg { width: 2.5rem; height: 2.5rem; }
     /* Adet'in yanında "Abonelik" toggle'ı — yalnızca abonelenebilir üründe (Seal widget'ı varsa) */
     .eh-mobile-buybar .eh-sub-toggle {
       flex: 0 0 auto; display: inline-flex; align-items: center; gap: 0.4rem;
@@ -632,6 +631,14 @@
           if (qty && qty.parentNode !== row) row.appendChild(qty);
           if (subToggle && subToggle.parentNode !== row) row.appendChild(subToggle);
           if (form.parentNode !== row) row.appendChild(form);
+          /* "Sepete ekle" butonuna sepet ikonu enjekte et (CSS data-URI güvenilmez) */
+          var submitBtn = form.querySelector('.product-form__submit');
+          if (submitBtn && !submitBtn.querySelector('.eh-cart-ico')) {
+            var ico = document.createElement('i');
+            ico.className = 'eh-cart-ico';
+            ico.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>';
+            submitBtn.appendChild(ico);
+          }
           syncPrice();
         } else {
           if (placeholder.parentNode && form.parentNode !== placeholder.parentNode) {
