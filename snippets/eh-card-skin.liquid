@@ -1,18 +1,19 @@
 {% comment %} Muybieno — global ürün kartı skin (tüm sayfalar) {% endcomment %}
 {%- style -%}
   /* Seal Subscriptions widget'ı quick-add formu olan ürün KARTLARINA da enjekte
-     oluyor (koleksiyon/arama/ilgili-ürün grid'lerinde) ve düzeni bozuyor
-     (fiyat üst üste biniyor). Widget yalnızca gerçek ürün sayfası formunda
-     kalsın; kart/grid/quick-add/ilgili-ürün bağlamında gizle. Seal container
-     class'ları "sealsubscriptions" ön ekli. */
-  .card-wrapper [class*="sealsubscriptions"],
-  .card-wrapper [id*="sealsubscriptions"],
-  .grid__item [class*="sealsubscriptions"],
-  .grid__item [id*="sealsubscriptions"],
-  quick-add-modal [class*="sealsubscriptions"],
-  .quick-add-modal [class*="sealsubscriptions"],
-  .card-wrapper [class*="seal-subscriptions"],
-  .grid__item [class*="seal-subscriptions"] {
+     oluyor (koleksiyon/arama/ilgili-ürün grid'lerinde) ve düzeni bozuyordu
+     (fiyat üst üste biniyor). Gerçek Seal kökü: .sealsubs-target-element
+     (kart varyantı .sls-homepage-automatic). Widget yalnızca gerçek ürün
+     sayfası formunda kalsın; kart/quick-add bağlamında gizle.
+     ⚠️ .grid__item KULLANMA — Dawn onu PDP ana ürün kolonunda
+     (.product__info-wrapper.grid__item) da kullanıyor → PDP widget'ını da
+     gizler. Yalnızca kart-özel .card-wrapper / .quick-add ile scope'la.
+     (Class doğru; canlı DOM'dan çıkarıldı — eski "sealsubscriptions" ön eki
+     yanlıştı, hiç tutmuyordu.) */
+  .card-wrapper .sealsubs-target-element,
+  .card-wrapper [class*="sealsubs"],
+  .quick-add .sealsubs-target-element,
+  .quick-add [class*="sealsubs"] {
     display: none !important;
   }
 
