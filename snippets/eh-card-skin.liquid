@@ -1,5 +1,21 @@
 {% comment %} Muybieno — global ürün kartı skin (tüm sayfalar) {% endcomment %}
 {%- style -%}
+  /* Seal Subscriptions widget'ı quick-add formu olan ürün KARTLARINA da enjekte
+     oluyor (koleksiyon/arama/ilgili-ürün grid'lerinde) ve düzeni bozuyor
+     (fiyat üst üste biniyor). Widget yalnızca gerçek ürün sayfası formunda
+     kalsın; kart/grid/quick-add/ilgili-ürün bağlamında gizle. Seal container
+     class'ları "sealsubscriptions" ön ekli. */
+  .card-wrapper [class*="sealsubscriptions"],
+  .card-wrapper [id*="sealsubscriptions"],
+  .grid__item [class*="sealsubscriptions"],
+  .grid__item [id*="sealsubscriptions"],
+  quick-add-modal [class*="sealsubscriptions"],
+  .quick-add-modal [class*="sealsubscriptions"],
+  .card-wrapper [class*="seal-subscriptions"],
+  .grid__item [class*="seal-subscriptions"] {
+    display: none !important;
+  }
+
   .card-wrapper {
     --eh-primary: #5C3A1E;
     --eh-primary-hover: #4A2C17;
