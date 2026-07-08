@@ -269,11 +269,15 @@
       pending = true;
       requestAnimationFrame(function () { pending = false; wrapCards(document); setupCardSub(document); });
     }).observe(document.body, { childList: true, subtree: true });
-    /* Seal widget'ı async/gecikmeli dolduğu için observer bazen kaçırıyor →
-       birkaç kez tekrar dene (idempotent: data-eh-sub'lı kartlar atlanır). */
-    [400, 1200, 2500, 4500, 7000].forEach(function (t) { setTimeout(function () { setupCardSub(document); }, t); });
-    document.addEventListener('sealsubs:loaded', function () { setupCardSub(document); });
-    window.addEventListener('load', function () { setupCardSub(document); });
+    /* Seal widget'ı async/gecikmeli dolduğu + observer'ın rAF'ı arka plan
+       sekmede durduğu için: setInterval ile ~25sn boyunca poll et (idempotent,
+       data-eh-sub'lı kartlar atlanır; setTimeout/Interval arka planda da çalışır). */
+    var _ehTries = 0;
+    var _ehIv = setInterval(function () {
+      wrapCards(document);
+      setupCardSub(document);
+      if (++_ehTries >= 35) clearInterval(_ehIv);
+    }, 700);
   })();
 </script>
 
