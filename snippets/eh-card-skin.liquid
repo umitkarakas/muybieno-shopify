@@ -163,8 +163,11 @@
   .card-wrapper.eh-sub-open .sealsubs-target-element {
     display: block !important;
     position: absolute; left: 0; right: 0; bottom: calc(100% + 0.6rem); z-index: 6;
-    background: #FFFCF7; border: 1px solid var(--eh-outline); border-radius: 1rem;
-    box-shadow: 0 14px 34px rgba(74,44,23,0.22);
+    /* Luminous camsı yüzey (blur) */
+    background: rgba(255, 252, 247, 0.62);
+    -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.7); border-radius: 1.2rem;
+    box-shadow: 0 18px 40px rgba(74, 44, 23, 0.16);
     padding: 0.8rem 1rem; max-height: 62vh; overflow: auto;
   }
   .card-wrapper.eh-sub-open .sealsubs-container { display: block !important; }
