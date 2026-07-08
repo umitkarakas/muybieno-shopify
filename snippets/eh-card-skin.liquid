@@ -154,29 +154,30 @@
     text-transform: none !important;
   }
 
-  /* Slim "Abone ol −%10" çipi — yalnızca abonelenebilir (Seal planı olan)
-     kartlarda, fiyatın yanında. ÜRÜN SAYFASINA götürür: abonelik orada seçilir.
-     NOT: Seal'ın kart-içi widget'ı tembel/tutarsız render olduğu için
-     sepete-direkt-abone-ekleme güvenilir değil → PDP'ye yönlendiriyoruz.
-     Çip JS ile yalnızca .sealsubs-target-element bulunan karta eklenir. */
-  .eh-sub-chip {
-    position: relative; z-index: 3; order: 2;
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    font-family: var(--font-body); font-weight: 700; font-size: 1.15rem; line-height: 1;
-    color: #5C3A1E; text-decoration: none; white-space: nowrap; cursor: pointer;
-    background: rgba(92,58,30,0.07); border: 1px solid rgba(92,58,30,0.20);
-    border-radius: 999px; padding: 0.5rem 1.05rem;
-    transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
+  /* Abonelenebilir kartta "+" → satın-alma seçenekleri paneli (Seal widget'ı)
+     fiyat satırının ÜSTÜNDE popover olarak açılır (PDP'deki gibi). Seal, kartta
+     widget içeriğini (.sealsubs-container) display:none ile collapse ediyor →
+     açıkken zorla göster. Widget formun içinde kaldığı için abonelik uygulanır. */
+  .card-wrapper .eh-price-row { position: relative; }
+  .card-wrapper .sealsubs-target-element { display: none !important; }
+  .card-wrapper.eh-sub-open .sealsubs-target-element {
+    display: block !important;
+    position: absolute; left: 0; right: 0; bottom: calc(100% + 0.6rem); z-index: 6;
+    background: #FFFCF7; border: 1px solid var(--eh-outline); border-radius: 1rem;
+    box-shadow: 0 14px 34px rgba(74,44,23,0.22);
+    padding: 0.8rem 1rem; max-height: 62vh; overflow: auto;
   }
-  .eh-sub-chip svg { width: 1.4rem; height: 1.4rem; flex: none; }
-  .eh-sub-chip:hover {
-    background: linear-gradient(135deg,#5C3A1E,#8A5A2E); color: #FBF3E7;
-    border-color: transparent; transform: translateY(-1px);
+  .card-wrapper.eh-sub-open .sealsubs-container { display: block !important; }
+  /* Panel içi "Sepete ekle" */
+  .eh-sub-add {
+    display: block; width: 100%; margin-top: 0.8rem; border: none; cursor: pointer;
+    font-family: var(--font-body); font-weight: 700; font-size: 1.35rem;
+    color: #FBF3E7; border-radius: 0.8rem; padding: 1.1rem;
+    background: linear-gradient(135deg,#5C3A1E 0%,#8A5A2E 55%,#B07A45 100%);
   }
-  /* Fiyat solda, çip yanında, "+" alta sarabilsin */
-  .card-wrapper .eh-price-row { flex-wrap: wrap; }
-  .card-wrapper .eh-price-row .price { order: 1; }
-  .card-wrapper .eh-price-row .quick-add { order: 3; }
+  .eh-sub-add:active { filter: brightness(0.96); }
+  /* "+" açıkken aktif görünsün */
+  .card-wrapper.eh-sub-open .quick-add__submit { background: var(--eh-primary-hover) !important; }
 {%- endstyle -%}
 
 <script>
@@ -208,37 +209,59 @@
         }
       });
     }
-    /* Abonelenebilir kartlara (Seal .sealsubs-target-element enjekte ettiği)
-       slim "Abone ol −%10" çip-linki ekle → ürün sayfasına götürür.
-       Seal async enjekte ettiği için MutationObserver'dan da çağrılır. */
-    function addSubChips(root) {
+    /* Abonelenebilir kartta (Seal widget'ında gerçek radio var): "+" doğrudan
+       eklemez → satın-alma seçenekleri panelini (Seal widget) fiyat satırının
+       üstünde açar (PDP'deki gibi). Panele "Sepete ekle" eklenir → form submit
+       (seçilen tek-seferlik/abone uygulanır). Boş/abonelenemez üründe dokunulmaz
+       (+ normal ekler). Seal async → MutationObserver'dan da çağrılır. */
+    function setupCardSub(root) {
       (root || document).querySelectorAll('.card-wrapper').forEach(function (card) {
-        if (card.dataset.ehSubChip) return;
+        if (card.dataset.ehSub) return;
         var seal = card.querySelector('.sealsubs-target-element');
-        if (!seal || !seal.querySelector('input[type="radio"]')) return; // boş Seal placeholder (abonelenemez ürün) → çip yok
-        var row = card.querySelector('.eh-price-row');
-        var link = card.querySelector('.card__heading a') || card.querySelector('a[href*="/products/"]');
-        if (!row || !link || !link.getAttribute('href')) return;
-        card.dataset.ehSubChip = '1';
-        var pct = ' −%10';
-        var m = (seal.textContent || '').match(/%\s?(\d{1,2})/);
-        if (m) pct = ' −%' + m[1];
-        var a = document.createElement('a');
-        a.className = 'eh-sub-chip';
-        a.href = link.getAttribute('href');
-        a.setAttribute('aria-label', 'Abone ol' + pct + ' — ürün sayfası');
-        a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg><span>Abone ol' + pct + '</span>';
-        row.appendChild(a);
+        if (!seal || !seal.querySelector('input[type="radio"]')) return;
+        var submit = card.querySelector('.quick-add__submit') || card.querySelector('.quick-add button[name="add"]');
+        var form = card.querySelector('.quick-add form') || card.querySelector('.quick-add product-form');
+        if (!submit || !form) return;
+        card.dataset.ehSub = '1';
+        /* "+" → paneli aç (direkt eklemesin) */
+        submit.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var open = card.classList.toggle('eh-sub-open');
+          if (open) {
+            document.querySelectorAll('.card-wrapper.eh-sub-open').forEach(function (o) { if (o !== card) o.classList.remove('eh-sub-open'); });
+          }
+        }, true);
+        /* Panel içine "Sepete ekle" */
+        if (!seal.querySelector('.eh-sub-add')) {
+          var addBtn = document.createElement('button');
+          addBtn.type = 'button';
+          addBtn.className = 'eh-sub-add';
+          addBtn.textContent = 'Sepete ekle';
+          addBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (form.requestSubmit) form.requestSubmit(); else if (form.submit) form.submit();
+            card.classList.remove('eh-sub-open');
+          });
+          seal.appendChild(addBtn);
+        }
       });
     }
-    function run() { wrapCards(document); addSubChips(document); }
+    /* Panel dışına tıklayınca kapat */
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('.eh-sub-open .sealsubs-target-element')) return;
+      if (e.target.closest('.eh-sub-open .quick-add__submit')) return;
+      document.querySelectorAll('.card-wrapper.eh-sub-open').forEach(function (o) { o.classList.remove('eh-sub-open'); });
+    });
+    function run() { wrapCards(document); setupCardSub(document); }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
     else run();
     var pending = false;
     new MutationObserver(function () {
       if (pending) return;
       pending = true;
-      requestAnimationFrame(function () { pending = false; wrapCards(document); addSubChips(document); });
+      requestAnimationFrame(function () { pending = false; wrapCards(document); setupCardSub(document); });
     }).observe(document.body, { childList: true, subtree: true });
   })();
 </script>
