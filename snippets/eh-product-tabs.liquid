@@ -7,8 +7,13 @@
     k  Teslimat      → block.settings.kargo_content
     r  Yorumlar            → Judge.me widget (reviews_judgeme, varsayılan açık) veya
                              block.settings.reviews_liquid gömme kodu (doluysa o kazanır).
-                             İkisi de yoksa sekme gizli. Judge.me için "Judge.me Core"
-                             app embed'inin temada aktif olması gerekir (script'i o yükler).
+                             İkisi de yoksa sekme gizli.
+  Judge.me v3 notu: widget, şablondaki "apps" section'ında duran resmi
+  "Review Widget" app block'undan gelir (v3 içerik metafield'dan DEĞİL,
+  data-entry-point attribute'lu div'i client-side render ederek gelir).
+  Bu snippet'in JS'i o bloğu DOMContentLoaded'da Yorumlar paneline taşır;
+  blok şablonda yoksa Yorumlar sekmesi JS ile gizlenir. Ayrıca "Judge.me"
+  app embed'i temada aktif olmalı (loader script'i o yükler).
   Masaüstü: pill sekme şeridi + tek aktif panel. Mobil: her panel başlığı accordion toggle.
 {% endcomment %}
 {%- liquid
@@ -75,7 +80,7 @@
             {%- if reviews != blank -%}
               {{ reviews }}
             {%- else -%}
-              <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}" data-product-title="{{ product.title | escape }}">{{ product.metafields.judgeme.widget }}</div>
+              <div class="eh-jdgm-mount" data-eh-jdgm-mount></div>
             {%- endif -%}
           </div>
         </div>
@@ -203,6 +208,37 @@
       syncForViewport();
       if (mq.addEventListener) mq.addEventListener('change', syncForViewport);
       else if (mq.addListener) mq.addListener(syncForViewport);
+
+      // Judge.me v3: şablon sonundaki "apps" section'ında server-render edilen
+      // Review Widget app block'unu Yorumlar paneline taşı. Blok yoksa sekmeyi gizle.
+      var mount = root.querySelector('[data-eh-jdgm-mount]');
+      if (mount) {
+        var adoptJdgm = function () {
+          var w = document.querySelector('.shopify-app-block .jdgm-review-widget');
+          var blockEl = w && w.closest('.shopify-app-block');
+          if (blockEl && !mount.contains(blockEl)) {
+            mount.appendChild(blockEl);
+            return true;
+          }
+          return !!(w && mount.contains(blockEl));
+        };
+        var hideReviewsTab = function () {
+          var item = root.querySelector('.eh-tabs__item[data-eh-item="r"]');
+          var tab = root.querySelector('.eh-tabs__tab[data-eh-tab="r"]');
+          if (item) item.remove();
+          if (tab) {
+            var wasActive = tab.classList.contains('is-active');
+            tab.remove();
+            if (wasActive && panels[0]) activateTab(panels[0].getAttribute('data-eh-panel'));
+          }
+        };
+        var runAdopt = function () { if (!adoptJdgm()) hideReviewsTab(); };
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', runAdopt);
+        } else {
+          runAdopt();
+        }
+      }
     })();
   </script>
 {%- endif -%}
