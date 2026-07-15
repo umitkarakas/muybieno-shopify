@@ -5,7 +5,10 @@
     t  Tadım notları       → custom.tat_profili
     b  Demleme önerisi     → custom.demleme_onerisi (+ custom.ogutum_onerisi satırı)
     k  Teslimat      → block.settings.kargo_content
-    r  Yorumlar            → block.settings.reviews_liquid (opsiyonel; boşsa gizli)
+    r  Yorumlar            → Judge.me widget (reviews_judgeme, varsayılan açık) veya
+                             block.settings.reviews_liquid gömme kodu (doluysa o kazanır).
+                             İkisi de yoksa sekme gizli. Judge.me için "Judge.me Core"
+                             app embed'inin temada aktif olması gerekir (script'i o yükler).
   Masaüstü: pill sekme şeridi + tek aktif panel. Mobil: her panel başlığı accordion toggle.
 {% endcomment %}
 {%- liquid
@@ -16,8 +19,12 @@
   assign ogutum = mf.ogutum_onerisi
   assign kargo = block.settings.kargo_content
   assign reviews = block.settings.reviews_liquid
+  assign show_reviews = false
+  if reviews != blank or block.settings.reviews_judgeme
+    assign show_reviews = true
+  endif
   assign any = false
-  if desc != blank or tat != blank or dem != blank or ogutum != blank or kargo != blank or reviews != blank
+  if desc != blank or tat != blank or dem != blank or ogutum != blank or kargo != blank or show_reviews
     assign any = true
   endif
 -%}
@@ -30,7 +37,7 @@
       {%- if desc != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="d" role="tab">Ürün açıklaması</button>{%- endif -%}
       {%- if dem != blank or ogutum != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="b" role="tab">Demleme önerisi</button>{%- endif -%}
       {%- if kargo != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="k" role="tab">Teslimat</button>{%- endif -%}
-      {%- if reviews != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="r" role="tab">Yorumlar</button>{%- endif -%}
+      {%- if show_reviews -%}<button type="button" class="eh-tabs__tab" data-eh-tab="r" role="tab">Yorumlar</button>{%- endif -%}
     </div>
 
     <div class="eh-tabs__panels">
@@ -61,10 +68,16 @@
           <div class="eh-tabs__panel rte" data-eh-panel="k" role="tabpanel">{{ kargo }}</div>
         </div>
       {%- endif -%}
-      {%- if reviews != blank -%}
+      {%- if show_reviews -%}
         <div class="eh-tabs__item" data-eh-item="r">
           <button type="button" class="eh-tabs__head" data-eh-tab="r">Yorumlar<span class="eh-tabs__chev" aria-hidden="true"></span></button>
-          <div class="eh-tabs__panel rte" data-eh-panel="r" role="tabpanel">{{ reviews }}</div>
+          <div class="eh-tabs__panel rte" data-eh-panel="r" role="tabpanel">
+            {%- if reviews != blank -%}
+              {{ reviews }}
+            {%- else -%}
+              <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}" data-product-title="{{ product.title | escape }}">{{ product.metafields.judgeme.widget }}</div>
+            {%- endif -%}
+          </div>
         </div>
       {%- endif -%}
     </div>
@@ -99,6 +112,12 @@
     }
     #shopify-section-{{ section.id }} .eh-tabs__panel.rte > :first-child { margin-top: 0; }
     #shopify-section-{{ section.id }} .eh-tabs__hint { margin: 1.2rem 0 0; color: #5C3A1E; }
+    /* Judge.me widget tipografisi tema ile hizalı (renk/yıldız ayarı Judge.me admin'den gelir) */
+    #shopify-section-{{ section.id }} .eh-tabs__panel .jdgm-widget { font-family: "Inter", system-ui, sans-serif; }
+    #shopify-section-{{ section.id }} .eh-tabs__panel .jdgm-rev-widg { border: none; padding: 0; }
+    #shopify-section-{{ section.id }} .eh-tabs__panel .jdgm-rev-widg__title {
+      font-family: "Bricolage Grotesque", system-ui, sans-serif; color: #2A1B0E;
+    }
     @keyframes eh-tabfade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
     /* ---- Mobil: accordion ---- */

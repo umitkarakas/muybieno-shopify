@@ -844,10 +844,17 @@
           "default": "<p>₺879 ve üzeri siparişlerde kargo ücretsizdir. 14:00'a kadar verilen siparişler aynı gün kargoya teslim edilir. Türkiye geneli ortalama teslimat 1–3 iş günüdür.</p>"
         },
         {
+          "type": "checkbox",
+          "id": "reviews_judgeme",
+          "label": "Judge.me yorumları",
+          "default": true,
+          "info": "Yorumlar sekmesinde Judge.me review widget'ını gösterir. Tema ayarları → App embeds'te 'Judge.me Core' aktif olmalıdır."
+        },
+        {
           "type": "liquid",
           "id": "reviews_liquid",
-          "label": "Yorumlar (opsiyonel)",
-          "info": "Bir yorum uygulaması app block'u veya gömme kodu yapıştırın. Boş bırakılırsa Yorumlar sekmesi gizlenir."
+          "label": "Özel yorum gömme kodu (opsiyonel)",
+          "info": "Farklı bir yorum uygulaması kullanılacaksa gömme kodunu yapıştırın — doluysa Judge.me yerine bu gösterilir. İkisi de kapalıysa Yorumlar sekmesi gizlenir."
         }
       ]
     },
