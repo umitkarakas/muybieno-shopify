@@ -117,12 +117,19 @@
     }
     #shopify-section-{{ section.id }} .eh-tabs__panel.rte > :first-child { margin-top: 0; }
     #shopify-section-{{ section.id }} .eh-tabs__hint { margin: 1.2rem 0 0; color: #5C3A1E; }
-    /* Judge.me widget tipografisi tema ile hizalı (renk/yıldız ayarı Judge.me admin'den gelir) */
+    /* Judge.me widget tipografisi tema ile hizalı */
     #shopify-section-{{ section.id }} .eh-tabs__panel .jdgm-widget { font-family: "Inter", system-ui, sans-serif; }
-    #shopify-section-{{ section.id }} .eh-tabs__panel .jdgm-rev-widg { border: none; padding: 0; }
-    #shopify-section-{{ section.id }} .eh-tabs__panel .jdgm-rev-widg__title {
-      font-family: "Bricolage Grotesque", system-ui, sans-serif; color: #2A1B0E;
+    /* Judge.me v3 marka renkleri: widget renklerini inline CSS var ile basıyor
+       (--jm-review-widget-*); stylesheet !important inline'ı ezer. */
+    #shopify-section-{{ section.id }} .eh-tabs__panel .jm-review-widget,
+    #shopify-section-{{ section.id }} .eh-tabs__panel .jdgm-review-widget,
+    #shopify-section-{{ section.id }} .eh-tabs__panel .jdgm-review-widget [style*="--jm-review-widget"] {
+      --jm-review-widget-star-and-histogram-color: #B07A45 !important;
+      --jm-review-widget-button-color: #5C3A1E !important;
+      --jm-review-widget-button-text-color: #FBF3E7 !important;
+      --jm-review-widget-text-color: #2A1B0E !important;
     }
+    #shopify-section-{{ section.id }} .eh-tabs__panel .jm-button { border-radius: 12px; font-weight: 600; }
     @keyframes eh-tabfade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
     /* ---- Mobil: accordion ---- */
