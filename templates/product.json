@@ -5,7 +5,6 @@
  * This file may be updated by the Shopify admin theme editor
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
- * Muybieno: ürün bilgi blokları (rating, eh_intensity, eh_trust) eklendi.
  * ------------------------------------------------------------
  */
 {
@@ -70,12 +69,16 @@
         },
         "eh_meta": {
           "type": "eh_meta_grid",
-          "settings": {}
+          "settings": {
+            "show_empty_hint": false
+          }
         },
         "eh_tabs": {
           "type": "eh_tabs",
           "settings": {
-            "kargo_content": "<p>₺879 ve üzeri siparişlerde kargo ücretsizdir. 14:00'a kadar verilen siparişler aynı gün kargoya teslim edilir. Türkiye geneli ortalama teslimat süresi 1–3 iş günüdür.</p>"
+            "kargo_content": "<p>₺879 ve üzeri siparişlerde kargo ücretsizdir. 14:00'a kadar verilen siparişler aynı gün kargoya teslim edilir. Türkiye geneli ortalama teslimat süresi 1–3 iş günüdür.</p>",
+            "reviews_judgeme": true,
+            "reviews_liquid": ""
           }
         },
         "share": {
@@ -133,11 +136,32 @@
         "padding_top": 36,
         "padding_bottom": 68
       }
+    },
+    "1784156179a5a8d50e": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_974D3e": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_974D3e"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
     "eh-skin",
     "main",
-    "related-products"
+    "related-products",
+    "1784156179a5a8d50e"
   ]
 }
