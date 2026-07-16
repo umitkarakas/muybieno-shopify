@@ -1,5 +1,8 @@
 {% comment %}
-  Muybieno — ürün alt içerik: masaüstünde yatay sekme, mobilde accordion.
+  Muybieno — ürün alt içerik: her ekranda (masaüstü + mobil) yatay sekme.
+  Şerit "segmented control": camsı krem kapsül içinde eşit genişlikte büyük
+  butonlar; aktif sekme espresso CTA gradyanı (Sepete ekle ile aynı token).
+  Taşarsa şerit yatay kayar (scrollbar gizli).
   Paneller (içeriği olan render edilir):
     d  Ürün açıklaması     → product.description
     t  Tadım notları       → custom.tat_profili
@@ -14,7 +17,6 @@
   Bu snippet'in JS'i o bloğu DOMContentLoaded'da Yorumlar paneline taşır;
   blok şablonda yoksa Yorumlar sekmesi JS ile gizlenir. Ayrıca "Judge.me"
   app embed'i temada aktif olmalı (loader script'i o yükler).
-  Masaüstü: pill sekme şeridi + tek aktif panel. Mobil: her panel başlığı accordion toggle.
 {% endcomment %}
 {%- liquid
   assign mf = product.metafields.custom
@@ -36,7 +38,6 @@
 
 {%- if any -%}
   <div class="eh-tabs" id="EhTabs-{{ section.id }}" {{ block.shopify_attributes }}>
-    {%- comment -%} Masaüstü sekme şeridi {%- endcomment -%}
     <div class="eh-tabs__strip" role="tablist">
       {%- if tat != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="t" role="tab">Tadım notları</button>{%- endif -%}
       {%- if desc != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="d" role="tab">Ürün açıklaması</button>{%- endif -%}
@@ -48,19 +49,16 @@
     <div class="eh-tabs__panels">
       {%- if tat != blank -%}
         <div class="eh-tabs__item" data-eh-item="t">
-          <button type="button" class="eh-tabs__head" data-eh-tab="t">Tadım notları<span class="eh-tabs__chev" aria-hidden="true"></span></button>
           <div class="eh-tabs__panel rte" data-eh-panel="t" role="tabpanel">{{ tat | newline_to_br }}</div>
         </div>
       {%- endif -%}
       {%- if desc != blank -%}
         <div class="eh-tabs__item" data-eh-item="d">
-          <button type="button" class="eh-tabs__head" data-eh-tab="d">Ürün açıklaması<span class="eh-tabs__chev" aria-hidden="true"></span></button>
           <div class="eh-tabs__panel rte" data-eh-panel="d" role="tabpanel">{{ desc }}</div>
         </div>
       {%- endif -%}
       {%- if dem != blank or ogutum != blank -%}
         <div class="eh-tabs__item" data-eh-item="b">
-          <button type="button" class="eh-tabs__head" data-eh-tab="b">Demleme önerisi<span class="eh-tabs__chev" aria-hidden="true"></span></button>
           <div class="eh-tabs__panel" data-eh-panel="b" role="tabpanel">
             {%- if dem != blank -%}{{ dem | newline_to_br }}{%- endif -%}
             {%- if ogutum != blank -%}<p class="eh-tabs__hint"><strong>Önerilen öğütüm:</strong> {{ ogutum }}</p>{%- endif -%}
@@ -69,13 +67,11 @@
       {%- endif -%}
       {%- if kargo != blank -%}
         <div class="eh-tabs__item" data-eh-item="k">
-          <button type="button" class="eh-tabs__head" data-eh-tab="k">Teslimat<span class="eh-tabs__chev" aria-hidden="true"></span></button>
           <div class="eh-tabs__panel rte" data-eh-panel="k" role="tabpanel">{{ kargo }}</div>
         </div>
       {%- endif -%}
       {%- if show_reviews -%}
         <div class="eh-tabs__item" data-eh-item="r">
-          <button type="button" class="eh-tabs__head" data-eh-tab="r">Yorumlar<span class="eh-tabs__chev" aria-hidden="true"></span></button>
           <div class="eh-tabs__panel rte" data-eh-panel="r" role="tabpanel">
             {%- if reviews != blank -%}
               {{ reviews }}
@@ -90,25 +86,30 @@
 
   {%- style -%}
     #shopify-section-{{ section.id }} .eh-tabs { margin: 2.4rem 0 0; }
-    /* Sekme şeridi — yalnız masaüstü */
+    /* Sekme şeridi — camsı segmented control (tüm ekranlar) */
     #shopify-section-{{ section.id }} .eh-tabs__strip {
-      display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.8rem;
+      display: flex; gap: 0.5rem; padding: 0.5rem; margin-bottom: 1.8rem;
+      background: rgba(255,252,247,0.62);
+      border: 1px solid rgba(255,255,255,0.72);
+      border-radius: 16px;
+      box-shadow: 0 16px 38px rgba(74,44,23,0.07);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
     }
+    #shopify-section-{{ section.id }} .eh-tabs__strip::-webkit-scrollbar { display: none; }
     #shopify-section-{{ section.id }} .eh-tabs__tab {
-      flex: none; appearance: none; cursor: pointer;
-      font-family: "Inter", system-ui, sans-serif; font-size: 1.35rem; font-weight: 600;
-      color: #5C3A1E; padding: 0.95rem 1.6rem; border-radius: 999px;
-      background: rgba(255,252,247,0.7); border: 1px solid rgba(92,58,30,0.16);
-      white-space: nowrap; transition: color .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+      flex: 1 0 auto; appearance: none; cursor: pointer; text-align: center;
+      font-family: "Inter", system-ui, sans-serif; font-size: 1.45rem; font-weight: 600;
+      color: #5C3A1E; padding: 1.2rem 1.4rem; border-radius: 12px;
+      background: transparent; border: none;
+      white-space: nowrap; transition: color .18s ease, background .18s ease, box-shadow .18s ease;
     }
-    #shopify-section-{{ section.id }} .eh-tabs__tab:hover { border-color: #8A5A2E; }
+    #shopify-section-{{ section.id }} .eh-tabs__tab:hover { background: rgba(176,122,69,0.12); }
     #shopify-section-{{ section.id }} .eh-tabs__tab.is-active {
       color: #FBF3E7; font-weight: 700;
-      background: linear-gradient(135deg,#5C3A1E,#8A5A2E);
-      border-color: transparent; box-shadow: 0 8px 18px rgba(124,80,40,0.22);
+      background: linear-gradient(135deg,#5C3A1E 0%,#8A5A2E 55%,#B07A45 100%);
+      box-shadow: 0 3px 10px rgba(124,80,40,0.25);
     }
-    /* Accordion başlığı — yalnız mobil */
-    #shopify-section-{{ section.id }} .eh-tabs__head { display: none; }
     #shopify-section-{{ section.id }} .eh-tabs__panel { display: none; }
     #shopify-section-{{ section.id }} .eh-tabs__panel.is-active {
       display: block;
@@ -132,31 +133,13 @@
     #shopify-section-{{ section.id }} .eh-tabs__panel .jm-button { border-radius: 12px; font-weight: 600; }
     @keyframes eh-tabfade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-    /* ---- Mobil: accordion ---- */
+    /* ---- Mobil: aynı sekme şeridi, biraz kompakt ---- */
     @media screen and (max-width: 749px) {
-      #shopify-section-{{ section.id }} .eh-tabs__strip { display: none; }
-      #shopify-section-{{ section.id }} .eh-tabs__item {
-        border-bottom: 1px solid rgba(92,58,30,0.14);
-      }
-      #shopify-section-{{ section.id }} .eh-tabs__head {
-        display: flex; align-items: center; justify-content: space-between;
-        width: 100%; appearance: none; cursor: pointer; text-align: left;
-        background: none; border: none; padding: 1.6rem 0;
-        font-family: "Bricolage Grotesque", system-ui, sans-serif;
-        font-size: 1.6rem; font-weight: 600; color: #2A1B0E;
-      }
-      #shopify-section-{{ section.id }} .eh-tabs__chev {
-        flex: none; width: 1.1rem; height: 1.1rem; margin-left: 1rem;
-        border-right: 2px solid #8A5A2E; border-bottom: 2px solid #8A5A2E;
-        transform: rotate(45deg); transition: transform .2s ease;
-      }
-      #shopify-section-{{ section.id }} .eh-tabs__head.is-active .eh-tabs__chev { transform: rotate(-135deg); }
-      #shopify-section-{{ section.id }} .eh-tabs__panel { animation: none; }
-      #shopify-section-{{ section.id }} .eh-tabs__panel.is-active { padding-bottom: 1.6rem; }
+      #shopify-section-{{ section.id }} .eh-tabs__strip { gap: 0.4rem; padding: 0.4rem; margin-bottom: 1.4rem; }
+      #shopify-section-{{ section.id }} .eh-tabs__tab { font-size: 1.35rem; padding: 1.05rem 1.2rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       #shopify-section-{{ section.id }} .eh-tabs__panel.is-active { animation: none; }
-      #shopify-section-{{ section.id }} .eh-tabs__chev { transition: none; }
     }
   {%- endstyle -%}
 
@@ -165,56 +148,18 @@
       var root = document.getElementById('EhTabs-{{ section.id }}');
       if (!root || root.dataset.ehInit) return;
       root.dataset.ehInit = '1';
-      var mq = window.matchMedia('(max-width: 749px)');
       var tabs = [].slice.call(root.querySelectorAll('.eh-tabs__tab'));
-      var heads = [].slice.call(root.querySelectorAll('.eh-tabs__head'));
       var panels = [].slice.call(root.querySelectorAll('.eh-tabs__panel'));
 
-      function panelByKey(k) {
-        return root.querySelector('.eh-tabs__panel[data-eh-panel="' + k + '"]');
-      }
-      function headByKey(k) {
-        return root.querySelector('.eh-tabs__head[data-eh-tab="' + k + '"]');
-      }
-      // Masaüstü: tek aktif panel
       function activateTab(key) {
         tabs.forEach(function (t) { t.classList.toggle('is-active', t.getAttribute('data-eh-tab') === key); });
         panels.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-eh-panel') === key); });
-        heads.forEach(function (h) { h.classList.toggle('is-active', h.getAttribute('data-eh-tab') === key); });
       }
-      // Mobil: bağımsız aç/kapa
-      function toggleAccordion(key) {
-        var p = panelByKey(key), h = headByKey(key);
-        if (!p) return;
-        var open = !p.classList.contains('is-active');
-        p.classList.toggle('is-active', open);
-        if (h) h.classList.toggle('is-active', open);
-      }
-
       tabs.forEach(function (t) {
         t.addEventListener('click', function () { activateTab(t.getAttribute('data-eh-tab')); });
       });
-      heads.forEach(function (h) {
-        h.addEventListener('click', function () { toggleAccordion(h.getAttribute('data-eh-tab')); });
-      });
-
-      // İlk panel (Tadım notları) varsayılan açık — hem masaüstü hem mobil.
-      // Mobilde diğerleri kapalı başlar; kullanıcı açıklamaya tıklayarak açar.
-      function syncForViewport() {
-        if (mq.matches) {
-          // mobil: sadece ilk panel açık, diğerleri kapalı
-          panels.forEach(function (p, i) { p.classList.toggle('is-active', i === 0); });
-          heads.forEach(function (h, i) { h.classList.toggle('is-active', i === 0); });
-        } else {
-          // masaüstü: ilk sekme aktif
-          if (!root.querySelector('.eh-tabs__panel.is-active') && panels[0]) {
-            activateTab(panels[0].getAttribute('data-eh-panel'));
-          }
-        }
-      }
-      syncForViewport();
-      if (mq.addEventListener) mq.addEventListener('change', syncForViewport);
-      else if (mq.addListener) mq.addListener(syncForViewport);
+      // İlk sekme varsayılan aktif (masaüstü + mobil)
+      if (panels[0]) activateTab(panels[0].getAttribute('data-eh-panel'));
 
       // Judge.me v3: şablon sonundaki "apps" section'ında server-render edilen
       // Review Widget app block'unu Yorumlar paneline taşı. Blok yoksa sekmeyi gizle.
