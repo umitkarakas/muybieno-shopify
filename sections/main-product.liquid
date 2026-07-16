@@ -835,7 +835,82 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "Ürün açıklaması + Tadım notları & Demleme önerisi (metafield) + Teslimat & İade + opsiyonel Yorumlar. Masaüstünde yatay sekme, mobilde accordion. İçeriği olmayan sekme gösterilmez."
+          "content": "Her ekranda yatay sekme şeridi (sığmazsa kayar; ok + fade navigasyonu otomatik). İçeriği olmayan sekme her durumda gizlenir. Tadım notları ve Demleme önerisi içerikleri ürünün metafield'larından gelir (Ürünler → ürün → Metafields: Tat profili, Demleme önerisi, Öğütüm önerisi)."
+        },
+        {
+          "type": "header",
+          "content": "Sıralama"
+        },
+        {
+          "type": "text",
+          "id": "tab_order",
+          "label": "Sekme sırası",
+          "default": "t,d,b,k,r",
+          "info": "Kodları virgülle sıralayın: t=Tadım notları · d=Ürün açıklaması · b=Demleme önerisi · k=Teslimat · r=Yorumlar. Yazılmayan kod varsayılan sırayla sona eklenir. İlk görünen sekme sayfada açık gelir."
+        },
+        {
+          "type": "header",
+          "content": "Sekmeler — görünürlük ve etiket"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_tat",
+          "label": "Tadım notları",
+          "default": true,
+          "info": "İçerik: ürün metafield'ı custom.tat_profili"
+        },
+        {
+          "type": "text",
+          "id": "label_tat",
+          "label": "Tadım notları etiketi",
+          "default": "Tadım notları"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_desc",
+          "label": "Ürün açıklaması",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "label_desc",
+          "label": "Ürün açıklaması etiketi",
+          "default": "Ürün açıklaması"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_dem",
+          "label": "Demleme önerisi",
+          "default": true,
+          "info": "İçerik: ürün metafield'ları custom.demleme_onerisi + custom.ogutum_onerisi"
+        },
+        {
+          "type": "text",
+          "id": "label_dem",
+          "label": "Demleme önerisi etiketi",
+          "default": "Demleme önerisi"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_kargo",
+          "label": "Teslimat",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "label_kargo",
+          "label": "Teslimat etiketi",
+          "default": "Teslimat"
+        },
+        {
+          "type": "text",
+          "id": "label_reviews",
+          "label": "Yorumlar etiketi",
+          "default": "Yorumlar"
+        },
+        {
+          "type": "header",
+          "content": "İçerik"
         },
         {
           "type": "richtext",

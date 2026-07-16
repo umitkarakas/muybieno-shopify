@@ -2,21 +2,26 @@
   Muybieno — ürün alt içerik: her ekranda (masaüstü + mobil) yatay sekme.
   Şerit "segmented control": camsı krem kapsül içinde eşit genişlikte büyük
   butonlar; aktif sekme espresso CTA gradyanı (Sepete ekle ile aynı token).
-  Taşarsa şerit yatay kayar (scrollbar gizli).
-  Paneller (içeriği olan render edilir):
-    d  Ürün açıklaması     → product.description
+  Taşarsa şerit yatay kayar (scrollbar gizli) + kenar fade'leri ve cam ok
+  butonları kaydırılabilirliği gösterir (JS is-scrollable/is-start/is-end).
+  Sekmeler (kod → içerik):
     t  Tadım notları       → custom.tat_profili
+    d  Ürün açıklaması     → product.description
     b  Demleme önerisi     → custom.demleme_onerisi (+ custom.ogutum_onerisi satırı)
-    k  Teslimat      → block.settings.kargo_content
+    k  Teslimat            → block.settings.kargo_content
     r  Yorumlar            → Judge.me widget (reviews_judgeme, varsayılan açık) veya
                              block.settings.reviews_liquid gömme kodu (doluysa o kazanır).
-                             İkisi de yoksa sekme gizli.
+  Editör yönetimi (blok ayarları): tab_order ("t,d,b,k,r" virgüllü sıra; eksik
+  kodlar varsayılan sırayla sona eklenir), sekme başına show_* görünürlük
+  checkbox'ı + label_* etiket metni. İçeriği boş sekme her durumda gizlenir.
   Judge.me v3 notu: widget, şablondaki "apps" section'ında duran resmi
   "Review Widget" app block'undan gelir (v3 içerik metafield'dan DEĞİL,
   data-entry-point attribute'lu div'i client-side render ederek gelir).
   Bu snippet'in JS'i o bloğu DOMContentLoaded'da Yorumlar paneline taşır;
   blok şablonda yoksa Yorumlar sekmesi JS ile gizlenir. Ayrıca "Judge.me"
   app embed'i temada aktif olmalı (loader script'i o yükler).
+  YARIŞ TUZAĞI: .jdgm-review-widget client-side geç çizilir → varlık kontrolü
+  server-render edilen [data-entry-point] div'ine göre yapılır (retry'lı).
 {% endcomment %}
 {%- liquid
   assign mf = product.metafields.custom
@@ -26,75 +31,154 @@
   assign ogutum = mf.ogutum_onerisi
   assign kargo = block.settings.kargo_content
   assign reviews = block.settings.reviews_liquid
-  assign show_reviews = false
-  if reviews != blank or block.settings.reviews_judgeme
-    assign show_reviews = true
+
+  assign lbl_t = block.settings.label_tat | default: 'Tadım notları'
+  assign lbl_d = block.settings.label_desc | default: 'Ürün açıklaması'
+  assign lbl_b = block.settings.label_dem | default: 'Demleme önerisi'
+  assign lbl_k = block.settings.label_kargo | default: 'Teslimat'
+  assign lbl_r = block.settings.label_reviews | default: 'Yorumlar'
+
+  assign show_t = false
+  if block.settings.show_tat and tat != blank
+    assign show_t = true
   endif
+  assign show_d = false
+  if block.settings.show_desc and desc != blank
+    assign show_d = true
+  endif
+  assign show_b = false
+  if block.settings.show_dem
+    if dem != blank or ogutum != blank
+      assign show_b = true
+    endif
+  endif
+  assign show_k = false
+  if block.settings.show_kargo and kargo != blank
+    assign show_k = true
+  endif
+  assign show_r = false
+  if reviews != blank or block.settings.reviews_judgeme
+    assign show_r = true
+  endif
+
+  comment
+    Sıralama: tab_order'daki geçerli kodlar sırayla; yazılmayanlar varsayılan
+    sırayla sona eklenir. Tekrarlar atlanır.
+  endcomment
+  assign order_input = block.settings.tab_order | default: 't,d,b,k,r' | downcase | remove: ' '
+  assign order_parts = order_input | split: ','
+  assign seq = ''
+  for k in order_parts
+    if k == 't' or k == 'd' or k == 'b' or k == 'k' or k == 'r'
+      unless seq contains k
+        assign seq = seq | append: k | append: ','
+      endunless
+    endif
+  endfor
+  assign default_parts = 't,d,b,k,r' | split: ','
+  for k in default_parts
+    unless seq contains k
+      assign seq = seq | append: k | append: ','
+    endunless
+  endfor
+  assign keys = seq | split: ','
+
   assign any = false
-  if desc != blank or tat != blank or dem != blank or ogutum != blank or kargo != blank or show_reviews
+  if show_t or show_d or show_b or show_k or show_r
     assign any = true
   endif
 -%}
 
 {%- if any -%}
   <div class="eh-tabs" id="EhTabs-{{ section.id }}" {{ block.shopify_attributes }}>
-    <div class="eh-tabs__strip" role="tablist">
-      {%- if tat != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="t" role="tab">Tadım notları</button>{%- endif -%}
-      {%- if desc != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="d" role="tab">Ürün açıklaması</button>{%- endif -%}
-      {%- if dem != blank or ogutum != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="b" role="tab">Demleme önerisi</button>{%- endif -%}
-      {%- if kargo != blank -%}<button type="button" class="eh-tabs__tab" data-eh-tab="k" role="tab">Teslimat</button>{%- endif -%}
-      {%- if show_reviews -%}<button type="button" class="eh-tabs__tab" data-eh-tab="r" role="tab">Yorumlar</button>{%- endif -%}
+    <div class="eh-tabs__stripwrap">
+      <button type="button" class="eh-tabs__navbtn eh-tabs__navbtn--prev" aria-label="Sekmeleri sola kaydır">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <div class="eh-tabs__strip" role="tablist">
+        {%- for key in keys -%}
+          {%- case key -%}
+            {%- when 't' -%}
+              {%- if show_t -%}<button type="button" class="eh-tabs__tab" data-eh-tab="t" role="tab">{{ lbl_t }}</button>{%- endif -%}
+            {%- when 'd' -%}
+              {%- if show_d -%}<button type="button" class="eh-tabs__tab" data-eh-tab="d" role="tab">{{ lbl_d }}</button>{%- endif -%}
+            {%- when 'b' -%}
+              {%- if show_b -%}<button type="button" class="eh-tabs__tab" data-eh-tab="b" role="tab">{{ lbl_b }}</button>{%- endif -%}
+            {%- when 'k' -%}
+              {%- if show_k -%}<button type="button" class="eh-tabs__tab" data-eh-tab="k" role="tab">{{ lbl_k }}</button>{%- endif -%}
+            {%- when 'r' -%}
+              {%- if show_r -%}<button type="button" class="eh-tabs__tab" data-eh-tab="r" role="tab">{{ lbl_r }}</button>{%- endif -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+      <button type="button" class="eh-tabs__navbtn eh-tabs__navbtn--next" aria-label="Sekmeleri sağa kaydır">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
     </div>
 
     <div class="eh-tabs__panels">
-      {%- if tat != blank -%}
-        <div class="eh-tabs__item" data-eh-item="t">
-          <div class="eh-tabs__panel rte" data-eh-panel="t" role="tabpanel">{{ tat | newline_to_br }}</div>
-        </div>
-      {%- endif -%}
-      {%- if desc != blank -%}
-        <div class="eh-tabs__item" data-eh-item="d">
-          <div class="eh-tabs__panel rte" data-eh-panel="d" role="tabpanel">{{ desc }}</div>
-        </div>
-      {%- endif -%}
-      {%- if dem != blank or ogutum != blank -%}
-        <div class="eh-tabs__item" data-eh-item="b">
-          <div class="eh-tabs__panel" data-eh-panel="b" role="tabpanel">
-            {%- if dem != blank -%}{{ dem | newline_to_br }}{%- endif -%}
-            {%- if ogutum != blank -%}<p class="eh-tabs__hint"><strong>Önerilen öğütüm:</strong> {{ ogutum }}</p>{%- endif -%}
-          </div>
-        </div>
-      {%- endif -%}
-      {%- if kargo != blank -%}
-        <div class="eh-tabs__item" data-eh-item="k">
-          <div class="eh-tabs__panel rte" data-eh-panel="k" role="tabpanel">{{ kargo }}</div>
-        </div>
-      {%- endif -%}
-      {%- if show_reviews -%}
-        <div class="eh-tabs__item" data-eh-item="r">
-          <div class="eh-tabs__panel rte" data-eh-panel="r" role="tabpanel">
-            {%- if reviews != blank -%}
-              {{ reviews }}
-            {%- else -%}
-              <div class="eh-jdgm-mount" data-eh-jdgm-mount></div>
+      {%- for key in keys -%}
+        {%- case key -%}
+          {%- when 't' -%}
+            {%- if show_t -%}
+              <div class="eh-tabs__item" data-eh-item="t">
+                <div class="eh-tabs__panel rte" data-eh-panel="t" role="tabpanel">{{ tat | newline_to_br }}</div>
+              </div>
             {%- endif -%}
-          </div>
-        </div>
-      {%- endif -%}
+          {%- when 'd' -%}
+            {%- if show_d -%}
+              <div class="eh-tabs__item" data-eh-item="d">
+                <div class="eh-tabs__panel rte" data-eh-panel="d" role="tabpanel">{{ desc }}</div>
+              </div>
+            {%- endif -%}
+          {%- when 'b' -%}
+            {%- if show_b -%}
+              <div class="eh-tabs__item" data-eh-item="b">
+                <div class="eh-tabs__panel" data-eh-panel="b" role="tabpanel">
+                  {%- if dem != blank -%}{{ dem | newline_to_br }}{%- endif -%}
+                  {%- if ogutum != blank -%}<p class="eh-tabs__hint"><strong>Önerilen öğütüm:</strong> {{ ogutum }}</p>{%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- when 'k' -%}
+            {%- if show_k -%}
+              <div class="eh-tabs__item" data-eh-item="k">
+                <div class="eh-tabs__panel rte" data-eh-panel="k" role="tabpanel">{{ kargo }}</div>
+              </div>
+            {%- endif -%}
+          {%- when 'r' -%}
+            {%- if show_r -%}
+              <div class="eh-tabs__item" data-eh-item="r">
+                <div class="eh-tabs__panel rte" data-eh-panel="r" role="tabpanel">
+                  {%- if reviews != blank -%}
+                    {{ reviews }}
+                  {%- else -%}
+                    <div class="eh-jdgm-mount" data-eh-jdgm-mount></div>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
     </div>
   </div>
 
   {%- style -%}
     #shopify-section-{{ section.id }} .eh-tabs { margin: 2.4rem 0 0; }
+    /* Şerit sarmalı — ok butonları ve kenar fade'leri buna tutunur */
+    #shopify-section-{{ section.id }} .eh-tabs__stripwrap {
+      position: relative; margin-bottom: 1.8rem;
+    }
     /* Sekme şeridi — camsı segmented control (tüm ekranlar) */
     #shopify-section-{{ section.id }} .eh-tabs__strip {
-      display: flex; gap: 0.5rem; padding: 0.5rem; margin-bottom: 1.8rem;
+      display: flex; gap: 0.5rem; padding: 0.5rem;
       background: rgba(255,252,247,0.62);
       border: 1px solid rgba(255,255,255,0.72);
       border-radius: 16px;
       box-shadow: 0 16px 38px rgba(74,44,23,0.07);
       backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
       overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth; scroll-snap-type: x proximity;
     }
     #shopify-section-{{ section.id }} .eh-tabs__strip::-webkit-scrollbar { display: none; }
     #shopify-section-{{ section.id }} .eh-tabs__tab {
@@ -102,13 +186,51 @@
       font-family: "Inter", system-ui, sans-serif; font-size: 1.45rem; font-weight: 600;
       color: #5C3A1E; padding: 1.2rem 1.4rem; border-radius: 12px;
       background: transparent; border: none;
-      white-space: nowrap; transition: color .18s ease, background .18s ease, box-shadow .18s ease;
+      white-space: nowrap; scroll-snap-align: start;
+      transition: color .18s ease, background .18s ease, box-shadow .18s ease;
     }
     #shopify-section-{{ section.id }} .eh-tabs__tab:hover { background: rgba(176,122,69,0.12); }
     #shopify-section-{{ section.id }} .eh-tabs__tab.is-active {
       color: #FBF3E7; font-weight: 700;
       background: linear-gradient(135deg,#5C3A1E 0%,#8A5A2E 55%,#B07A45 100%);
       box-shadow: 0 3px 10px rgba(124,80,40,0.25);
+    }
+    /* Kenar fade'leri — kayacak içerik olduğunu gösterir (JS sınıflarıyla) */
+    #shopify-section-{{ section.id }} .eh-tabs__stripwrap::before,
+    #shopify-section-{{ section.id }} .eh-tabs__stripwrap::after {
+      content: ''; position: absolute; top: 1px; bottom: 1px; width: 5.6rem;
+      pointer-events: none; z-index: 1; opacity: 0; transition: opacity .2s ease;
+    }
+    #shopify-section-{{ section.id }} .eh-tabs__stripwrap::before {
+      left: 1px; border-radius: 16px 0 0 16px;
+      background: linear-gradient(90deg, rgba(251,243,231,0.96) 20%, rgba(251,243,231,0));
+    }
+    #shopify-section-{{ section.id }} .eh-tabs__stripwrap::after {
+      right: 1px; border-radius: 0 16px 16px 0;
+      background: linear-gradient(270deg, rgba(251,243,231,0.96) 20%, rgba(251,243,231,0));
+    }
+    #shopify-section-{{ section.id }} .eh-tabs__stripwrap.is-scrollable:not(.is-start)::before { opacity: 1; }
+    #shopify-section-{{ section.id }} .eh-tabs__stripwrap.is-scrollable:not(.is-end)::after { opacity: 1; }
+    /* Cam ok butonları */
+    #shopify-section-{{ section.id }} .eh-tabs__navbtn {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+      width: 3rem; height: 3rem; border-radius: 50%; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,252,247,0.92);
+      border: 1px solid rgba(255,255,255,0.72);
+      box-shadow: 0 6px 16px rgba(74,44,23,0.14);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      color: #5C3A1E; cursor: pointer;
+      opacity: 0; visibility: hidden;
+      transition: opacity .2s ease, visibility .2s ease, background .18s ease;
+    }
+    #shopify-section-{{ section.id }} .eh-tabs__navbtn svg { width: 1.6rem; height: 1.6rem; }
+    #shopify-section-{{ section.id }} .eh-tabs__navbtn:hover { background: #FFFCF7; }
+    #shopify-section-{{ section.id }} .eh-tabs__navbtn--prev { left: 0.5rem; }
+    #shopify-section-{{ section.id }} .eh-tabs__navbtn--next { right: 0.5rem; }
+    #shopify-section-{{ section.id }} .eh-tabs__stripwrap.is-scrollable:not(.is-start) .eh-tabs__navbtn--prev,
+    #shopify-section-{{ section.id }} .eh-tabs__stripwrap.is-scrollable:not(.is-end) .eh-tabs__navbtn--next {
+      opacity: 1; visibility: visible;
     }
     #shopify-section-{{ section.id }} .eh-tabs__panel { display: none; }
     #shopify-section-{{ section.id }} .eh-tabs__panel.is-active {
@@ -135,11 +257,15 @@
 
     /* ---- Mobil: aynı sekme şeridi, biraz kompakt ---- */
     @media screen and (max-width: 749px) {
-      #shopify-section-{{ section.id }} .eh-tabs__strip { gap: 0.4rem; padding: 0.4rem; margin-bottom: 1.4rem; }
+      #shopify-section-{{ section.id }} .eh-tabs__stripwrap { margin-bottom: 1.4rem; }
+      #shopify-section-{{ section.id }} .eh-tabs__strip { gap: 0.4rem; padding: 0.4rem; }
       #shopify-section-{{ section.id }} .eh-tabs__tab { font-size: 1.35rem; padding: 1.05rem 1.2rem; }
+      /* Dokunmatikte oklar gereksiz — fade + parmakla kaydırma yeterli */
+      #shopify-section-{{ section.id }} .eh-tabs__navbtn { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
       #shopify-section-{{ section.id }} .eh-tabs__panel.is-active { animation: none; }
+      #shopify-section-{{ section.id }} .eh-tabs__strip { scroll-behavior: auto; }
     }
   {%- endstyle -%}
 
@@ -150,16 +276,44 @@
       root.dataset.ehInit = '1';
       var tabs = [].slice.call(root.querySelectorAll('.eh-tabs__tab'));
       var panels = [].slice.call(root.querySelectorAll('.eh-tabs__panel'));
+      var strip = root.querySelector('.eh-tabs__strip');
+      var wrap = root.querySelector('.eh-tabs__stripwrap');
 
-      function activateTab(key) {
-        tabs.forEach(function (t) { t.classList.toggle('is-active', t.getAttribute('data-eh-tab') === key); });
+      function activateTab(key, fromClick) {
+        tabs.forEach(function (t) {
+          var on = t.getAttribute('data-eh-tab') === key;
+          t.classList.toggle('is-active', on);
+          if (on && fromClick) t.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+        });
         panels.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-eh-panel') === key); });
       }
       tabs.forEach(function (t) {
-        t.addEventListener('click', function () { activateTab(t.getAttribute('data-eh-tab')); });
+        t.addEventListener('click', function () { activateTab(t.getAttribute('data-eh-tab'), true); });
       });
       // İlk sekme varsayılan aktif (masaüstü + mobil)
       if (panels[0]) activateTab(panels[0].getAttribute('data-eh-panel'));
+
+      // Kaydırma navigasyonu: fade + ok görünürlüğü (is-scrollable/is-start/is-end)
+      function updateNav() {
+        if (!strip || !wrap) return;
+        var max = strip.scrollWidth - strip.clientWidth;
+        wrap.classList.toggle('is-scrollable', max > 4);
+        wrap.classList.toggle('is-start', strip.scrollLeft <= 2);
+        wrap.classList.toggle('is-end', strip.scrollLeft >= max - 2);
+      }
+      if (strip && wrap) {
+        strip.addEventListener('scroll', updateNav, { passive: true });
+        window.addEventListener('resize', updateNav);
+        var step = function (dir) { strip.scrollBy({ left: dir * strip.clientWidth * 0.6, behavior: 'smooth' }); };
+        var prevBtn = wrap.querySelector('.eh-tabs__navbtn--prev');
+        var nextBtn = wrap.querySelector('.eh-tabs__navbtn--next');
+        if (prevBtn) prevBtn.addEventListener('click', function () { step(-1); });
+        if (nextBtn) nextBtn.addEventListener('click', function () { step(1); });
+        updateNav();
+        // Font yüklenince genişlikler değişebilir
+        setTimeout(updateNav, 400);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(updateNav);
+      }
 
       // Judge.me v3: şablon sonundaki "apps" section'ında server-render edilen
       // Review Widget app block'unu Yorumlar paneline taşı. Blok yoksa sekmeyi gizle.
@@ -187,6 +341,7 @@
             tab.remove();
             if (wasActive && panels[0]) activateTab(panels[0].getAttribute('data-eh-panel'));
           }
+          updateNav();
         };
         // Blok bulunamazsa hemen gizleme: app embed/editor enjeksiyonu gecikebilir.
         var waits = [600, 1500, 3000, 5000];
