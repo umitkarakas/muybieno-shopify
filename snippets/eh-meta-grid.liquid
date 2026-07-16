@@ -50,13 +50,16 @@
   {%- style -%}
     #shopify-section-{{ section.id }} .eh-meta {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      /* minmax(0,1fr): nowrap değerler kartın küçülmesini engelleyip grid'i
+         taşırmasın (mobilde sayfa yatay scroll'una yol açıyordu) */
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 1rem;
       margin: 2rem 0 0;
     }
     #shopify-section-{{ section.id }} .eh-meta__card {
       display: flex;
       align-items: center;
+      min-width: 0;
       gap: 0.9rem;
       padding: 0.85rem 1.1rem;
       border-radius: 1.3rem;
@@ -91,10 +94,12 @@
     /* Mobil: 2 sütun grid — kartlar dar, boşluk yok (carousel kaldırıldı) */
     @media screen and (max-width: 749px) {
       #shopify-section-{{ section.id }} .eh-meta {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         gap: 0.8rem;
       }
       #shopify-section-{{ section.id }} .eh-meta__card { padding: 0.75rem 0.9rem; gap: 0.7rem; }
+      /* Dar kartta uzun değer (ör. "Barahona, Dominik Cumhuriyeti") kesilmesin, sarsın */
+      #shopify-section-{{ section.id }} .eh-meta__val { white-space: normal; overflow: visible; line-height: 1.3; }
       #shopify-section-{{ section.id }} .eh-meta__ico { width: 3rem; height: 3rem; border-radius: 0.9rem; }
       #shopify-section-{{ section.id }} .eh-meta__ico svg { width: 1.5rem; height: 1.5rem; }
     }

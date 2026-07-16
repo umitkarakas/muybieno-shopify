@@ -286,6 +286,8 @@
   @media screen and (max-width: 749px) {
     .eh-product-page .related-products .product-grid {
       display: flex;
+      /* Dawn .grid'in flex-wrap:wrap'ini ez — yoksa carousel yerine 2×2 grid'e sarar */
+      flex-wrap: nowrap;
       gap: 1.2rem;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
