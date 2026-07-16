@@ -178,7 +178,7 @@
       box-shadow: 0 16px 38px rgba(74,44,23,0.07);
       backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
       overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
-      scroll-behavior: smooth; scroll-snap-type: x proximity;
+      scroll-behavior: smooth; scroll-snap-type: x proximity; scroll-padding-inline: 0.5rem;
     }
     #shopify-section-{{ section.id }} .eh-tabs__strip::-webkit-scrollbar { display: none; }
     #shopify-section-{{ section.id }} .eh-tabs__tab {
@@ -298,8 +298,8 @@
         if (!strip || !wrap) return;
         var max = strip.scrollWidth - strip.clientWidth;
         wrap.classList.toggle('is-scrollable', max > 4);
-        wrap.classList.toggle('is-start', strip.scrollLeft <= 2);
-        wrap.classList.toggle('is-end', strip.scrollLeft >= max - 2);
+        wrap.classList.toggle('is-start', strip.scrollLeft <= 8);
+        wrap.classList.toggle('is-end', strip.scrollLeft >= max - 8);
       }
       if (strip && wrap) {
         strip.addEventListener('scroll', updateNav, { passive: true });
