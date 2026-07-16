@@ -76,6 +76,16 @@
         "eh_tabs": {
           "type": "eh_tabs",
           "settings": {
+            "tab_order": "d,r,b,k,,t",
+            "show_tat": true,
+            "label_tat": "Tadım notları",
+            "show_desc": true,
+            "label_desc": "Ürün açıklaması",
+            "show_dem": true,
+            "label_dem": "Demleme önerisi",
+            "show_kargo": true,
+            "label_kargo": "Teslimat",
+            "label_reviews": "Yorumlar",
             "kargo_content": "<p>₺879 ve üzeri siparişlerde kargo ücretsizdir. 14:00'a kadar verilen siparişler aynı gün kargoya teslim edilir. Türkiye geneli ortalama teslimat süresi 1–3 iş günüdür.</p>",
             "reviews_judgeme": true,
             "reviews_liquid": ""
