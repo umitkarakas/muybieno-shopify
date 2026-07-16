@@ -163,16 +163,20 @@
 
       // Judge.me v3: şablon sonundaki "apps" section'ında server-render edilen
       // Review Widget app block'unu Yorumlar paneline taşı. Blok yoksa sekmeyi gizle.
+      // ÖNEMLİ: .jdgm-review-widget v3'te client-side ÇİZİLİR (DOMContentLoaded'dan
+      // sonra gelebilir) → varlık kontrolü server-render edilen app block div'ine
+      // (data-entry-point) göre yapılır; widget'ın çizilmesi beklenmez.
       var mount = root.querySelector('[data-eh-jdgm-mount]');
       if (mount) {
+        var findJdgmBlock = function () {
+          var el = document.querySelector('.shopify-app-block [data-entry-point="review_widget.js"], .shopify-app-block .jdgm-review-widget');
+          return el ? el.closest('.shopify-app-block') : null;
+        };
         var adoptJdgm = function () {
-          var w = document.querySelector('.shopify-app-block .jdgm-review-widget');
-          var blockEl = w && w.closest('.shopify-app-block');
-          if (blockEl && !mount.contains(blockEl)) {
-            mount.appendChild(blockEl);
-            return true;
-          }
-          return !!(w && mount.contains(blockEl));
+          var blockEl = findJdgmBlock();
+          if (!blockEl) return false;
+          if (!mount.contains(blockEl)) mount.appendChild(blockEl);
+          return true;
         };
         var hideReviewsTab = function () {
           var item = root.querySelector('.eh-tabs__item[data-eh-item="r"]');
@@ -184,7 +188,14 @@
             if (wasActive && panels[0]) activateTab(panels[0].getAttribute('data-eh-panel'));
           }
         };
-        var runAdopt = function () { if (!adoptJdgm()) hideReviewsTab(); };
+        // Blok bulunamazsa hemen gizleme: app embed/editor enjeksiyonu gecikebilir.
+        var waits = [600, 1500, 3000, 5000];
+        var attempt = function (i) {
+          if (adoptJdgm()) return;
+          if (i >= waits.length) { hideReviewsTab(); return; }
+          setTimeout(function () { attempt(i + 1); }, waits[i]);
+        };
+        var runAdopt = function () { attempt(0); };
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', runAdopt);
         } else {
