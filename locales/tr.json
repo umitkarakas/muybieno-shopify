@@ -535,5 +535,24 @@
       "expanded": "Hediye kartı alıcısı formu genişletildi",
       "collapsed": "Hediye kartı alıcısı formu daraltıldı"
     }
+  },
+  "shopify": {
+    "checkout": {
+      "contact": {
+        "address2_label": "İlçe",
+        "optional_address2_label": "İlçe"
+      },
+      "field_errors": {
+        "address_address2_blank": "İlçe girin"
+      },
+      "wallets": {
+        "errors": {
+          "missing": {
+            "address2": "İlçe girin",
+            "billing_address2": "Fatura adresine ilçe girin"
+          }
+        }
+      }
+    }
   }
 }
