@@ -302,8 +302,10 @@
       scroll-snap-align: start;
       max-width: 44%;
     }
-    /* Eksik görselli kart aşırı uzamasın — medya alanını kareye sabitle */
-    .eh-product-page .related-products .card__inner { --ratio-percent: 100%; }
+    /* Medya alanını kareye sabitle — !important şart: Dawn --ratio-percent'i
+       karta INLINE basar (150% adapt), yoksa kart 150% yüksekliği rezerve
+       edip medya altında büyük krem boşluk bırakır */
+    .eh-product-page .related-products .card__inner { --ratio-percent: 100% !important; }
     .eh-product-page .related-products .card__media,
     .eh-product-page .related-products .media { aspect-ratio: 1 / 1; }
   }
