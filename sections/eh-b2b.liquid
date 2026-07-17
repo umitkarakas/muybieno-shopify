@@ -1,0 +1,888 @@
+{%- comment -%}
+  MuyBieno — Kurumsal / toptan kahve satış bölümü (B2B landing).
+  Kaynak: masaüstü "kurumsal-kahve-musteri-sunum.html" — proje token'larına (espresso/cream,
+  Bricolage/Inter) göre yeniden scope'landı. Tüm stiller ".eh-b2b" altına kapatıldı ki
+  temanın diğer sayfaları etkilenmesin. Fontlar site geneli eh-global-skin'den gelir.
+  Form gönderimi: WhatsApp / e-posta (mailto) — backend yok, cevaplar seçilen kanala iletilir.
+{%- endcomment -%}
+
+<style>
+  #shopify-section-{{ section.id }} .eh-b2b-page {
+    background: linear-gradient(180deg, rgba(251,243,231,0.64) 0%, rgba(255,255,255,0.92) 36%, rgba(251,243,231,0.52) 100%);
+  }
+  #shopify-section-{{ section.id }} .eh-b2b {
+    --espresso: #5C3A1E;
+    --deep: #2A1B0E;
+    --umber: #8A5A2E;
+    --caramel: #B07A45;
+    --cream: #FBF3E7;
+    --muted: #8A7560;
+    --soft: rgba(255,252,247,0.62);
+    --line: rgba(255,255,255,0.72);
+    --shadow: 0 16px 38px rgba(74,44,23,0.07);
+    --grad: linear-gradient(135deg,#5C3A1E 0%,#8A5A2E 55%,#B07A45 100%);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+    overflow: hidden;
+    color: var(--deep);
+    font-family: "Inter", system-ui, sans-serif;
+  }
+  #shopify-section-{{ section.id }} .eh-b2b * { box-sizing: border-box; }
+  #shopify-section-{{ section.id }} .eh-b2b img { max-width: 100%; display: block; }
+
+  .eh-b2b h1,
+  .eh-b2b h2,
+  .eh-b2b h3,
+  .eh-b2b p { margin-top: 0; }
+
+  .eh-b2b__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.04fr) minmax(340px, 0.96fr);
+    gap: 40px;
+    align-items: center;
+  }
+
+  .eh-b2b__badge,
+  .eh-b2b__micro {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    width: fit-content;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.62);
+    border: 1px solid rgba(255,255,255,0.78);
+    box-shadow: 0 8px 20px rgba(74,44,23,0.06);
+    color: #A0662F;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    backdrop-filter: blur(18px);
+  }
+
+  .eh-b2b__badge svg,
+  .eh-b2b__micro svg { width: 15px; height: 15px; }
+
+  .eh-b2b__title {
+    max-width: 720px;
+    margin: 16px 0 0;
+    color: var(--deep);
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: clamp(40px, 6vw, 76px);
+    font-weight: 700;
+    line-height: 0.96;
+    letter-spacing: -0.01em;
+  }
+  .eh-b2b__title em {
+    color: var(--espresso);
+    font-style: normal;
+    font-weight: 800;
+  }
+
+  .eh-b2b__lead {
+    max-width: 620px;
+    margin: 22px 0 0;
+    color: #6E5947;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.62;
+  }
+
+  .eh-b2b__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .eh-b2b__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 54px;
+    padding: 0 28px;
+    border: 0;
+    border-radius: 14px;
+    color: inherit;
+    font: inherit;
+    font-size: 15.5px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .2s ease, filter .2s ease, background .2s ease;
+  }
+  .eh-b2b__btn svg { width: 19px; height: 19px; }
+  .eh-b2b__btn--primary {
+    background: var(--grad);
+    color: var(--cream);
+    box-shadow: 0 18px 34px rgba(124,80,40,0.28);
+  }
+  .eh-b2b__btn--secondary {
+    background: rgba(255,255,255,0.64);
+    border: 1px solid rgba(255,255,255,0.84);
+    color: #3A2818;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 12px 28px rgba(74,44,23,0.06);
+  }
+  .eh-b2b__btn:hover { filter: brightness(1.06); transform: translateY(-2px); }
+
+  .eh-b2b__markers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 11px;
+    max-width: 660px;
+    margin-top: 32px;
+  }
+  .eh-b2b__marker {
+    min-width: 0;
+    border-radius: 18px;
+    padding: 15px 16px;
+    background: var(--soft);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(18px);
+  }
+  .eh-b2b__marker b {
+    display: block;
+    color: var(--espresso);
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .eh-b2b__marker span {
+    display: block;
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 11.8px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .eh-b2b__visual {
+    position: relative;
+    min-width: 0;
+  }
+  .eh-b2b__product-card {
+    position: relative;
+    display: grid;
+    min-height: 480px;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 28px;
+    background:
+      linear-gradient(145deg, rgba(255,252,247,0.72), rgba(251,243,231,0.44)),
+      radial-gradient(circle at 50% 20%, rgba(176,122,69,0.28), transparent 44%);
+    border: 1px solid rgba(255,255,255,0.72);
+    box-shadow: 0 30px 70px rgba(58,34,15,0.18);
+    backdrop-filter: blur(20px);
+  }
+  .eh-b2b__product-card::before {
+    position: absolute;
+    inset: auto -16% 0 -16%;
+    height: 38%;
+    background: linear-gradient(135deg, rgba(92,58,30,0.18), rgba(176,122,69,0.24));
+    content: "";
+    transform: skewY(-6deg);
+    transform-origin: left top;
+  }
+  .eh-b2b__image {
+    position: relative;
+    z-index: 1;
+    width: min(76%, 420px);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 24px 36px rgba(74,44,23,0.22));
+  }
+  .eh-b2b__visual-card {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: min(280px, 78%);
+    padding: 13px 16px;
+    border-radius: 18px;
+    background: rgba(255,252,247,0.78);
+    border: 1px solid rgba(255,255,255,0.86);
+    box-shadow: 0 18px 40px rgba(74,44,23,0.14);
+    backdrop-filter: blur(20px);
+  }
+  .eh-b2b__visual-card--top { top: 32px; left: -12px; }
+  .eh-b2b__visual-card--bottom { right: -10px; bottom: 34px; }
+  .eh-b2b__ico {
+    flex: none;
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border-radius: 12px;
+    background: linear-gradient(135deg,#5C3A1E,#8A5A2E);
+    color: #FBF3E7;
+  }
+  .eh-b2b__ico svg { width: 20px; height: 20px; }
+  .eh-b2b__vcopy b {
+    display: block;
+    color: #3A2818;
+    font-size: 13.5px;
+    line-height: 1.2;
+  }
+  .eh-b2b__vcopy span {
+    display: block;
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 11.4px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .eh-b2b__section-head {
+    max-width: 740px;
+    margin: 80px auto 30px;
+    text-align: center;
+  }
+  .eh-b2b__micro { margin-inline: auto; }
+  .eh-b2b__section-head h2 {
+    margin: 15px 0 0;
+    color: var(--deep);
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 700;
+    line-height: 1.04;
+  }
+  .eh-b2b__section-head p {
+    margin: 15px auto 0;
+    color: #6E5947;
+    font-size: 15.5px;
+    font-weight: 500;
+    line-height: 1.62;
+  }
+
+  .eh-b2b__audiences {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .eh-b2b__audience-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+  }
+  .eh-b2b__values {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .eh-b2b__audience,
+  .eh-b2b__value,
+  .eh-b2b__step {
+    min-width: 0;
+    border-radius: 20px;
+    background: rgba(255,252,247,0.62);
+    border: 1px solid rgba(255,255,255,0.72);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(18px);
+  }
+  .eh-b2b__audience {
+    min-height: 240px;
+    padding: 22px;
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+  }
+  .eh-b2b__audience:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.02);
+    box-shadow: 0 26px 60px rgba(74,44,23,0.14);
+  }
+  .eh-b2b__audience-tag {
+    display: inline-flex;
+    margin-bottom: 14px;
+    color: #A0662F;
+    font-size: 11.4px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .eh-b2b__audience h3,
+  .eh-b2b__value h3 {
+    margin: 0 0 8px;
+    color: var(--deep);
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.16;
+  }
+  .eh-b2b__audience p,
+  .eh-b2b__value p {
+    margin: 0;
+    color: #6E5947;
+    font-size: 13.8px;
+    font-weight: 500;
+    line-height: 1.55;
+  }
+
+  .eh-b2b__steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .eh-b2b__step {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 13px;
+    align-items: start;
+    padding: 18px;
+  }
+  .eh-b2b__num {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border-radius: 12px;
+    background: var(--grad);
+    color: var(--cream);
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: 16.5px;
+    font-weight: 800;
+  }
+  .eh-b2b__step b {
+    display: block;
+    color: var(--deep);
+    font-size: 14.8px;
+    line-height: 1.24;
+  }
+  .eh-b2b__step span span {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12.4px;
+    font-weight: 600;
+    line-height: 1.42;
+  }
+  .eh-b2b__values { margin-top: 20px; }
+  .eh-b2b__value { padding: 20px; }
+
+  .eh-b2b__form-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(360px, 1.22fr);
+    gap: 24px;
+    align-items: start;
+    margin-top: 80px;
+    padding: 24px;
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(42,27,14,0.96), rgba(92,58,30,0.92));
+    box-shadow: 0 34px 80px rgba(42,27,14,0.24);
+  }
+  .eh-b2b__form-copy {
+    min-width: 0;
+    padding: 14px 10px;
+    color: #FBF3E7;
+  }
+  .eh-b2b__form-copy .eh-b2b__badge {
+    background: rgba(255,252,247,0.12);
+    border-color: rgba(255,252,247,0.22);
+    color: #E8D5B5;
+    box-shadow: none;
+  }
+  .eh-b2b__form-copy h2 {
+    margin: 18px 0 0;
+    color: #FBF3E7;
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 700;
+    line-height: 1.04;
+  }
+  .eh-b2b__form-copy p {
+    margin: 16px 0 0;
+    color: rgba(251,243,231,0.76);
+    font-size: 15.2px;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+  .eh-b2b__form-bullets {
+    display: grid;
+    gap: 10px;
+    margin: 22px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .eh-b2b__form-bullets li {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    color: rgba(251,243,231,0.84);
+    font-size: 13.4px;
+    line-height: 1.45;
+  }
+  .eh-b2b__form-bullets li::before {
+    display: grid;
+    width: 24px;
+    height: 24px;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(251,243,231,0.12);
+    color: #E8D5B5;
+    content: "✓";
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .eh-b2b__form {
+    min-width: 0;
+    padding: 22px;
+    border-radius: 22px;
+    background: rgba(255,252,247,0.92);
+    border: 1px solid rgba(255,255,255,0.76);
+    box-shadow: 0 20px 54px rgba(42,27,14,0.20);
+  }
+  .eh-b2b__fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .eh-b2b__field {
+    display: grid;
+    min-width: 0;
+    gap: 7px;
+    color: #3A2818;
+    font-size: 12.4px;
+    font-weight: 800;
+    line-height: 1.25;
+  }
+  .eh-b2b__field--wide { grid-column: 1 / -1; }
+  .eh-b2b__field input,
+  .eh-b2b__field select,
+  .eh-b2b__field textarea {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid rgba(138,90,46,0.18);
+    border-radius: 12px;
+    padding: 11px 12px;
+    background: rgba(255,255,255,0.74);
+    color: #2A1B0E;
+    font: inherit;
+    font-size: 13.8px;
+    font-weight: 500;
+    line-height: 1.3;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.62);
+  }
+  .eh-b2b__field textarea {
+    min-height: 104px;
+    resize: vertical;
+  }
+  .eh-b2b__field input:focus,
+  .eh-b2b__field select:focus,
+  .eh-b2b__field textarea:focus {
+    border-color: rgba(92,58,30,0.58);
+    box-shadow: 0 0 0 3.5px rgba(92,58,30,0.11);
+    outline: 0;
+  }
+  .eh-b2b__field input[aria-invalid="true"],
+  .eh-b2b__field select[aria-invalid="true"],
+  .eh-b2b__field textarea[aria-invalid="true"] { border-color: #9D2B1F; }
+  .eh-b2b__hint {
+    margin: 15px 0;
+    color: #7E6957;
+    font-size: 12.2px;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+  .eh-b2b__submit-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .eh-b2b__submit {
+    width: 100%;
+    min-height: 58px;
+    padding-inline: 16px;
+    line-height: 1.18;
+  }
+  .eh-b2b__error {
+    margin: 12px 0 0;
+    color: #9D2B1F;
+    font-size: 12.4px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 1189px) and (min-width: 990px) {
+    .eh-b2b__audiences { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 989px) {
+    .eh-b2b__hero,
+    .eh-b2b__form-shell { grid-template-columns: 1fr; }
+    .eh-b2b__visual {
+      max-width: 580px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .eh-b2b__audiences,
+    .eh-b2b__values,
+    .eh-b2b__steps { grid-template-columns: 1fr; }
+    .eh-b2b__audience { min-height: 0; }
+  }
+
+  @media (max-width: 749px) {
+    .eh-b2b { padding: 40px 16px 64px; }
+    .eh-b2b__hero { gap: 28px; }
+    .eh-b2b__title { font-size: 40px; line-height: 1.02; }
+    .eh-b2b__lead { font-size: 15px; }
+    .eh-b2b__actions,
+    .eh-b2b__btn { width: 100%; }
+    .eh-b2b__markers { grid-template-columns: 1fr; }
+    .eh-b2b__product-card {
+      min-height: 350px;
+      border-radius: 22px;
+    }
+    .eh-b2b__visual-card {
+      position: relative;
+      inset: auto;
+      max-width: none;
+      margin-top: 10px;
+    }
+    .eh-b2b__section-head {
+      margin-top: 56px;
+      text-align: left;
+    }
+    .eh-b2b__micro { margin-inline: 0; }
+    .eh-b2b__section-head h2,
+    .eh-b2b__form-copy h2 { font-size: 32px; }
+    .eh-b2b__form-shell {
+      margin-top: 56px;
+      padding: 14px;
+      border-radius: 22px;
+    }
+    .eh-b2b__form-copy { padding: 10px 4px 4px; }
+    .eh-b2b__form { padding: 16px; }
+    .eh-b2b__fields { grid-template-columns: 1fr; }
+    .eh-b2b__submit-actions { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="eh-b2b-page">
+  <main class="eh-b2b" id="eh-b2b-{{ section.id }}" data-eh-b2b
+        data-whatsapp-phone="{{ section.settings.whatsapp_phone | escape }}"
+        data-message-intro="{{ section.settings.message_intro | escape }}"
+        data-contact-email="{{ section.settings.contact_email | escape }}"
+        data-email-subject="{{ section.settings.email_subject | escape }}">
+    <section class="eh-b2b__hero">
+      <div class="eh-b2b__copy">
+        <div class="eh-b2b__badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/></svg>
+          Kurumsal ve toptan kahve
+        </div>
+        <h1 class="eh-b2b__title">MuyBieno ile size özel kurumsal kahve çözümleri sunuyoruz.</h1>
+        <p class="eh-b2b__lead">MuyBieno, çalışanlarınıza, misafirlerinize veya müşterilerinize sunacağınız kahveyi taze, düzenli ve markanızı iyi temsil eden bir çözüme dönüştürür. 5 kg ve üzeri toplu alımlarda size özel avantajlı teklif hazırlayalım.</p>
+
+        <div class="eh-b2b__actions" aria-label="Kurumsal kahve teklif bağlantıları">
+          <a class="eh-b2b__btn eh-b2b__btn--primary" href="#KurumsalKahveForm">
+            Kurumsal Kahve Teklifi Al
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
+          <a class="eh-b2b__btn eh-b2b__btn--secondary" href="#KurumsalKahveDetay">Detayları Gör</a>
+        </div>
+
+        <div class="eh-b2b__markers" aria-label="Kurumsal kahve teklif özeti">
+          <div class="eh-b2b__marker"><b>Toplu alım</b><span>Uygun ve avantajlı fırsatlar</span></div>
+          <div class="eh-b2b__marker"><b>Kahve çeşitleri</b><span>Geniş ürün yelpazesi</span></div>
+          <div class="eh-b2b__marker"><b>Size ulaşalım</b><span>Formu doldurun, talebinizi değerlendirelim</span></div>
+        </div>
+      </div>
+
+      <div class="eh-b2b__visual" aria-label="MuyBieno kiloluk kahve görseli">
+        <div class="eh-b2b__product-card">
+          {%- if section.settings.hero_image != blank -%}
+            <img class="eh-b2b__image" src="{{ section.settings.hero_image | image_url: width: 840 }}" alt="{{ section.settings.hero_image.alt | default: 'MuyBieno kurumsal kahve ürünleri' | escape }}" width="{{ section.settings.hero_image.width }}" height="{{ section.settings.hero_image.height }}" loading="eager">
+          {%- else -%}
+            <img class="eh-b2b__image" src="{{ 'eh-b2b-hero.jpg' | asset_url }}" alt="MuyBieno kurumsal kahve ürünleri" width="1254" height="1254" loading="eager">
+          {%- endif -%}
+        </div>
+        <div class="eh-b2b__visual-card eh-b2b__visual-card--top">
+          <span class="eh-b2b__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h18v18H3z"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg></span>
+          <span class="eh-b2b__vcopy"><b>Size özel teklif</b><span>Sabit fiyat yerine ihtiyaca göre net teklif</span></span>
+        </div>
+        <div class="eh-b2b__visual-card eh-b2b__visual-card--bottom">
+          <span class="eh-b2b__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></span>
+          <span class="eh-b2b__vcopy"><b>Tek sefer veya düzenli</b><span>Aylık tedarik de, toplu alım da uygun</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section id="KurumsalKahveDetay" class="eh-b2b__section-head">
+      <span class="eh-b2b__micro">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Kimler için?
+      </span>
+      <h2>Kurumunuz, ofisiniz veya işletmeniz için size özel kahve teklifinizi alın.</h2>
+      <p>Çalışanlarınıza ve misafirlerinize ikram etmek, müşterilerinize hediye etmek, işletmenizde kullanmak ya da satışa sunmak için toplu kahve taleplerinizi birlikte planlayalım.</p>
+    </section>
+
+    <section class="eh-b2b__audiences">
+      <article class="eh-b2b__audience">
+        <span class="eh-b2b__audience-tag">Ofisler ve kurumlar</span>
+        <h3>Çalışan ve misafir ikramı</h3>
+        <p>Çalışanlarınıza ve gelen misafirlerinize kaliteli kahveyi uygun fiyat avantajıyla sunun.</p>
+      </article>
+      <article class="eh-b2b__audience">
+        <span class="eh-b2b__audience-tag">Hediyelik · Eşantiyon</span>
+        <h3>40 yıllık hatrı olan hediye</h3>
+        <p>Çalışanlarınız, müşterileriniz veya dilediğiniz kişiler için kahve hediyelerini sizin adınıza hazırlayalım.</p>
+      </article>
+      <article class="eh-b2b__audience">
+        <span class="eh-b2b__audience-tag">Kafe · Otel · Restoran</span>
+        <h3>İşletmeniz için tedarik</h3>
+        <p>Ürün standardı, tazelik ve rekabetçi fiyat dengesiyle işletme kahve ihtiyacınızı destekleriz.</p>
+      </article>
+      <article class="eh-b2b__audience">
+        <span class="eh-b2b__audience-tag">Satış noktaları</span>
+        <h3>Toptan ve bayi talepleri</h3>
+        <p>MuyBieno kalitesini doğru satış noktalarıyla buluşturmak için toplu alım taleplerini değerlendiririz.</p>
+      </article>
+    </section>
+
+    <div class="eh-b2b__audience-actions">
+      <a class="eh-b2b__btn eh-b2b__btn--primary" href="#KurumsalKahveForm">
+        Hemen Teklif Al
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <section class="eh-b2b__section-head">
+      <span class="eh-b2b__micro">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 12 2 2 4-4"/><path d="M20 6 9 17l-5-5"/></svg>
+        Nasıl ilerler?
+      </span>
+      <h2>Formu doldurun, ekibimiz size en kısa sürede ulaşsın.</h2>
+    </section>
+
+    <section class="eh-b2b__steps" aria-label="Teklif alma adımları">
+      <div class="eh-b2b__step"><span class="eh-b2b__num">1</span><span><b>İhtiyacınızı belirtin</b><span>5 kg ve üzeri tahmini talebi, kullanım amacını ve ürün tipini seçin.</span></span></div>
+      <div class="eh-b2b__step"><span class="eh-b2b__num">2</span><span><b>Talebinizi gönderin</b><span>Form cevaplarınız ekibimize ulaşır; size uygun iletişim kanalıyla dönüş yaparız.</span></span></div>
+      <div class="eh-b2b__step"><span class="eh-b2b__num">3</span><span><b>Özel teklifi alın</b><span>Miktar arttıkça fiyat avantajı da artacak şekilde size dönüş yaparız.</span></span></div>
+    </section>
+
+    <section class="eh-b2b__values">
+      <article class="eh-b2b__value">
+        <h3>Markanızı iyi temsil eder</h3>
+        <p>Misafirinize sunduğunuz ikram bile kurumunuzun kalite algısının parçasıdır.</p>
+      </article>
+      <article class="eh-b2b__value">
+        <h3>Taze ve lezzetli ürün</h3>
+        <p>Kahve deneyiminizin güven veren, düzenli ve keyifli kalmasına odaklanırız.</p>
+      </article>
+      <article class="eh-b2b__value">
+        <h3>Doğru fiyat dengesi</h3>
+        <p>Kaliteli kahveyi gereğinden fazla şişirilmiş fiyatlarla değil, uygun ve rekabetçi tekliflerle sunarız.</p>
+      </article>
+    </section>
+
+    <section class="eh-b2b__form-shell">
+      <div class="eh-b2b__form-copy">
+        <div class="eh-b2b__badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+          Hızlı teklif talebi
+        </div>
+        <h2>İhtiyacınızı yazın, size özel kurumsal kahve teklifini hazırlayalım.</h2>
+        <p>Fiyatı sayfada göstermiyoruz; çünkü ihtiyaç, ürün tipi ve miktara göre daha doğru bir teklif hazırlıyoruz.</p>
+        <ul class="eh-b2b__form-bullets">
+          <li>Minimum 5 kg talep için teklif alınabilir.</li>
+          <li>İlk odak 1 kg kahveler; diğer ürünler talebe göre değerlendirilebilir.</li>
+          <li>Tek sefer toplu alım veya aylık düzenli tedarik için kullanılabilir.</li>
+        </ul>
+      </div>
+
+      <form id="KurumsalKahveForm" class="eh-b2b__form" novalidate>
+        <div class="eh-b2b__fields">
+          <label class="eh-b2b__field"><span>Ad soyad</span><input type="text" name="name" autocomplete="name" required data-label="Ad soyad"></label>
+          <label class="eh-b2b__field"><span>Firma adı</span><input type="text" name="company" autocomplete="organization" required data-label="Firma adı"></label>
+          <label class="eh-b2b__field"><span>Telefon</span><input type="tel" name="phone" autocomplete="tel" required data-label="Telefon"></label>
+          <label class="eh-b2b__field"><span>E-posta</span><input type="email" name="email" autocomplete="email" data-label="E-posta"></label>
+          <label class="eh-b2b__field"><span>Şehir</span><input type="text" name="city" autocomplete="address-level1" data-label="Şehir"></label>
+          <label class="eh-b2b__field">
+            <span>Kullanım amacı</span>
+            <select name="use_case" required data-label="Kullanım amacı">
+              <option value="">Seçiniz</option>
+              <option>Ofis / çalışan ve misafir ikramı</option>
+              <option>Kafe, restoran veya otel tedariki</option>
+              <option>Satış noktası / bayi talebi</option>
+              <option>Kurumsal hediye veya etkinlik</option>
+              <option>Diğer</option>
+            </select>
+          </label>
+          <label class="eh-b2b__field">
+            <span>Tahmini kahve ihtiyacı</span>
+            <select name="quantity" required data-label="Tahmini kahve ihtiyacı">
+              <option value="">Seçiniz</option>
+              <option>5-10 kg</option>
+              <option>11-25 kg</option>
+              <option>25 kg ve üzeri</option>
+            </select>
+          </label>
+          <label class="eh-b2b__field">
+            <span>İstenen ürün türü</span>
+            <select name="product_type" data-label="İstenen ürün türü">
+              <option value="">Seçiniz</option>
+              <option>1 kg çekirdek kahveler</option>
+              <option>1 kg öğütülmüş kahveler</option>
+              <option>Filtre, espresso veya Türk kahvesi</option>
+              <option>Diğer MuyBieno ürünleri</option>
+            </select>
+          </label>
+          <label class="eh-b2b__field">
+            <span>Alım tipi</span>
+            <select name="purchase_type" data-label="Alım tipi">
+              <option value="">Seçiniz</option>
+              <option>Tek sefer toplu alım</option>
+              <option>Aylık düzenli tedarik</option>
+              <option>Henüz net değil</option>
+            </select>
+          </label>
+          <label class="eh-b2b__field eh-b2b__field--wide"><span>Notunuz</span><textarea name="note" rows="4" data-label="Not"></textarea></label>
+        </div>
+        <p class="eh-b2b__hint">Bu form fiyat göstermez; bilgilerinizi tercih ettiğiniz kanalla iletip size özel teklif alabilirsiniz.</p>
+        <div class="eh-b2b__submit-actions" aria-label="Teklif formu gönderim seçenekleri">
+          <button class="eh-b2b__btn eh-b2b__btn--primary eh-b2b__submit" type="button" data-submit-channel="whatsapp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+            Teklif formunu WhatsApp ile iletin
+          </button>
+          <button class="eh-b2b__btn eh-b2b__btn--secondary eh-b2b__submit" type="button" data-submit-channel="email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 4 8 8 8-8"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
+            Teklif formunu mail ile iletin
+          </button>
+        </div>
+        <p class="eh-b2b__error" role="alert" hidden>Lütfen zorunlu alanları doldurun.</p>
+      </form>
+    </section>
+  </main>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('eh-b2b-{{ section.id }}');
+    if (!root) return;
+    var form = root.querySelector('.eh-b2b__form');
+    var error = root.querySelector('.eh-b2b__error');
+    if (!form) return;
+
+    function validateForm() {
+      var requiredFields = [].slice.call(form.querySelectorAll('[required]'));
+      var isValid = true;
+
+      requiredFields.forEach(function (field) {
+        var fieldIsValid = Boolean(field.value.trim());
+        field.setAttribute('aria-invalid', fieldIsValid ? 'false' : 'true');
+        if (!fieldIsValid) isValid = false;
+      });
+
+      if (!isValid) {
+        error.hidden = false;
+        return false;
+      }
+
+      error.hidden = true;
+      return true;
+    }
+
+    function buildMessageLines() {
+      var intro = root.getAttribute('data-message-intro') || '';
+      var fields = [].slice.call(form.querySelectorAll('input, select, textarea'));
+      var lines = [intro, ''];
+
+      fields.forEach(function (field) {
+        var value = field.value.trim();
+        var label = field.getAttribute('data-label');
+        if (value && label) lines.push(label + ': ' + value);
+      });
+
+      return lines;
+    }
+
+    function sendForm(channel) {
+      if (!validateForm()) return;
+
+      var lines = buildMessageLines();
+
+      if (channel === 'email') {
+        var email = root.getAttribute('data-contact-email') || 'info@muybieno.com';
+        var subject = root.getAttribute('data-email-subject') || 'MuyBieno kurumsal kahve teklif talebi';
+        window.location.href = 'mailto:' + email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+        return;
+      }
+
+      var phone = root.getAttribute('data-whatsapp-phone') || '';
+      window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      sendForm('whatsapp');
+    });
+
+    [].slice.call(form.querySelectorAll('[data-submit-channel]')).forEach(function (button) {
+      button.addEventListener('click', function () {
+        sendForm(button.getAttribute('data-submit-channel'));
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Kurumsal satış",
+  "tag": "section",
+  "class": "eh-b2b-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero görseli"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Ürün görseli",
+      "info": "Boş bırakılırsa varsayılan MuyBieno kiloluk kahve görseli kullanılır."
+    },
+    {
+      "type": "header",
+      "content": "İletişim / teklif kanalı"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_phone",
+      "label": "WhatsApp numarası",
+      "info": "Ülke kodu dahil, boşluksuz. Örn: 905102208123",
+      "default": "905102208123"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Teklif e-posta adresi",
+      "default": "info@muybieno.com"
+    },
+    {
+      "type": "text",
+      "id": "email_subject",
+      "label": "E-posta konusu",
+      "default": "MuyBieno kurumsal kahve teklif talebi"
+    },
+    {
+      "type": "text",
+      "id": "message_intro",
+      "label": "Mesaj giriş metni",
+      "default": "Merhaba, MuyBieno kurumsal/toptan kahve fiyat teklifi almak istiyorum."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Kurumsal satış (B2B)"
+    }
+  ]
+}
+{% endschema %}
