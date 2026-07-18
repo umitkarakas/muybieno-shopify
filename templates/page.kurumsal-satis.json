@@ -4,8 +4,6 @@
       "type": "eh-b2b",
       "settings": {
         "whatsapp_phone": "905102208123",
-        "contact_email": "info@muybieno.com",
-        "email_subject": "MuyBieno kurumsal kahve teklif talebi",
         "message_intro": "Merhaba, MuyBieno kurumsal/toptan kahve fiyat teklifi almak istiyorum."
       }
     }

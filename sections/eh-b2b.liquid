@@ -510,6 +510,36 @@
     font-size: 12.4px;
     font-weight: 700;
   }
+  .eh-b2b__error--server {
+    margin: 0 0 14px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: rgba(157,43,31,0.08);
+    border: 1px solid rgba(157,43,31,0.24);
+  }
+  .eh-b2b__success {
+    display: grid;
+    gap: 6px;
+    margin: 4px 0 6px;
+    padding: 20px;
+    border-radius: 18px;
+    background: rgba(255,252,247,0.95);
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 18px 44px rgba(42,27,14,0.16);
+  }
+  .eh-b2b__success b {
+    color: var(--espresso);
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.15;
+  }
+  .eh-b2b__success span {
+    color: #6E5947;
+    font-size: 13.6px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
 
   @media (max-width: 1189px) and (min-width: 990px) {
     .eh-b2b__audiences { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -569,9 +599,7 @@
 <div class="eh-b2b-page">
   <main class="eh-b2b" id="eh-b2b-{{ section.id }}" data-eh-b2b
         data-whatsapp-phone="{{ section.settings.whatsapp_phone | escape }}"
-        data-message-intro="{{ section.settings.message_intro | escape }}"
-        data-contact-email="{{ section.settings.contact_email | escape }}"
-        data-email-subject="{{ section.settings.email_subject | escape }}">
+        data-message-intro="{{ section.settings.message_intro | escape }}">
     <section class="eh-b2b__hero">
       <div class="eh-b2b__copy">
         <div class="eh-b2b__badge">
@@ -698,16 +726,26 @@
         </ul>
       </div>
 
-      <form id="KurumsalKahveForm" class="eh-b2b__form" novalidate>
+      {%- form 'contact', id: 'KurumsalKahveForm', class: 'eh-b2b__form' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="eh-b2b__success" role="status" tabindex="-1">
+            <b>Teklif talebiniz bize ulaştı ✓</b>
+            <span>Ekibimiz en kısa sürede sizinle iletişime geçecek. İlginiz için teşekkürler.</span>
+          </div>
+        {%- elsif form.errors -%}
+          <div class="eh-b2b__error eh-b2b__error--server" role="alert" tabindex="-1">
+            Formu gönderirken bir sorun oluştu: {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}. Lütfen geçerli bir e-posta adresi girip tekrar deneyin.
+          </div>
+        {%- endif -%}
         <div class="eh-b2b__fields">
-          <label class="eh-b2b__field"><span>Ad soyad</span><input type="text" name="name" autocomplete="name" required data-label="Ad soyad"></label>
-          <label class="eh-b2b__field"><span>Firma adı</span><input type="text" name="company" autocomplete="organization" required data-label="Firma adı"></label>
-          <label class="eh-b2b__field"><span>Telefon</span><input type="tel" name="phone" autocomplete="tel" required data-label="Telefon"></label>
-          <label class="eh-b2b__field"><span>E-posta</span><input type="email" name="email" autocomplete="email" data-label="E-posta"></label>
-          <label class="eh-b2b__field"><span>Şehir</span><input type="text" name="city" autocomplete="address-level1" data-label="Şehir"></label>
+          <label class="eh-b2b__field"><span>Ad soyad</span><input type="text" name="contact[Ad Soyad]" autocomplete="name" required data-label="Ad soyad"></label>
+          <label class="eh-b2b__field"><span>Firma adı</span><input type="text" name="contact[Firma Adı]" autocomplete="organization" required data-label="Firma adı"></label>
+          <label class="eh-b2b__field"><span>Telefon</span><input type="tel" name="contact[Telefon]" autocomplete="tel" required data-label="Telefon"></label>
+          <label class="eh-b2b__field"><span>E-posta</span><input type="email" name="contact[email]" autocomplete="email" required data-label="E-posta" value="{{ form.email }}"></label>
+          <label class="eh-b2b__field"><span>Şehir</span><input type="text" name="contact[Şehir]" autocomplete="address-level1" data-label="Şehir"></label>
           <label class="eh-b2b__field">
             <span>Kullanım amacı</span>
-            <select name="use_case" required data-label="Kullanım amacı">
+            <select name="contact[Kullanım Amacı]" required data-label="Kullanım amacı">
               <option value="">Seçiniz</option>
               <option>Ofis / çalışan ve misafir ikramı</option>
               <option>Kafe, restoran veya otel tedariki</option>
@@ -718,7 +756,7 @@
           </label>
           <label class="eh-b2b__field">
             <span>Tahmini kahve ihtiyacı</span>
-            <select name="quantity" required data-label="Tahmini kahve ihtiyacı">
+            <select name="contact[Tahmini Kahve İhtiyacı]" required data-label="Tahmini kahve ihtiyacı">
               <option value="">Seçiniz</option>
               <option>5-10 kg</option>
               <option>11-25 kg</option>
@@ -727,7 +765,7 @@
           </label>
           <label class="eh-b2b__field">
             <span>İstenen ürün türü</span>
-            <select name="product_type" data-label="İstenen ürün türü">
+            <select name="contact[İstenen Ürün Türü]" data-label="İstenen ürün türü">
               <option value="">Seçiniz</option>
               <option>1 kg çekirdek kahveler</option>
               <option>1 kg öğütülmüş kahveler</option>
@@ -737,28 +775,28 @@
           </label>
           <label class="eh-b2b__field">
             <span>Alım tipi</span>
-            <select name="purchase_type" data-label="Alım tipi">
+            <select name="contact[Alım Tipi]" data-label="Alım tipi">
               <option value="">Seçiniz</option>
               <option>Tek sefer toplu alım</option>
               <option>Aylık düzenli tedarik</option>
               <option>Henüz net değil</option>
             </select>
           </label>
-          <label class="eh-b2b__field eh-b2b__field--wide"><span>Notunuz</span><textarea name="note" rows="4" data-label="Not"></textarea></label>
+          <label class="eh-b2b__field eh-b2b__field--wide"><span>Notunuz</span><textarea name="contact[body]" rows="4" data-label="Not">{{ form.body }}</textarea></label>
         </div>
-        <p class="eh-b2b__hint">Bu form fiyat göstermez; bilgilerinizi tercih ettiğiniz kanalla iletip size özel teklif alabilirsiniz.</p>
+        <p class="eh-b2b__hint">Formu "mail ile ilet" ile gönderdiğinizde talebiniz doğrudan ekibimize ulaşır. Dilerseniz WhatsApp üzerinden de iletebilirsiniz.</p>
         <div class="eh-b2b__submit-actions" aria-label="Teklif formu gönderim seçenekleri">
-          <button class="eh-b2b__btn eh-b2b__btn--primary eh-b2b__submit" type="button" data-submit-channel="whatsapp">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
-            Teklif formunu WhatsApp ile iletin
-          </button>
-          <button class="eh-b2b__btn eh-b2b__btn--secondary eh-b2b__submit" type="button" data-submit-channel="email">
+          <button class="eh-b2b__btn eh-b2b__btn--primary eh-b2b__submit" type="submit">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 4 8 8 8-8"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
             Teklif formunu mail ile iletin
           </button>
+          <button class="eh-b2b__btn eh-b2b__btn--secondary eh-b2b__submit" type="button" data-submit-channel="whatsapp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+            Teklif formunu WhatsApp ile iletin
+          </button>
         </div>
         <p class="eh-b2b__error" role="alert" hidden>Lütfen zorunlu alanları doldurun.</p>
-      </form>
+      {%- endform -%}
     </section>
   </main>
 </div>
@@ -768,9 +806,17 @@
     var root = document.getElementById('eh-b2b-{{ section.id }}');
     if (!root) return;
     var form = root.querySelector('.eh-b2b__form');
-    var error = root.querySelector('.eh-b2b__error');
     if (!form) return;
+    var error = form.querySelector('.eh-b2b__error:not(.eh-b2b__error--server)');
 
+    // Başarılı gönderimden sonra onay kutusuna odaklan/kaydır.
+    var success = root.querySelector('.eh-b2b__success');
+    if (success) {
+      try { success.scrollIntoView({ block: 'center' }); success.focus(); } catch (e) {}
+    }
+
+    // "Mail ile ilet" butonu formu Shopify contact formu olarak POST eder
+    // (native submit). Aşağıdaki mantık yalnızca WhatsApp kanalı içindir.
     function validateForm() {
       var requiredFields = [].slice.call(form.querySelectorAll('[required]'));
       var isValid = true;
@@ -781,13 +827,8 @@
         if (!fieldIsValid) isValid = false;
       });
 
-      if (!isValid) {
-        error.hidden = false;
-        return false;
-      }
-
-      error.hidden = true;
-      return true;
+      if (error) error.hidden = isValid;
+      return isValid;
     }
 
     function buildMessageLines() {
@@ -796,7 +837,7 @@
       var lines = [intro, ''];
 
       fields.forEach(function (field) {
-        var value = field.value.trim();
+        var value = (field.value || '').trim();
         var label = field.getAttribute('data-label');
         if (value && label) lines.push(label + ': ' + value);
       });
@@ -804,30 +845,12 @@
       return lines;
     }
 
-    function sendForm(channel) {
-      if (!validateForm()) return;
-
-      var lines = buildMessageLines();
-
-      if (channel === 'email') {
-        var email = root.getAttribute('data-contact-email') || 'info@muybieno.com';
-        var subject = root.getAttribute('data-email-subject') || 'MuyBieno kurumsal kahve teklif talebi';
-        window.location.href = 'mailto:' + email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
-        return;
-      }
-
-      var phone = root.getAttribute('data-whatsapp-phone') || '';
-      window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
-    }
-
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      sendForm('whatsapp');
-    });
-
-    [].slice.call(form.querySelectorAll('[data-submit-channel]')).forEach(function (button) {
+    [].slice.call(form.querySelectorAll('[data-submit-channel="whatsapp"]')).forEach(function (button) {
       button.addEventListener('click', function () {
-        sendForm(button.getAttribute('data-submit-channel'));
+        if (!validateForm()) return;
+        var phone = root.getAttribute('data-whatsapp-phone') || '';
+        var lines = buildMessageLines();
+        window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
       });
     });
   })();
@@ -854,6 +877,10 @@
       "content": "İletişim / teklif kanalı"
     },
     {
+      "type": "paragraph",
+      "content": "\"Mail ile ilet\" butonu formu doğrudan Shopify üzerinden gönderir; talep, Ayarlar → Mağaza bilgileri → \"Mağaza iletişim e-postası\" adresine ulaşır."
+    },
+    {
       "type": "text",
       "id": "whatsapp_phone",
       "label": "WhatsApp numarası",
@@ -862,20 +889,8 @@
     },
     {
       "type": "text",
-      "id": "contact_email",
-      "label": "Teklif e-posta adresi",
-      "default": "info@muybieno.com"
-    },
-    {
-      "type": "text",
-      "id": "email_subject",
-      "label": "E-posta konusu",
-      "default": "MuyBieno kurumsal kahve teklif talebi"
-    },
-    {
-      "type": "text",
       "id": "message_intro",
-      "label": "Mesaj giriş metni",
+      "label": "WhatsApp mesajı giriş metni",
       "default": "Merhaba, MuyBieno kurumsal/toptan kahve fiyat teklifi almak istiyorum."
     }
   ],
