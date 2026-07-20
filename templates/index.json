@@ -235,14 +235,7 @@
             "text": "<p>Dünyanın seçkin bölgelerinden, ustalıkla kavrulmuş tek origin çekirdekler. Siparişinizden hemen önce kavurur, tazeliğini kapınıza taşırız.</p>",
             "button_label": "Kahveleri keşfet",
             "button_link": "shopify://collections/all",
-            "button2_label": "Aboneliği incele",
-            "button2_link": "shopify://pages/abonelik",
-            "product_label": "Guatemala Huehuetenango",
-            "product_sub": "ORTA KAVRUM · TEK ORIGIN",
-            "float1_key": "Tat profili",
-            "float1_value": "Kakao · Narenciye",
-            "float2_value": "4.9",
-            "float2_key": "2.4K değerlendirme"
+            "product_label": "Guatemala Huehuetenango"
           }
         },
         "s2": {
@@ -253,15 +246,8 @@
             "text": "<p>Seç, abone ol, gerisini bize bırak. Her teslimatta taze kavrulmuş çekirdekler; dilediğin zaman duraklat veya iptal et.</p>",
             "button_label": "Aboneliği keşfet",
             "button_link": "shopify://pages/abonelik",
-            "button2_label": "Kahveleri gör",
-            "button2_link": "shopify://collections/all",
             "image": "shopify://shop_images/muybieno-cift-cam-french-press-350-ml-french-press-muybieno-ekipmanlar-961-93-B.png",
-            "product_label": "Aylık Abonelik",
-            "product_sub": "TAZE KAVRUM · ESNEK PLAN",
-            "float1_key": "Teslimat",
-            "float1_value": "Her ay kapında",
-            "float2_value": "%10",
-            "float2_key": "abone indirimi"
+            "product_label": "Aylık Abonelik"
           }
         },
         "s3": {
@@ -272,14 +258,7 @@
             "text": "<p>V60, French press, dripper ve daha fazlası — her yönteme uygun ekipman ve taze öğütümle profesyonel demleme.</p>",
             "button_label": "Ekipmanları keşfet",
             "button_link": "shopify://collections/demleme-ekipmanlari",
-            "button2_label": "Tüm ürünler",
-            "button2_link": "shopify://collections/all",
-            "product_label": "Demleme Setleri",
-            "product_sub": "V60 · FRENCH PRESS",
-            "float1_key": "Tat profili",
-            "float1_value": "Berrak & temiz",
-            "float2_value": "4.8",
-            "float2_key": "ekipman puanı"
+            "product_label": "Demleme Setleri"
           }
         }
       },
@@ -291,28 +270,13 @@
       "disabled": true,
       "settings": {
         "autoplay_speed": 6,
-        "stat1_num": "12+",
-        "stat1_label": "Tek origin bölge",
-        "stat2_num": "48 sa",
-        "stat2_label": "Kavrumdan teslime",
-        "stat3_num": "9.8K",
-        "stat3_label": "Mutlu kahve sever",
         "badge": "Haftalık taze kavrum",
         "heading": "<p>Her fincanda <em>muy bien</em> bir lezzet</p>",
         "text": "<p>Dünyanın seçkin bölgelerinden, ustalıkla kavrulmuş tek origin çekirdekler ve demleme ekipmanları. Siparişinizden hemen önce kavurur, tazeliğini kapınıza taşırız.</p>",
         "button_label": "Kahveleri keşfet",
         "button_link": "shopify://collections/all",
-        "button2_label": "Aboneliği incele",
-        "button2_link": "",
         "image": "shopify://shop_images/aloha-kahve-degirmeni-seti-cam-yedek-hazneli-demleme-ekipmanlari-aloha-ekipmanlar-964-92-B.jpg",
-        "product_label": "Guatemala Huehuetenango",
-        "product_sub": "ORTA KAVRUM · TEK ORIGIN",
-        "float1_key": "Tat profili",
-        "float1_value": "Kakao · Narenciye",
-        "float2_value": "4.9",
-        "float2_key": "2.4K değerlendirme",
-        "padding_top": 56,
-        "padding_bottom": 20
+        "product_label": "Guatemala Huehuetenango"
       }
     },
     "eh_tab_carousel": {
@@ -468,6 +432,7 @@
         "p2",
         "p3"
       ],
+      "disabled": true,
       "settings": {
         "eyebrow": "Hikayemiz",
         "heading": "Çekirdekten fincana, ustalıkla",
