@@ -294,9 +294,9 @@
         "card_wWpXmh": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/1138.jpg",
+            "image": "shopify://shop_images/turkkahvesi.png",
             "collection": "turk-kahvesi",
-            "link": "shopify://collections",
+            "link": "shopify://collections/turk-kahvesi",
             "eyebrow": "",
             "heading": "",
             "subtitle": "",
