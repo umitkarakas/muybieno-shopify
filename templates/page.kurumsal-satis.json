@@ -3,6 +3,7 @@
     "kurumsal_satis": {
       "type": "eh-b2b",
       "settings": {
+        "hero_image": "shopify://shopify_images/29242930954303",
         "whatsapp_phone": "905102208123",
         "message_intro": "Merhaba, MuyBieno kurumsal/toptan kahve fiyat teklifi almak istiyorum."
       }
