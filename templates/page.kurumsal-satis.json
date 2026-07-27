@@ -1,9 +1,18 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "kurumsal_satis": {
       "type": "eh-b2b",
       "settings": {
-        "hero_image": "shopify://shopify_images/29242930954303",
+        "hero_image": "shopify://shop_images/kurumsal-kahve.png",
         "whatsapp_phone": "905102208123",
         "message_intro": "Merhaba, MuyBieno kurumsal/toptan kahve fiyat teklifi almak istiyorum."
       }
