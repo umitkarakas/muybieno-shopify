@@ -40,10 +40,22 @@
                 if mega_img == blank and mega_obj.products.first
                   assign mega_img = mega_obj.products.first.featured_image
                 endif
+
+                # Koleksiyon/ürün görseli olmayan (sayfaya bağlı) menüler için elle atanan tema-varlığı görseli
+                assign mega_asset = ''
+                case link.handle
+                  when 'kurumsal-satis'
+                    assign mega_asset = 'mega-kurumsal-satis.jpg'
+                endcase
+
+                assign mega_has_media = false
+                if mega_img != blank or mega_asset != blank
+                  assign mega_has_media = true
+                endif
               -%}
               <ul
                 id="HeaderMenu-MenuList-{{ forloop.index }}"
-                class="header__submenu list-menu list-menu--disclosure color-{{ section.settings.menu_color_scheme }} gradient caption-large motion-reduce global-settings-popup eh-mega{% if mega_img != blank %} eh-mega--has-media{% endif %}"
+                class="header__submenu list-menu list-menu--disclosure color-{{ section.settings.menu_color_scheme }} gradient caption-large motion-reduce global-settings-popup eh-mega{% if mega_has_media %} eh-mega--has-media{% endif %}"
                 role="list"
                 tabindex="-1"
               >
@@ -92,9 +104,13 @@
                     {%- endif -%}
                   </li>
                 {%- endfor -%}
-                {%- if mega_img != blank -%}
+                {%- if mega_has_media -%}
                   <li class="eh-mega__media" aria-hidden="true">
-                    {{ mega_img | image_url: width: 520 | image_tag: loading: 'lazy', widths: '260,400,520', sizes: '280px', alt: link.title }}
+                    {%- if mega_img != blank -%}
+                      {{ mega_img | image_url: width: 520 | image_tag: loading: 'lazy', widths: '260,400,520', sizes: '280px', alt: link.title }}
+                    {%- else -%}
+                      <img src="{{ mega_asset | asset_url }}" loading="lazy" alt="{{ link.title | escape }}" width="1100" height="619">
+                    {%- endif -%}
                   </li>
                 {%- endif -%}
               </ul>
