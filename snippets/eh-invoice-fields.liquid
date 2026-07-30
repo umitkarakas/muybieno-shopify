@@ -1,0 +1,240 @@
+{% comment %}
+  eh-invoice-fields — Sepet sayfası "Fatura Bilgileri" bloğu
+  TC Kimlik / Vergi No toplar, cart.attributes olarak kaydeder (Paraşüt anahtarları).
+  Render: sections/main-cart-footer.liquid (checkout butonunun hemen üstünde).
+  Davranış: assets/eh-invoice.js
+{% endcomment %}
+{%- unless cart == empty -%}
+  {%- liquid
+    assign fatura_turu = cart.attributes['Fatura Türü'] | default: 'Şahıs'
+    assign tckn = cart.attributes['TC Kimlik No']
+    assign unvan = cart.attributes['Firma Ünvanı']
+    assign vd = cart.attributes['Vergi Dairesi']
+    assign vno = cart.attributes['Vergi No']
+    assign is_kurumsal = false
+    if fatura_turu == 'Kurumsal'
+      assign is_kurumsal = true
+    endif
+  -%}
+
+  <div class="eh-invoice" data-eh-invoice>
+    <h3 class="eh-invoice__title">Fatura Bilgileri</h3>
+    <p class="eh-invoice__hint">
+      Yasal fatura için gereklidir. Bireysel alımlar e-arşiv, kurumsal alımlar e-fatura olarak düzenlenir.
+    </p>
+
+    <div class="eh-invoice__seg" role="radiogroup" aria-label="Fatura türü">
+      <label class="eh-invoice__seg-opt{% unless is_kurumsal %} is-active{% endunless %}">
+        <input
+          type="radio"
+          name="attributes[Fatura Türü]"
+          value="Şahıs"
+          form="cart"
+          data-eh-tur
+          {% unless is_kurumsal %}checked{% endunless %}
+        >
+        <span>Bireysel (Şahıs)</span>
+      </label>
+      <label class="eh-invoice__seg-opt{% if is_kurumsal %} is-active{% endif %}">
+        <input
+          type="radio"
+          name="attributes[Fatura Türü]"
+          value="Kurumsal"
+          form="cart"
+          data-eh-tur
+          {% if is_kurumsal %}checked{% endif %}
+        >
+        <span>Kurumsal</span>
+      </label>
+    </div>
+
+    {%- comment -%} Bireysel panel — TC opsiyonel {%- endcomment -%}
+    <div class="eh-invoice__panel" data-eh-panel="sahis"{% if is_kurumsal %} hidden{% endif %}>
+      <div class="eh-invoice__field">
+        <label for="eh-tckn">TC Kimlik No <span class="eh-invoice__opt">(isteğe bağlı)</span></label>
+        <input
+          type="text"
+          id="eh-tckn"
+          name="attributes[TC Kimlik No]"
+          form="cart"
+          inputmode="numeric"
+          maxlength="11"
+          autocomplete="off"
+          placeholder="11 haneli"
+          value="{{ tckn | escape }}"
+          data-eh-val="tckn"
+        >
+        <small class="eh-invoice__err" data-eh-err="tckn"></small>
+      </div>
+    </div>
+
+    {%- comment -%} Kurumsal panel — hepsi zorunlu {%- endcomment -%}
+    <div class="eh-invoice__panel" data-eh-panel="kurumsal"{% unless is_kurumsal %} hidden{% endunless %}>
+      <div class="eh-invoice__field">
+        <label for="eh-unvan">Firma Ünvanı <span class="eh-invoice__req">*</span></label>
+        <input
+          type="text"
+          id="eh-unvan"
+          name="attributes[Firma Ünvanı]"
+          form="cart"
+          autocomplete="organization"
+          value="{{ unvan | escape }}"
+          data-eh-val="unvan"
+        >
+        <small class="eh-invoice__err" data-eh-err="unvan"></small>
+      </div>
+      <div class="eh-invoice__row">
+        <div class="eh-invoice__field">
+          <label for="eh-vno">Vergi No <span class="eh-invoice__req">*</span></label>
+          <input
+            type="text"
+            id="eh-vno"
+            name="attributes[Vergi No]"
+            form="cart"
+            inputmode="numeric"
+            maxlength="11"
+            placeholder="10 haneli"
+            value="{{ vno | escape }}"
+            data-eh-val="vno"
+          >
+          <small class="eh-invoice__err" data-eh-err="vno"></small>
+        </div>
+        <div class="eh-invoice__field">
+          <label for="eh-vd">Vergi Dairesi <span class="eh-invoice__req">*</span></label>
+          <input
+            type="text"
+            id="eh-vd"
+            name="attributes[Vergi Dairesi]"
+            form="cart"
+            value="{{ vd | escape }}"
+            data-eh-val="vd"
+          >
+          <small class="eh-invoice__err" data-eh-err="vd"></small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- style -%}
+    .eh-invoice {
+      margin: 0 0 2rem;
+      padding: 2rem;
+      border-radius: 20px;
+      background: rgba(255, 252, 247, 0.6);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 16px 38px rgba(74, 44, 23, 0.07);
+      font-family: var(--mb-font-body, "Inter", sans-serif);
+    }
+    .eh-invoice__title {
+      font-family: var(--mb-font-head, "Bricolage Grotesque", sans-serif);
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: var(--mb-ink, #2A1B0E);
+      margin: 0 0 0.4rem;
+    }
+    .eh-invoice__hint {
+      font-size: 0.85rem;
+      color: var(--mb-muted, #8A7560);
+      line-height: 1.5;
+      margin: 0 0 1.4rem;
+    }
+    .eh-invoice__seg {
+      display: flex;
+      gap: 0.4rem;
+      padding: 0.35rem;
+      margin-bottom: 1.4rem;
+      border-radius: 16px;
+      background: rgba(255, 252, 247, 0.62);
+      border: 1px solid rgba(138, 117, 96, 0.18);
+    }
+    .eh-invoice__seg-opt {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: #3A2818;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .eh-invoice__seg-opt input {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .eh-invoice__seg-opt.is-active {
+      background: var(--mb-grad, linear-gradient(135deg, #5C3A1E 0%, #8A5A2E 55%, #B07A45 100%));
+      color: #FFFCF7;
+      box-shadow: 0 6px 16px rgba(74, 44, 23, 0.18);
+    }
+    .eh-invoice__panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .eh-invoice__panel[hidden] {
+      display: none;
+    }
+    .eh-invoice__row {
+      display: flex;
+      gap: 1rem;
+    }
+    .eh-invoice__row .eh-invoice__field {
+      flex: 1;
+      min-width: 0;
+    }
+    .eh-invoice__field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .eh-invoice__field label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #3A2818;
+    }
+    .eh-invoice__req { color: #B3401F; }
+    .eh-invoice__opt { color: #9C8773; font-weight: 400; }
+    .eh-invoice__field input {
+      width: 100%;
+      padding: 0.8rem 0.9rem;
+      border-radius: 12px;
+      border: 1px solid rgba(138, 117, 96, 0.28);
+      background: #FFFCF7;
+      color: var(--mb-ink, #2A1B0E);
+      font-size: 0.95rem;
+      font-family: var(--mb-font-body, "Inter", sans-serif);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .eh-invoice__field input::placeholder { color: #A6907A; }
+    .eh-invoice__field input:focus {
+      outline: none;
+      border-color: var(--mb-umber, #8A5A2E);
+      box-shadow: 0 0 0 3px rgba(138, 90, 46, 0.14);
+    }
+    .eh-invoice__field input.is-invalid {
+      border-color: #B3401F;
+      box-shadow: 0 0 0 3px rgba(179, 64, 31, 0.12);
+    }
+    .eh-invoice__err {
+      font-size: 0.78rem;
+      color: #B3401F;
+      line-height: 1.4;
+    }
+    .eh-invoice__err:empty { display: none; }
+    @media screen and (max-width: 749px) {
+      .eh-invoice { padding: 1.5rem 1.3rem; }
+      .eh-invoice__row { flex-direction: column; }
+    }
+  {%- endstyle -%}
+
+  <script src="{{ 'eh-invoice.js' | asset_url }}" defer></script>
+{%- endunless -%}
