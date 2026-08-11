@@ -91,6 +91,28 @@
     font-weight: 700;
     color: var(--eh-primary);
   }
+
+  /* İndirimli ürün — listeleme kartlarında üstü çizili karşılaştırma (eski) fiyat.
+     Dawn indirimde .price__sale bloğunu gösterir (<s>eski fiyat</s> + indirimli fiyat);
+     burada eski fiyatı on-brand (soluk kahve, üstü çizili) yapıp indirimli fiyatın
+     yanında hizalıyoruz. */
+  .card-wrapper .card__information .price--on-sale .price__sale {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.2rem 0.7rem;
+  }
+  .card-wrapper .card__information .price--on-sale .price-item--regular {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: #9C8773;
+    text-decoration: line-through;
+    text-decoration-color: rgba(176, 122, 69, 0.85);
+  }
+  .card-wrapper .card__information .price--on-sale .price-item--sale {
+    font-size: inherit;
+  }
   .card-wrapper .rating-star { --color-rating-star: 217, 154, 43; }
 
   /* Daire "+" — satır içinde, fiyatla aynı hizada */
