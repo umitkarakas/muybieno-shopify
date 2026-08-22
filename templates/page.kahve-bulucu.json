@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "finder": {
+      "type": "eh-coffee-finder",
+      "settings": {
+        "badge": "Kahve Bulucu",
+        "heading": "Kahveden anlamıyor musun? Sorun değil.",
+        "lead": "Üç kısa soru soralım, sana tam uygun kahveyi ve nasıl hazırlayacağını birlikte bulalım. Uzman olman gerekmiyor.",
+        "start_label": "Başlayalım",
+        "start_hint": "30 saniye sürer",
+        "padding_top": 40,
+        "padding_bottom": 64
+      }
+    }
+  },
+  "order": [
+    "finder"
+  ]
+}

@@ -1,0 +1,207 @@
+{% comment %}
+  Muybieno — Kahve Bulucu (rehberli öneri sihirbazı).
+  Yeni başlayana 3 kısa soru sorar (hazırlık formu → tat → boyut), cevaba göre
+  mevcut ürün metafield'lerinden (custom.sertlik/asidite/govde/kavrum/tat_profili/
+  demleme_onerisi) 1-3 gerçek ürün önerir. Veri, kaynak koleksiyondan Liquid ile
+  JSON'a basılır; skorlama + render eh-coffee-finder.js'te (client-side).
+  Sınıflar ehcf- önekli + #shopify-section-id ile scope'lu (tema sınıflarıyla çakışmaz).
+{% endcomment %}
+
+{%- liquid
+  assign s = section.settings
+  assign src = s.collection
+  if src == blank
+    assign src = collections['kahveler']
+  endif
+-%}
+
+<script src="{{ 'eh-coffee-finder.js' | asset_url }}" defer="defer"></script>
+
+<div
+  class="ehcf"
+  id="ehcf-{{ section.id }}"
+  data-ehcf
+  data-badge="{{ s.badge | escape }}"
+  data-title="{{ s.heading | escape }}"
+  data-lead="{{ s.lead | escape }}"
+  data-cta="{{ s.start_label | escape }}"
+  data-hint="{{ s.start_hint | escape }}"
+  style="--ehcf-pt:{{ s.padding_top }}px;--ehcf-pb:{{ s.padding_bottom }}px;"
+>
+  <div class="ehcf__stage" aria-live="polite"></div>
+
+  {%- comment -%} Ürün veri seti (yalnızca tat verisi dolu, demlenebilir kahveler) {%- endcomment -%}
+  <script type="application/json" class="ehcf__data">
+  [
+  {%- assign first = true -%}
+  {%- for p in src.products -%}
+    {%- assign mf = p.metafields.custom -%}
+    {%- if mf.sertlik != blank -%}
+      {%- assign dem = mf.demleme_onerisi.value | default: '' -%}
+      {%- assign form = 'filtre' -%}
+      {%- if dem contains 'Nespresso' -%}{%- assign form = 'kapsul' -%}
+      {%- elsif dem contains 'Cezve' -%}{%- assign form = 'cezve' -%}
+      {%- elsif dem contains 'sıcak suya' -%}{%- assign form = 'pratik' -%}
+      {%- elsif dem contains 'espresso makinesi' -%}{%- assign form = 'espresso' -%}
+      {%- elsif dem contains 'French press' or dem contains 'V60' or dem contains 'Filtre' -%}{%- assign form = 'filtre' -%}
+      {%- endif -%}
+      {%- assign variant = p.selected_or_first_available_variant -%}
+      {%- unless first -%},{%- endunless -%}{%- assign first = false -%}
+      {
+        "id": {{ variant.id | json }},
+        "url": {{ p.url | json }},
+        "title": {{ p.title | json }},
+        "img": {{ p.featured_image | image_url: width: 500 | json }},
+        "price": {{ p.price | money | json }},
+        "available": {{ variant.available | default: false }},
+        "form": {{ form | json }},
+        "kav": {{ mf.kavrum.value | default: '' | json }},
+        "s": {{ mf.sertlik.value | default: 0 }},
+        "a": {{ mf.asidite.value | default: 0 }},
+        "g": {{ mf.govde.value | default: 0 }},
+        "tat": {{ mf.tat_profili.value | default: '' | json }},
+        "brew": {{ mf.demleme_onerisi.value | default: '' | json }}
+      }
+    {%- endif -%}
+  {%- endfor -%}
+  ]
+  </script>
+</div>
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .ehcf{
+    --ehcf-espresso:#5C3A1E; --ehcf-umber:#8A5A2E; --ehcf-caramel:#B07A45;
+    --ehcf-ink:#2A1B0E; --ehcf-ink2:#6E5947; --ehcf-muted:#8A7560; --ehcf-muted2:#9C8773;
+    --ehcf-cream:#FBF3E7; --ehcf-card:#FFFCF7;
+    --ehcf-grad:linear-gradient(135deg,#5C3A1E 0%,#8A5A2E 55%,#B07A45 100%);
+    --ehcf-glass:rgba(255,252,247,0.62); --ehcf-glass-border:rgba(255,255,255,0.72);
+    --ehcf-glass-shadow:0 16px 38px rgba(74,44,23,0.07);
+    max-width:112rem; margin:0 auto; padding:var(--ehcf-pt,40px) 2.4rem var(--ehcf-pb,64px);
+    font-family:"Inter",system-ui,sans-serif;
+  }
+  #shopify-section-{{ section.id }} .ehcf *{box-sizing:border-box}
+  #shopify-section-{{ section.id }} .ehcf__screen{animation:ehcf-fade .35s ease both}
+  @keyframes ehcf-fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  #shopify-section-{{ section.id }} .ehcf__badge{display:inline-flex;align-items:center;gap:.7rem;padding:.7rem 1.4rem;border-radius:999px;background:rgba(255,255,255,.6);border:1px solid var(--ehcf-glass-border);font-size:1.2rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A0662F}
+  #shopify-section-{{ section.id }} .ehcf__h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:4.6rem;line-height:1.05;color:var(--ehcf-ink);margin:1.6rem 0 0;letter-spacing:-.02em}
+  #shopify-section-{{ section.id }} .ehcf__lead{font-size:1.7rem;line-height:1.6;color:var(--ehcf-ink2);margin:1.4rem 0 0;max-width:56rem}
+  #shopify-section-{{ section.id }} .ehcf__startrow{margin-top:3rem;display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap}
+  #shopify-section-{{ section.id }} .ehcf__hint{color:var(--ehcf-muted);font-size:1.35rem}
+
+  #shopify-section-{{ section.id }} .ehcf__stephead{display:flex;align-items:baseline;gap:1.2rem;margin:0 0 2.4rem}
+  #shopify-section-{{ section.id }} .ehcf__qn{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:1.5rem;color:var(--ehcf-caramel)}
+  #shopify-section-{{ section.id }} .ehcf__stephead h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:600;font-size:3rem;color:var(--ehcf-ink);margin:0;letter-spacing:-.01em}
+  #shopify-section-{{ section.id }} .ehcf__prog{display:flex;gap:.7rem;margin:0 0 2.4rem}
+  #shopify-section-{{ section.id }} .ehcf__prog i{height:.5rem;flex:1;border-radius:999px;background:rgba(92,58,30,.13)}
+  #shopify-section-{{ section.id }} .ehcf__prog i.on{background:var(--ehcf-grad)}
+
+  #shopify-section-{{ section.id }} .ehcf__opts{display:flex;flex-direction:column;gap:1.2rem;max-width:62rem}
+  #shopify-section-{{ section.id }} .ehcf__opt{width:100%;text-align:left;cursor:pointer;border:1px solid var(--ehcf-glass-border);background:var(--ehcf-glass);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:var(--ehcf-glass-shadow);border-radius:1.6rem;padding:1.5rem 1.7rem;display:flex;align-items:center;gap:1.4rem;transition:transform .16s,border-color .16s,box-shadow .16s;font-family:inherit;color:inherit}
+  #shopify-section-{{ section.id }} .ehcf__opt:hover,#shopify-section-{{ section.id }} .ehcf__opt:focus-visible{transform:translateX(3px);border-color:rgba(176,122,69,.55);box-shadow:0 18px 40px rgba(74,44,23,.10);outline:none}
+  #shopify-section-{{ section.id }} .ehcf__ico{flex:none;width:4.6rem;height:4.6rem;border-radius:1.3rem;background:var(--ehcf-grad);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 22px rgba(124,80,40,.22)}
+  #shopify-section-{{ section.id }} .ehcf__ico svg{width:2.4rem;height:2.4rem;color:var(--ehcf-cream)}
+  #shopify-section-{{ section.id }} .ehcf__txt{display:flex;flex-direction:column;gap:.2rem;min-width:0}
+  #shopify-section-{{ section.id }} .ehcf__opt b{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:1.8rem;color:var(--ehcf-ink);line-height:1.2}
+  #shopify-section-{{ section.id }} .ehcf__sub{font-size:1.3rem;color:var(--ehcf-ink2);line-height:1.4}
+  #shopify-section-{{ section.id }} .ehcf__chev{margin-left:auto;flex:none;font-size:2.6rem;line-height:1;color:var(--ehcf-caramel);font-family:"Bricolage Grotesque",system-ui,sans-serif}
+
+  #shopify-section-{{ section.id }} .ehcf__btn{display:inline-flex;align-items:center;gap:.8rem;height:5.4rem;padding:0 3rem;border:0;border-radius:1.4rem;background:var(--ehcf-grad);color:var(--ehcf-cream);font-family:inherit;font-size:1.6rem;font-weight:700;cursor:pointer;box-shadow:0 18px 34px rgba(124,80,40,.28);transition:filter .2s,transform .2s;text-decoration:none}
+  #shopify-section-{{ section.id }} .ehcf__btn:hover{filter:brightness(1.06);transform:translateY(-2px)}
+  #shopify-section-{{ section.id }} .ehcf__btn.is-ok{background:#2F7D4F;box-shadow:0 18px 34px rgba(47,125,79,.28)}
+  #shopify-section-{{ section.id }} .ehcf__btn--ghost{background:transparent;color:var(--ehcf-espresso);box-shadow:none;border:1px solid var(--ehcf-glass-border);height:4.6rem;padding:0 2rem;font-size:1.4rem}
+  #shopify-section-{{ section.id }} .ehcf__link{background:none;border:0;color:var(--ehcf-muted);font-family:inherit;font-size:1.4rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+  #shopify-section-{{ section.id }} .ehcf__backrow{margin-top:2.4rem}
+
+  #shopify-section-{{ section.id }} .ehcf__rintro{margin:0 0 2rem}
+  #shopify-section-{{ section.id }} .ehcf__rintro .ehcf__badge{margin-bottom:1.2rem}
+  #shopify-section-{{ section.id }} .ehcf__rintro h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:3.4rem;color:var(--ehcf-ink);margin:0;letter-spacing:-.01em}
+  #shopify-section-{{ section.id }} .ehcf__rintro p{color:var(--ehcf-ink2);margin:.8rem 0 0;max-width:60rem}
+  #shopify-section-{{ section.id }} .ehcf__primary{display:grid;grid-template-columns:minmax(0,26rem) 1fr;gap:2.4rem;align-items:stretch;background:var(--ehcf-card);border:1px solid var(--ehcf-glass-border);border-radius:2.4rem;box-shadow:0 24px 60px rgba(74,44,23,.10);padding:2.4rem;margin-bottom:1.8rem;position:relative;overflow:hidden}
+  #shopify-section-{{ section.id }} .ehcf__primary::before{content:"EN İYİ EŞLEŞME";position:absolute;top:1.6rem;left:1.6rem;z-index:2;font-size:1rem;font-weight:800;letter-spacing:.16em;color:var(--ehcf-cream);background:var(--ehcf-grad);padding:.5rem .9rem;border-radius:999px}
+  #shopify-section-{{ section.id }} .ehcf__pimg{border-radius:1.6rem;overflow:hidden;background:#F3E7D6;min-height:26rem;display:flex;align-items:center;justify-content:center}
+  #shopify-section-{{ section.id }} .ehcf__pimg img{width:100%;height:100%;object-fit:cover;display:block}
+  #shopify-section-{{ section.id }} .ehcf__pbody{display:flex;flex-direction:column;min-width:0}
+  #shopify-section-{{ section.id }} .ehcf__ptype{font-size:1.2rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ehcf-caramel);margin-top:1.2rem}
+  #shopify-section-{{ section.id }} .ehcf__ptitle{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:2.4rem;line-height:1.2;color:var(--ehcf-ink);margin:.5rem 0 0}
+  #shopify-section-{{ section.id }} .ehcf__pwhy{color:var(--ehcf-ink2);font-size:1.45rem;margin:.9rem 0 0}
+  #shopify-section-{{ section.id }} .ehcf__chips{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.2rem 0 0}
+  #shopify-section-{{ section.id }} .ehcf__chip{font-size:1.2rem;font-weight:600;color:var(--ehcf-espresso);background:rgba(176,122,69,.12);border:1px solid rgba(176,122,69,.25);padding:.4rem .9rem;border-radius:999px}
+  #shopify-section-{{ section.id }} .ehcf__intens{display:grid;gap:.7rem;margin:1.4rem 0 0;padding:1.4rem 1.6rem;border-radius:1.4rem;background:rgba(255,252,247,.7);border:1px solid rgba(255,255,255,.7)}
+  #shopify-section-{{ section.id }} .ehcf__irow{display:grid;grid-template-columns:7rem 1fr;align-items:center;gap:1rem}
+  #shopify-section-{{ section.id }} .ehcf__ilbl{font-size:1.25rem;font-weight:600;color:var(--ehcf-ink2)}
+  #shopify-section-{{ section.id }} .ehcf__idots{display:inline-flex;gap:.45rem}
+  #shopify-section-{{ section.id }} .ehcf__bean{width:1.8rem;height:1.8rem}
+  #shopify-section-{{ section.id }} .ehcf__bean ellipse{fill:rgba(92,58,30,.13)}
+  #shopify-section-{{ section.id }} .ehcf__bean .ehcf__gr{stroke:rgba(92,58,30,.22);stroke-width:1.6;stroke-linecap:round;fill:none}
+  #shopify-section-{{ section.id }} .ehcf__bean.on ellipse{fill:var(--ehcf-espresso)}
+  #shopify-section-{{ section.id }} .ehcf__bean.on .ehcf__gr{stroke:var(--ehcf-cream)}
+  #shopify-section-{{ section.id }} .ehcf__brew{margin:1.3rem 0 0;font-size:1.35rem;color:var(--ehcf-ink2);display:flex;gap:.8rem;align-items:flex-start}
+  #shopify-section-{{ section.id }} .ehcf__brew svg{width:1.9rem;height:1.9rem;color:var(--ehcf-caramel);flex:none;margin-top:.2rem}
+  #shopify-section-{{ section.id }} .ehcf__equip{margin:1.6rem 0 0;font-size:1.3rem;color:var(--ehcf-umber);background:rgba(138,90,46,.08);border:1px dashed rgba(138,90,46,.35);border-radius:1.2rem;padding:1rem 1.3rem;display:flex;gap:.7rem;align-items:center}
+  #shopify-section-{{ section.id }} .ehcf__equip svg{width:1.8rem;height:1.8rem;flex:none}
+  #shopify-section-{{ section.id }} .ehcf__pfoot{margin-top:auto;padding-top:1.6rem;display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap}
+  #shopify-section-{{ section.id }} .ehcf__price{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:2.4rem;color:var(--ehcf-espresso)}
+  #shopify-section-{{ section.id }} .ehcf__golink{color:var(--ehcf-espresso);font-weight:600;font-size:1.4rem;text-decoration:underline;text-underline-offset:3px}
+
+  #shopify-section-{{ section.id }} .ehcf__altwrap h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:600;font-size:2rem;color:var(--ehcf-ink);margin:2.4rem 0 1.2rem}
+  #shopify-section-{{ section.id }} .ehcf__alts{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem}
+  #shopify-section-{{ section.id }} .ehcf__alt{display:grid;grid-template-columns:9rem 1fr;gap:1.4rem;background:var(--ehcf-card);border:1px solid var(--ehcf-glass-border);border-radius:1.8rem;box-shadow:var(--ehcf-glass-shadow);padding:1.4rem;align-items:center;text-decoration:none}
+  #shopify-section-{{ section.id }} .ehcf__aimg{width:9rem;height:9rem;border-radius:1.2rem;overflow:hidden;background:#F3E7D6;flex:none}
+  #shopify-section-{{ section.id }} .ehcf__aimg img{width:100%;height:100%;object-fit:cover}
+  #shopify-section-{{ section.id }} .ehcf__alt b{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:1.6rem;color:var(--ehcf-ink);line-height:1.25;display:block}
+  #shopify-section-{{ section.id }} .ehcf__aprice{color:var(--ehcf-espresso);font-weight:700;margin-top:.4rem;display:block}
+  #shopify-section-{{ section.id }} .ehcf__amini{font-size:1.2rem;color:var(--ehcf-muted);margin-top:.3rem}
+  #shopify-section-{{ section.id }} .ehcf__restart{margin-top:3rem;display:flex;gap:1.2rem;flex-wrap:wrap;align-items:center}
+
+  #shopify-section-{{ section.id }} .ehcf__mcta{display:none}
+
+  @media screen and (max-width:749px){
+    #shopify-section-{{ section.id }} .ehcf{padding:2.4rem 1.6rem 6rem}
+    #shopify-section-{{ section.id }} .ehcf__h1{font-size:3.4rem}
+    #shopify-section-{{ section.id }} .ehcf__lead{font-size:1.55rem}
+    #shopify-section-{{ section.id }} .ehcf__stephead{margin-bottom:2rem}
+    #shopify-section-{{ section.id }} .ehcf__stephead h2{font-size:2.3rem}
+    #shopify-section-{{ section.id }} .ehcf__opts{max-width:none}
+    #shopify-section-{{ section.id }} .ehcf__opt{padding:1.4rem 1.5rem}
+    #shopify-section-{{ section.id }} .ehcf__ico{width:4rem;height:4rem;border-radius:1.1rem}
+    #shopify-section-{{ section.id }} .ehcf__ico svg{width:2.1rem;height:2.1rem}
+    #shopify-section-{{ section.id }} .ehcf__opt b{font-size:1.65rem}
+    #shopify-section-{{ section.id }} .ehcf__sub{font-size:1.25rem}
+    #shopify-section-{{ section.id }} .ehcf__rintro h2{font-size:2.8rem}
+    #shopify-section-{{ section.id }} .ehcf__primary{grid-template-columns:1fr;padding:1.8rem;gap:1.6rem}
+    #shopify-section-{{ section.id }} .ehcf__pimg{min-height:auto;background:transparent}
+    #shopify-section-{{ section.id }} .ehcf__pimg img{height:auto;max-height:22rem;width:auto;max-width:100%;object-fit:contain;margin:0 auto}
+    #shopify-section-{{ section.id }} .ehcf__ptitle{font-size:2.1rem}
+    #shopify-section-{{ section.id }} .ehcf__alts{grid-template-columns:1fr}
+    #shopify-section-{{ section.id }} .ehcf__pfoot{display:none}
+    #shopify-section-{{ section.id }} .ehcf__screen.has-mcta{padding-bottom:9rem}
+    #shopify-section-{{ section.id }} .ehcf__mcta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;align-items:center;gap:1.2rem;padding:1rem 1.6rem calc(1rem + env(safe-area-inset-bottom));background:rgba(255,252,247,.94);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-top:1px solid var(--ehcf-glass-border);box-shadow:0 -8px 24px rgba(74,44,23,.12)}
+    #shopify-section-{{ section.id }} .ehcf__mcta .ehcf__price{font-size:1.9rem;white-space:nowrap}
+    #shopify-section-{{ section.id }} .ehcf__mcta .ehcf__btn{flex:1;justify-content:center;height:5rem;padding:0 1.4rem;font-size:1.5rem}
+    #shopify-section-{{ section.id }} .ehcf__mcta .ehcf__golink{white-space:nowrap}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    #shopify-section-{{ section.id }} .ehcf__screen{animation:none}
+    #shopify-section-{{ section.id }} .ehcf__opt:hover,#shopify-section-{{ section.id }} .ehcf__btn:hover{transform:none}
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Kahve Bulucu",
+  "tag": "section",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Öneri kaynağı koleksiyon", "info": "Boş bırakılırsa 'Kahveler' koleksiyonu kullanılır. Yalnızca tat verisi (sertlik/asidite/gövde) dolu ürünler önerilir." },
+    { "type": "text", "id": "badge", "label": "Rozet", "default": "Kahve Bulucu" },
+    { "type": "text", "id": "heading", "label": "Başlık", "default": "Kahveden anlamıyor musun? Sorun değil." },
+    { "type": "textarea", "id": "lead", "label": "Açıklama", "default": "Üç kısa soru soralım, sana tam uygun kahveyi ve nasıl hazırlayacağını birlikte bulalım. Uzman olman gerekmiyor." },
+    { "type": "text", "id": "start_label", "label": "Başla butonu", "default": "Başlayalım" },
+    { "type": "text", "id": "start_hint", "label": "Başla notu", "default": "30 saniye sürer" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Üst boşluk", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Alt boşluk", "default": 64 }
+  ],
+  "presets": [ { "name": "Kahve Bulucu" } ]
+}
+{% endschema %}
