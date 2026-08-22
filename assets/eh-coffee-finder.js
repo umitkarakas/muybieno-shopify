@@ -99,7 +99,13 @@
       return '<div class="ehcf__prog">' + s + '</div>';
     }
 
+    function clearMcta() {
+      // Sonuç ekranından çıkarken root'a taşınmış sabit CTA barını kaldır
+      var m = root.querySelector(':scope > .ehcf__mcta');
+      if (m) m.remove();
+    }
     function renderIntro() {
+      clearMcta();
       stage.innerHTML =
         '<div class="ehcf__screen">' +
           '<span class="ehcf__badge">☕ ' + esc(cfg.badge) + '</span>' +
@@ -112,18 +118,21 @@
         '</div>';
     }
     function renderQ1() {
+      clearMcta();
       stage.innerHTML = '<div class="ehcf__screen">' + progress(1) +
         '<div class="ehcf__stephead"><span class="ehcf__qn">01</span><h2>Kahvenizi nasıl hazırlıyorsunuz?</h2></div>' +
         '<div class="ehcf__opts">' + Q1.map(function (o) { return optCard(o, 'q1'); }).join('') + '</div>' +
         '<div class="ehcf__backrow"><button class="ehcf__link" type="button" data-act="back" data-val="intro">← geri</button></div></div>';
     }
     function renderQ2() {
+      clearMcta();
       stage.innerHTML = '<div class="ehcf__screen">' + progress(2) +
         '<div class="ehcf__stephead"><span class="ehcf__qn">02</span><h2>Nasıl bir tat seversiniz?</h2></div>' +
         '<div class="ehcf__opts">' + Q2.map(function (o) { return optCard(o, 'q2'); }).join('') + '</div>' +
         '<div class="ehcf__backrow"><button class="ehcf__link" type="button" data-act="back" data-val="q1">← geri</button></div></div>';
     }
     function renderQ3() {
+      clearMcta();
       stage.innerHTML = '<div class="ehcf__screen">' + progress(3) +
         '<div class="ehcf__stephead"><span class="ehcf__qn">03</span><h2>Ne kadar denemek istersiniz?</h2></div>' +
         '<div class="ehcf__opts">' + Q3.map(function (o) { return optCard(o, 'q3'); }).join('') + '</div>' +
@@ -154,6 +163,7 @@
     }
 
     function renderResults() {
+      clearMcta();
       var list = results();
       if (!list.length) { renderIntro(); return; }
       var top = list[0];
@@ -183,10 +193,15 @@
           '</div>' +
           (alts.length ? '<div class="ehcf__altwrap"><h3>Şunlar da ilginizi çekebilir</h3><div class="ehcf__alts">' + alts.map(altCard).join('') + '</div></div>' : '') +
           '<div class="ehcf__restart"><button class="ehcf__btn ehcf__btn--ghost" type="button" data-act="reset">↺ Yeniden başla</button></div>' +
-          '<div class="ehcf__mcta"><span class="ehcf__price">' + esc(top.price) + '</span>' +
-            '<button class="ehcf__btn" type="button" data-act="add" data-id="' + top.id + '" data-url="' + esc(refUrl(top.url)) + '">' + ICON.cart + ' Sepete ekle</button>' +
-            '<a class="ehcf__golink" href="' + esc(refUrl(top.url)) + '">Ürüne git</a></div>' +
+          '<div class="ehcf__mcta">' +
+            '<span class="ehcf__mcta-price"><span class="ehcf__price">' + esc(top.price) + '</span>' +
+              '<a class="ehcf__golink" href="' + esc(refUrl(top.url)) + '">Ürüne git →</a></span>' +
+            '<button class="ehcf__btn ehcf__btn--add" type="button" data-act="add" data-id="' + top.id + '" data-url="' + esc(refUrl(top.url)) + '"><span class="ehcf__btn-ico">' + ICON.cart + '</span><span>Sepete ekle</span></button>' +
+          '</div>' +
         '</div>';
+      // Sabit CTA barını animasyonlu/transformlu ekranın DIŞINA (root'a) taşı → gerçek viewport pinlemesi
+      var _m = stage.querySelector('.ehcf__mcta');
+      if (_m) root.appendChild(_m);
       try { window.scrollTo({ top: root.offsetTop - 20, behavior: 'smooth' }); } catch (e) {}
     }
 
