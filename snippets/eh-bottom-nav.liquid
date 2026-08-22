@@ -29,12 +29,12 @@
     <span class="eh-botnav__label">Ürünler</span>
   </a>
 
-  <a href="{{ routes.search_url }}" class="eh-botnav__item{% if pt == 'search' %} is-active{% endif %}" aria-label="Ara">
+  <a href="/pages/kahve-bulucu" class="eh-botnav__item{% if page.handle == 'kahve-bulucu' %} is-active{% endif %}" aria-label="Kahve Bulucu">
     <span class="eh-botnav__pill" aria-hidden="true"></span>
     <span class="eh-botnav__ico" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a3 3 0 0 1 0 6h-1"/><path d="M4 8h13v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4Z"/><path d="M7 4V2M11 4V2M15 4V2"/></svg>
     </span>
-    <span class="eh-botnav__label">Ara</span>
+    <span class="eh-botnav__label">Kahve Bulucu</span>
   </a>
 
   <a href="{{ routes.cart_url }}" class="eh-botnav__item{% if pt == 'cart' %} is-active{% endif %}" aria-label="Sepetim">
@@ -126,6 +126,7 @@
       font-size: 1.05rem;
       font-weight: 500;
       line-height: 1;
+      white-space: nowrap;
     }
     .eh-botnav__item.is-active .eh-botnav__label { font-weight: 700; }
 
