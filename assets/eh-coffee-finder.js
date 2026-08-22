@@ -36,7 +36,8 @@
     cherry: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="18" r="3"/><circle cx="17" cy="18" r="3"/><path d="M7 15c0-6 5-9 10-11M17 15c0-3 1-5 2-6"/></svg>',
     grind: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M8 11h8l-1 3H9Z"/><path d="M9 14v5h6v-5"/></svg>',
     paper: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l3 3v15H6Z"/><path d="M15 3v3h3"/></svg>',
-    cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>'
+    cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>',
+    restart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/></svg>'
   };
 
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -194,6 +195,7 @@
           (alts.length ? '<div class="ehcf__altwrap"><h3>Şunlar da ilginizi çekebilir</h3><div class="ehcf__alts">' + alts.map(altCard).join('') + '</div></div>' : '') +
           '<div class="ehcf__restart"><button class="ehcf__btn ehcf__btn--ghost" type="button" data-act="reset">↺ Yeniden başla</button></div>' +
           '<div class="ehcf__mcta">' +
+            '<button class="ehcf__mcta-restart" type="button" data-act="reset" aria-label="Yeniden başla" title="Yeniden başla">' + ICON.restart + '</button>' +
             '<span class="ehcf__mcta-price"><span class="ehcf__price">' + esc(top.price) + '</span>' +
               '<a class="ehcf__golink" href="' + esc(refUrl(top.url)) + '">Ürüne git →</a></span>' +
             '<button class="ehcf__btn ehcf__btn--add" type="button" data-act="add" data-id="' + top.id + '" data-url="' + esc(refUrl(top.url)) + '"><span class="ehcf__btn-ico">' + ICON.cart + '</span><span>Sepete ekle</span></button>' +
@@ -253,7 +255,8 @@
       if (where !== 'results') { try { window.scrollTo({ top: root.offsetTop - 20, behavior: 'smooth' }); } catch (e) {} }
     }
 
-    stage.addEventListener('click', function (e) {
+    // Dinleyici root'ta: mcta sonuç ekranında root'a taşındığı için stage'de değil root'ta olmalı
+    root.addEventListener('click', function (e) {
       var el = e.target.closest('[data-act]');
       if (!el) return;
       var act = el.getAttribute('data-act');
