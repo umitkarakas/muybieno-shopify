@@ -45,6 +45,11 @@
       {%- elsif dem contains 'espresso makinesi' -%}{%- assign form = 'espresso' -%}
       {%- elsif dem contains 'French press' or dem contains 'V60' or dem contains 'Filtre' -%}{%- assign form = 'filtre' -%}
       {%- endif -%}
+      {%- comment -%} Boyut: küçük/deneme tek paket ↔ stok (1kg / çoklu avantaj paketi) {%- endcomment -%}
+      {%- assign size = 'deneme' -%}
+      {%- if p.title contains 'Avantaj' or p.title contains '1000' or p.title contains '1 kg' or p.title contains '1kg' -%}
+        {%- assign size = 'stok' -%}
+      {%- endif -%}
       {%- assign variant = p.selected_or_first_available_variant -%}
       {%- unless first -%},{%- endunless -%}{%- assign first = false -%}
       {
@@ -55,6 +60,7 @@
         "price": {{ p.price | money | json }},
         "available": {{ variant.available | default: false }},
         "form": {{ form | json }},
+        "size": {{ size | json }},
         "kav": {{ mf.kavrum.value | default: '' | json }},
         "s": {{ mf.sertlik.value | default: 0 }},
         "a": {{ mf.asidite.value | default: 0 }},
@@ -195,10 +201,10 @@
   "settings": [
     { "type": "collection", "id": "collection", "label": "Öneri kaynağı koleksiyon", "info": "Boş bırakılırsa 'Kahveler' koleksiyonu kullanılır. Yalnızca tat verisi (sertlik/asidite/gövde) dolu ürünler önerilir." },
     { "type": "text", "id": "badge", "label": "Rozet", "default": "Kahve Bulucu" },
-    { "type": "text", "id": "heading", "label": "Başlık", "default": "Kahveden anlamıyor musun? Sorun değil." },
-    { "type": "textarea", "id": "lead", "label": "Açıklama", "default": "Üç kısa soru soralım, sana tam uygun kahveyi ve nasıl hazırlayacağını birlikte bulalım. Uzman olman gerekmiyor." },
+    { "type": "text", "id": "heading", "label": "Başlık", "default": "Hangi kahve size göre? Birlikte bulalım." },
+    { "type": "textarea", "id": "lead", "label": "Açıklama", "default": "Birkaç kısa soru soralım; damak tadınıza uygun kahveyi ve nasıl demleyeceğinizi birlikte bulalım. Kahve seçmek karmaşık olmak zorunda değil." },
     { "type": "text", "id": "start_label", "label": "Başla butonu", "default": "Başlayalım" },
-    { "type": "text", "id": "start_hint", "label": "Başla notu", "default": "30 saniye sürer" },
+    { "type": "text", "id": "start_hint", "label": "Başla notu", "default": "Yaklaşık 30 saniye" },
     { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Üst boşluk", "default": 40 },
     { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Alt boşluk", "default": 64 }
   ],

@@ -10,17 +10,17 @@
     { id: 'filtre',     ic: 'filter',  b: 'Filtre makinesi / French press',    s: 'Öğütülmüş kahve kullanırım' },
     { id: 'espresso',   ic: 'beans',   b: 'Espresso makinem var',              s: 'Çekirdek alıp öğüteceğim' },
     { id: 'kapsul',     ic: 'capsule', b: 'Nespresso / kapsül makinem var',    s: 'Kapsül kullanırım' },
-    { id: 'bilmiyorum', ic: 'spark',   b: 'Bilmiyorum, sen öner',              s: 'En kolayından başlayalım' }
+    { id: 'bilmiyorum', ic: 'spark',   b: 'Bilmiyorum, benim için seçin',      s: 'En kolayından başlayalım' }
   ];
   var Q2 = [
-    { id: 'yumusak',    ic: 'leaf',   b: 'Yumuşak & dengeli',  s: 'Sütle de güzel, sert değil',    tgt: { s: 3, a: 2, g: 3 }, kav: ['Orta'] },
-    { id: 'sert',       ic: 'flame',  b: 'Sert & yoğun',       s: 'Koyu, dolgun, tok',             tgt: { s: 5, a: 1, g: 5 }, kav: ['Koyu (Espresso)', 'Orta-Koyu'] },
-    { id: 'meyveli',    ic: 'cherry', b: 'Meyveli & canlı',    s: 'Aromatik, hafif asitli',        tgt: { s: 3, a: 5, g: 3 }, kav: ['Orta'] },
-    { id: 'eminDegil',  ic: 'spark',  b: 'Emin değilim',       s: 'Yeni başlayana en güvenlisi',   tgt: { s: 3, a: 2, g: 3 }, kav: ['Orta'] }
+    { id: 'yumusak',    ic: 'leaf',   b: 'Yumuşak & dengeli',  s: 'Sütle de güzel, sert değil',        tgt: { s: 3, a: 2, g: 3 }, kav: ['Orta'] },
+    { id: 'sert',       ic: 'flame',  b: 'Sert & yoğun',       s: 'Koyu, dolgun, tok',                 tgt: { s: 5, a: 1, g: 5 }, kav: ['Koyu (Espresso)', 'Orta-Koyu'] },
+    { id: 'meyveli',    ic: 'cherry', b: 'Meyveli & canlı',    s: 'Aromatik, hafif asitli',            tgt: { s: 3, a: 5, g: 3 }, kav: ['Orta'] },
+    { id: 'eminDegil',  ic: 'spark',  b: 'Emin değilim',       s: 'Yeni başlayanlar için en güvenlisi', tgt: { s: 3, a: 2, g: 3 }, kav: ['Orta'] }
   ];
   var Q3 = [
-    { id: 'deneme',     ic: 'cup',   b: 'Önce küçük deneyeyim', s: 'Uygun fiyatlı, tek paket' },
-    { id: 'farketmez',  ic: 'spark', b: 'Farketmez',            s: 'En uygununu göster' }
+    { id: 'deneme',     ic: 'cup',   b: 'Önce küçük bir paket deneyeyim', s: 'Tek paket, uygun fiyatlı' },
+    { id: 'farketmez',  ic: 'spark', b: 'Farketmez',                      s: 'En uygununu gösterin' }
   ];
   var FORM_LABEL = { cezve: 'Türk Kahvesi', filtre: 'Öğütülmüş Filtre', espresso: 'Çekirdek', kapsul: 'Kapsül', pratik: 'Pratik' };
 
@@ -65,9 +65,9 @@
     return d;
   }
   function equipNote(form) {
-    if (form === 'espresso') return { ic: 'grind', txt: 'İpucu: Çekirdek için bir <b>kahve değirmeni</b> gerekir — Ekipmanlar’da bulabilirsin.' };
-    if (form === 'filtre') return { ic: 'paper', txt: 'İpucu: Filtre/V60 için <b>kağıt filtre</b> Ekipmanlar bölümünde.' };
-    if (form === 'cezve') return { ic: 'pot', txt: 'Cezven yoksa Ekipmanlar’dan uygun bir <b>cezve</b> ekleyebilirsin.' };
+    if (form === 'espresso') return { ic: 'grind', txt: 'Küçük bir ipucu: çekirdek için bir <b>kahve değirmeni</b> gerekir — Ekipmanlar bölümünde bulabilirsiniz.' };
+    if (form === 'filtre') return { ic: 'paper', txt: 'Küçük bir ipucu: filtre/V60 için <b>kağıt filtre</b> Ekipmanlar bölümünde.' };
+    if (form === 'cezve') return { ic: 'pot', txt: 'Cezveniz yoksa Ekipmanlar bölümünden uygun bir <b>cezve</b> ekleyebilirsiniz.' };
     return null;
   }
 
@@ -113,19 +113,19 @@
     }
     function renderQ1() {
       stage.innerHTML = '<div class="ehcf__screen">' + progress(1) +
-        '<div class="ehcf__stephead"><span class="ehcf__qn">01</span><h2>Kahveni nasıl hazırlıyorsun?</h2></div>' +
+        '<div class="ehcf__stephead"><span class="ehcf__qn">01</span><h2>Kahvenizi nasıl hazırlıyorsunuz?</h2></div>' +
         '<div class="ehcf__opts">' + Q1.map(function (o) { return optCard(o, 'q1'); }).join('') + '</div>' +
         '<div class="ehcf__backrow"><button class="ehcf__link" type="button" data-act="back" data-val="intro">← geri</button></div></div>';
     }
     function renderQ2() {
       stage.innerHTML = '<div class="ehcf__screen">' + progress(2) +
-        '<div class="ehcf__stephead"><span class="ehcf__qn">02</span><h2>Nasıl bir tat seversin?</h2></div>' +
+        '<div class="ehcf__stephead"><span class="ehcf__qn">02</span><h2>Nasıl bir tat seversiniz?</h2></div>' +
         '<div class="ehcf__opts">' + Q2.map(function (o) { return optCard(o, 'q2'); }).join('') + '</div>' +
         '<div class="ehcf__backrow"><button class="ehcf__link" type="button" data-act="back" data-val="q1">← geri</button></div></div>';
     }
     function renderQ3() {
       stage.innerHTML = '<div class="ehcf__screen">' + progress(3) +
-        '<div class="ehcf__stephead"><span class="ehcf__qn">03</span><h2>Ne kadar denemek istersin?</h2></div>' +
+        '<div class="ehcf__stephead"><span class="ehcf__qn">03</span><h2>Ne kadar denemek istersiniz?</h2></div>' +
         '<div class="ehcf__opts">' + Q3.map(function (o) { return optCard(o, 'q3'); }).join('') + '</div>' +
         '<div class="ehcf__backrow"><button class="ehcf__link" type="button" data-act="back" data-val="q2">← geri</button></div></div>';
     }
@@ -135,10 +135,13 @@
       var pool = products.filter(formFilter(st.q1));
       if (!pool.length) pool = products.slice();
       pool = pool.map(function (p) { return { p: p, sc: score(p, q2.tgt, q2.kav) }; });
-      if (st.q3 === 'deneme') pool.forEach(function (o) {
-        var pr = parseFloat(String(o.p.price).replace(/[^0-9,.]/g, '').replace('.', '').replace(',', '.')) || 0;
-        if (pr && pr < 450) o.sc -= 1.0; else if (pr > 900) o.sc += 1.2;
-      });
+      if (st.q3 === 'deneme') {
+        // "Önce küçük deneyeyim": tek/küçük paketi öne al, 1kg + çoklu avantaj paketlerini geri at
+        pool.forEach(function (o) { o.sc += (o.p.size === 'deneme') ? -1.5 : 3.0; });
+      } else {
+        // "Farketmez": yeni başlayana yine de küçük paketi hafif öne al (aşırı büyük paket ilk sırada olmasın)
+        pool.forEach(function (o) { if (o.p.size !== 'deneme') o.sc += 0.6; });
+      }
       pool.sort(function (x, y) { return x.sc - y.sc; });
       return pool.map(function (o) { return o.p; });
     }
@@ -161,9 +164,9 @@
       var addBtn = '<button class="ehcf__btn" type="button" data-act="add" data-id="' + top.id + '" data-url="' + esc(refUrl(top.url)) + '">' + ICON.cart + ' Sepete ekle</button>';
       stage.innerHTML =
         '<div class="ehcf__screen has-mcta">' +
-          '<div class="ehcf__rintro"><span class="ehcf__badge">✓ Sana özel</span>' +
-            '<h2>Senin kahven bu ☕</h2>' +
-            '<p>Tercihin: <b>' + esc(q1.b.toLowerCase()) + '</b> + <b>' + esc(q2.b.toLowerCase()) + '</b>. Bu kahve tam bu profile oturuyor.</p></div>' +
+          '<div class="ehcf__rintro"><span class="ehcf__badge">✓ Size özel</span>' +
+            '<h2>İşte size en uygun kahve ☕</h2>' +
+            '<p>Seçiminiz: <b>' + esc(q1.b.toLowerCase()) + '</b> ve <b>' + esc(q2.b.toLowerCase()) + '</b> — bu kahve tam da bu profile oturuyor.</p></div>' +
           '<div class="ehcf__primary">' +
             '<div class="ehcf__pimg">' + (top.img ? '<img src="' + esc(top.img) + '" alt="' + esc(top.title) + '">' : '') + '</div>' +
             '<div class="ehcf__pbody">' +
@@ -178,8 +181,8 @@
                 '<a class="ehcf__golink" href="' + esc(refUrl(top.url)) + '">Ürüne git →</a></div>' +
             '</div>' +
           '</div>' +
-          (alts.length ? '<div class="ehcf__altwrap"><h3>Bunlar da sana göre olabilir</h3><div class="ehcf__alts">' + alts.map(altCard).join('') + '</div></div>' : '') +
-          '<div class="ehcf__restart"><button class="ehcf__btn ehcf__btn--ghost" type="button" data-act="reset">↺ Baştan dene</button></div>' +
+          (alts.length ? '<div class="ehcf__altwrap"><h3>Şunlar da ilginizi çekebilir</h3><div class="ehcf__alts">' + alts.map(altCard).join('') + '</div></div>' : '') +
+          '<div class="ehcf__restart"><button class="ehcf__btn ehcf__btn--ghost" type="button" data-act="reset">↺ Yeniden başla</button></div>' +
           '<div class="ehcf__mcta"><span class="ehcf__price">' + esc(top.price) + '</span>' +
             '<button class="ehcf__btn" type="button" data-act="add" data-id="' + top.id + '" data-url="' + esc(refUrl(top.url)) + '">' + ICON.cart + ' Sepete ekle</button>' +
             '<a class="ehcf__golink" href="' + esc(refUrl(top.url)) + '">Ürüne git</a></div>' +

@@ -4,10 +4,10 @@
       "type": "eh-coffee-finder",
       "settings": {
         "badge": "Kahve Bulucu",
-        "heading": "Kahveden anlamıyor musun? Sorun değil.",
-        "lead": "Üç kısa soru soralım, sana tam uygun kahveyi ve nasıl hazırlayacağını birlikte bulalım. Uzman olman gerekmiyor.",
+        "heading": "Hangi kahve size göre? Birlikte bulalım.",
+        "lead": "Birkaç kısa soru soralım; damak tadınıza uygun kahveyi ve nasıl demleyeceğinizi birlikte bulalım. Kahve seçmek karmaşık olmak zorunda değil.",
         "start_label": "Başlayalım",
-        "start_hint": "30 saniye sürer",
+        "start_hint": "Yaklaşık 30 saniye",
         "padding_top": 40,
         "padding_bottom": 64
       }
