@@ -207,6 +207,13 @@
         a.setAttribute('href', (window.routes && window.routes.cart_url) || '/cart');
       });
     }
+    function markError() {
+      root.querySelectorAll('[data-act="add"]').forEach(function (b) {
+        b.disabled = true;
+        b.style.opacity = '.6';
+        b.innerHTML = '⚠ Şu an eklenemedi';
+      });
+    }
     function addToCart(id, fallbackUrl) {
       var url = (window.routes && window.routes.cart_add_url) || '/cart/add';
       fetch(url, {
@@ -214,10 +221,10 @@
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/javascript' },
         body: JSON.stringify({ items: [{ id: Number(id), quantity: 1 }], sections: ['cart-icon-bubble'] })
       }).then(function (r) { return r.json(); }).then(function (d) {
-        if (d && d.status && d.status >= 400) { window.location.href = fallbackUrl; return; }
+        if (d && d.status && d.status >= 400) { markError(); return; }
         if (d && d.sections) updateBubble(d.sections['cart-icon-bubble']);
         markAdded();
-      }).catch(function () { window.location.href = fallbackUrl; });
+      }).catch(function () { markError(); });
     }
 
     function go(where) {
