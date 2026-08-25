@@ -36,7 +36,10 @@
   {%- assign first = true -%}
   {%- for p in src.products -%}
     {%- assign mf = p.metafields.custom -%}
-    {%- if mf.sertlik != blank -%}
+    {%- comment -%} Öneri dışı: hediye/keyif setleri, karışık ve avantaj/çoklu paketler → yalnızca tekil kahveler önerilir {%- endcomment -%}
+    {%- assign excluded = false -%}
+    {%- if p.title contains 'Avantaj' or p.title contains 'Keyif Seti' or p.title contains 'Hediye' -%}{%- assign excluded = true -%}{%- endif -%}
+    {%- if mf.sertlik != blank and excluded == false -%}
       {%- assign dem = mf.demleme_onerisi.value | default: '' -%}
       {%- assign form = 'filtre' -%}
       {%- if dem contains 'Nespresso' -%}{%- assign form = 'kapsul' -%}
