@@ -14,7 +14,7 @@
   ];
   var Q2 = [
     { id: 'yumusak',    ic: 'leaf',   b: 'Yumuşak & dengeli',  s: 'Sütle de güzel, sert değil',        tgt: { s: 3, a: 2, g: 3 }, kav: ['Orta'] },
-    { id: 'sert',       ic: 'flame',  b: 'Sert & yoğun',       s: 'Koyu, dolgun, tok',                 tgt: { s: 5, a: 1, g: 5 }, kav: ['Koyu (Espresso)', 'Orta-Koyu'] },
+    { id: 'sert',       ic: 'flame',  b: 'Sert & yoğun',       s: 'Koyu, dolgun, tok',                 tgt: { s: 5, a: 1, g: 5 }, kav: ['Koyu', 'Orta-Koyu'] },
     { id: 'meyveli',    ic: 'cherry', b: 'Meyveli & canlı',    s: 'Aromatik, hafif asitli',            tgt: { s: 3, a: 5, g: 3 }, kav: ['Orta'] },
     { id: 'eminDegil',  ic: 'spark',  b: 'Emin değilim',       s: 'Yeni başlayanlar için en güvenlisi', tgt: { s: 3, a: 2, g: 3 }, kav: ['Orta'] }
   ];
