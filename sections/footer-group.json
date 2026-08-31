@@ -17,12 +17,13 @@
         "enabled": true,
         "badge": "Hoş geldiniz",
         "heading": "Muybieno'ya hoş geldiniz",
-        "text": "<p>Taze kavrulmuş tek origin kahvelerimizi ve demleme ekipmanlarımızı keşfedin.</p>",
+        "text": "<p>Taze kavrulmuş tek origin kahvelerimizi denemenin tam zamanı. </p>",
+        "image": "shopify://shop_images/okula_donus.png",
         "image_layout": "stack",
         "button_label": "Alışverişe başla",
-        "button_link": "shopify://collections/all",
+        "button_link": "shopify://collections/kahveler",
         "open_new_tab": false,
-        "whole_clickable": false,
+        "whole_clickable": true,
         "dismiss_label": "Şimdi değil",
         "start_date": "",
         "end_date": "",
@@ -66,20 +67,6 @@
     },
     "footer": {
       "type": "footer",
-      "settings": {
-        "color_scheme": "scheme-9653f80b-6136-4f75-bc0e-991df51f8bfc",
-        "newsletter_enable": false,
-        "newsletter_heading": "Subscribe to our emails",
-        "enable_follow_on_shop": true,
-        "show_social": true,
-        "enable_country_selector": false,
-        "enable_language_selector": false,
-        "payment_enable": true,
-        "show_policy": true,
-        "margin_top": 0,
-        "padding_top": 44,
-        "padding_bottom": 48
-      },
       "blocks": {
         "brand": {
           "type": "text",
@@ -115,7 +102,21 @@
         "col_coffee",
         "col_equip",
         "col_corp"
-      ]
+      ],
+      "settings": {
+        "color_scheme": "scheme-9653f80b-6136-4f75-bc0e-991df51f8bfc",
+        "newsletter_enable": false,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 44,
+        "padding_bottom": 48
+      }
     }
   },
   "order": [
