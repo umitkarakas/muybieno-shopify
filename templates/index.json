@@ -200,7 +200,7 @@
       "type": "eh-featured-carousel",
       "name": "Öne çıkan carousel",
       "settings": {
-        "heading": "Muybieno.com'a Özel",
+        "heading": "MuyBieno.com'a Özel",
         "collection": "cekirdek-kahveler",
         "link_label": "Tümünü gör",
         "limit": 12,
@@ -486,7 +486,7 @@
       "settings": {
         "eyebrow": "Hikayemiz",
         "heading": "Çekirdekten fincana, ustalıkla",
-        "text": "Muybieno, kahveyi bir ritüel olarak görenler için kuruldu. Üreticiyle doğrudan çalışır, küçük partiler hâlinde kavururuz. Amacımız basit: her fincanda bölgenin karakterini taze ve dürüst biçimde sunmak.",
+        "text": "MuyBieno, kahveyi bir ritüel olarak görenler için kuruldu. Üreticiyle doğrudan çalışır, küçük partiler hâlinde kavururuz. Amacımız basit: her fincanda bölgenin karakterini taze ve dürüst biçimde sunmak.",
         "placeholder_label": "kavurma atölyesi fotoğrafı",
         "button_label": "Hikayemiz",
         "button_link": "shopify://pages/hikayemiz",

@@ -16,7 +16,7 @@
       "settings": {
         "enabled": true,
         "badge": "Hoş geldiniz",
-        "heading": "Muybieno'ya hoş geldiniz",
+        "heading": "MuyBieno'ya hoş geldiniz",
         "text": "<p>Taze kavrulmuş tek origin kahvelerimizi denemenin tam zamanı. </p>",
         "image": "shopify://shop_images/okula_donus.png",
         "image_layout": "stack",
