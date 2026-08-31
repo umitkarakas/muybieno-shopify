@@ -14,6 +14,13 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_be3cwE": {
+          "type": "announcement",
+          "settings": {
+            "text": "Tüm Ürünlerde Geçerli 2. Üründe %50 indirim",
+            "link": ""
+          }
+        },
         "announcement_Tm6riC": {
           "type": "announcement",
           "settings": {
@@ -37,6 +44,7 @@
         }
       },
       "block_order": [
+        "announcement_be3cwE",
         "announcement_Tm6riC",
         "announcement_XDhxCT",
         "announcement-bar-0"
