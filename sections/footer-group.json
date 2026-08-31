@@ -11,6 +11,26 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "eh_announcement_popup": {
+      "type": "eh-announcement-popup",
+      "settings": {
+        "enabled": true,
+        "badge": "Hoş geldiniz",
+        "heading": "Muybieno'ya hoş geldiniz",
+        "text": "<p>Taze kavrulmuş tek origin kahvelerimizi ve demleme ekipmanlarımızı keşfedin.</p>",
+        "image_layout": "stack",
+        "button_label": "Alışverişe başla",
+        "button_link": "shopify://collections/all",
+        "open_new_tab": false,
+        "whole_clickable": false,
+        "dismiss_label": "Şimdi değil",
+        "start_date": "",
+        "end_date": "",
+        "campaign_key": "hosgeldin-2026",
+        "frequency_days": 0,
+        "delay": 2
+      }
+    },
     "newsletter": {
       "type": "newsletter",
       "blocks": {
@@ -99,6 +119,7 @@
     }
   },
   "order": [
+    "eh_announcement_popup",
     "newsletter",
     "footer"
   ]
