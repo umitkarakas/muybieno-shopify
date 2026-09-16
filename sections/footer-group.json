@@ -22,7 +22,7 @@
             "collection": "",
             "tag": "Ücretsiz Kargo",
             "label": "Ücretsiz Kargo",
-            "icon": "tag",
+            "icon": "truck",
             "bg_color": "#5c3a1e",
             "text_color": "#ffffff",
             "position": "bottom-left",
@@ -47,29 +47,11 @@
             "start_date": "",
             "end_date": ""
           }
-        },
-        "campaign_rn9U4k": {
-          "type": "campaign",
-          "settings": {
-            "enabled": true,
-            "match_type": "all",
-            "collection": "",
-            "tag": "",
-            "label": "Kampanya",
-            "icon": "tag",
-            "bg_color": "#5c3a1e",
-            "text_color": "#FFFFFF",
-            "position": "top-left",
-            "priority": 1,
-            "start_date": "",
-            "end_date": ""
-          }
         }
       },
       "block_order": [
         "campaign_Vbr6dE",
-        "campaign_4q6rXF",
-        "campaign_rn9U4k"
+        "campaign_4q6rXF"
       ],
       "name": "Muybieno Badge Yöneticisi",
       "settings": {}
