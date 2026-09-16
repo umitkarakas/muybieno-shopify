@@ -40,7 +40,12 @@
       assign ratio = 1
     endif
   -%}
-  <div class="card-wrapper product-card-wrapper underline-links-hover">
+  <div
+    class="card-wrapper product-card-wrapper underline-links-hover"
+    data-eh-collections="{{ card_product.collections | map: 'handle' | join: ' ' }}"
+    data-eh-tags="|{{ card_product.tags | join: '|' | downcase | escape }}|"
+    data-eh-sale="{% if card_product.compare_at_price > card_product.price and card_product.available %}true{% endif %}"
+  >
     <div
       class="
         card card--{{ settings.card_style }}

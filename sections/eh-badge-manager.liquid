@@ -1,0 +1,382 @@
+{% comment %}
+  Muybieno — Badge Yöneticisi (editörden yönetilen kampanya rozet sistemi)
+
+  Amaç: kampanyalı ürünlerin KART görselinde rozet göstermek — tek tek ürünü elle
+  işaretlemeden. Her "kampanya" bloğu bir koşulu (koleksiyon / tag / indirimli / tümü)
+  bir rozete bağlar; opsiyonel tarih aralığında sunucu-tarafı gating ile otomatik
+  açılıp kapanır.
+
+  ⚠️ Shopify OTOMATİK indirimleri (Discounts) Liquid/vitrine yansımaz — yalnızca
+  sepet/checkout'ta uygulanır. Bu yüzden "2. üründe %50" gibi otomatik indirimler
+  ürün tag'i veya bağlı KOLEKSİYON seçilerek eşleştirilir. compare-at (üstü çizili)
+  indirimler ise veri-güdümlüdür → `discount` koşulu onları yakalar.
+
+  Render: site geneli — footer-group.json içinde (eh-announcement-popup gibi). Section
+  görünür bir çıktı basmaz; yalnızca kural JSON'u + CSS + JS emit eder. Kartlara
+  eşleştirme card-product.liquid'e eklenen data-eh-collections / data-eh-tags /
+  data-eh-sale attribute'ları ile client-side yapılır (kartlar başka section'larda
+  render edildiği için blok ayarları globalden okunamaz).
+
+  Bir ürün birden fazla kurala uyarsa TÜM eşleşen rozetler üst üste gösterilir.
+  request.design_mode (editör) → tarih gating devre dışı, merchant her kuralı önizler.
+{% endcomment %}
+
+{%- liquid
+  assign now_s = 'now' | date: '%s' | plus: 0
+  assign emitted = 0
+-%}
+
+{%- if section.blocks.size > 0 -%}
+  <script type="application/json" id="eh-badge-rules-{{ section.id }}" class="eh-badge-rules">[
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign b = block.settings
+        assign schedule_ok = true
+
+        unless request.design_mode
+          if b.start_date != blank
+            assign start_s = b.start_date | append: ' 00:00:00' | date: '%s' | plus: 0
+            if start_s > 0 and now_s < start_s
+              assign schedule_ok = false
+            endif
+          endif
+          if b.end_date != blank
+            assign end_s = b.end_date | append: ' 23:59:59' | date: '%s' | plus: 0
+            if end_s > 0 and now_s > end_s
+              assign schedule_ok = false
+            endif
+          endif
+        endunless
+
+        if b.enabled == false
+          assign schedule_ok = false
+        endif
+
+        # koşul değeri
+        assign rule_value = ''
+        if b.match_type == 'collection'
+          assign rule_value = b.collection.handle
+          if rule_value == blank
+            assign schedule_ok = false
+          endif
+        elsif b.match_type == 'tag'
+          assign rule_value = b.tag | downcase | strip
+          if rule_value == blank
+            assign schedule_ok = false
+          endif
+        endif
+
+        # rozet metni varsayılanı
+        assign rule_label = b.label | strip
+        if rule_label == blank
+          if b.match_type == 'discount'
+            assign rule_label = 'İndirim'
+          else
+            assign rule_label = 'Kampanya'
+          endif
+        endif
+      -%}
+      {%- if schedule_ok -%}
+        {%- if emitted > 0 -%},{%- endif -%}
+        {"match":{{ b.match_type | json }},"value":{{ rule_value | json }},"label":{{ rule_label | json }},"icon":{{ b.icon | json }},"bg":{{ b.bg_color | json }},"fg":{{ b.text_color | json }},"pos":{{ b.position | json }},"pr":{{ b.priority | default: 1 }}}
+        {%- assign emitted = emitted | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+  ]</script>
+{%- endif -%}
+
+{%- style -%}
+  /* Kart medyasında rozet — köşe konteynerleri (aynı köşede üst üste dizilir).
+     NOT: Dawn'ın .card__media'sı zaten position:absolute; inset:0 (ratio kutusunu
+     doldurur) → absolute rozetler için konumlandırma bağlamı hazır. Buraya
+     position:relative EKLEME — inset:0'ı bozup medyayı içerik genişliğine daraltır. */
+  .eh-badge-wrap {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    pointer-events: none;
+    max-width: calc(100% - 1.6rem);
+  }
+  .eh-badge-wrap--top-left { top: 0.8rem; left: 0.8rem; align-items: flex-start; }
+  .eh-badge-wrap--top-right { top: 0.8rem; right: 0.8rem; align-items: flex-end; }
+  .eh-badge-wrap--bottom-left { bottom: 0.8rem; left: 0.8rem; align-items: flex-start; }
+  .eh-badge-wrap--bottom-right { bottom: 0.8rem; right: 0.8rem; align-items: flex-end; }
+
+  /* Rozet — eh-disc-badge görsel dilini izler (yuvarlak kutu, gölge, Inter/800) */
+  .eh-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--eh-bg, #5C3A1E);
+    color: var(--eh-fg, #ffffff);
+    border-radius: 8px;
+    padding: 0.45rem 0.75rem;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    box-shadow: 0 4px 12px rgba(42, 27, 14, 0.24);
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .eh-badge__icon {
+    width: 1.15em;
+    height: 1.15em;
+    flex-shrink: 0;
+    display: block;
+  }
+  .eh-badge__icon svg { width: 100%; height: 100%; display: block; }
+
+  @media (max-width: 749px) {
+    .eh-badge { font-size: 1rem; padding: 0.38rem 0.6rem; }
+    .eh-badge-wrap { gap: 0.4rem; }
+    .eh-badge-wrap--top-left, .eh-badge-wrap--top-right { top: 0.6rem; }
+    .eh-badge-wrap--bottom-left, .eh-badge-wrap--bottom-right { bottom: 0.6rem; }
+    .eh-badge-wrap--top-left, .eh-badge-wrap--bottom-left { left: 0.6rem; }
+    .eh-badge-wrap--top-right, .eh-badge-wrap--bottom-right { right: 0.6rem; }
+  }
+{%- endstyle -%}
+
+<script>
+  (function () {
+    var scriptEl = document.getElementById('eh-badge-rules-{{ section.id }}');
+    if (!scriptEl) return;
+
+    var RULES = [];
+    try { RULES = JSON.parse(scriptEl.textContent) || []; } catch (e) { RULES = []; }
+    if (!RULES.length) return;
+
+    /* İnline SVG ikon seti (Lucide tabanlı, currentColor) */
+    var ICONS = {
+      percent: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>',
+      truck: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h13v11H1z"/><path d="M14 8h4l3 3v3h-7z"/><circle cx="6" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/></svg>',
+      gift: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4"/><path d="M5 12v9h14v-9"/><line x1="12" y1="8" x2="12" y2="21"/><path d="M12 8S10.5 3 7.5 4.5 12 8 12 8z"/><path d="M12 8s1.5-5 4.5-3.5S12 8 12 8z"/></svg>',
+      tag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 2.8 12V4.8A2 2 0 0 1 4.8 2.8H12a2 2 0 0 1 1.4.6l7.2 7.2a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor"/></svg>',
+      spark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5 19 19M19 5l-2.5 2.5M7.5 16.5 5 19"/></svg>'
+    };
+
+    function iconMarkup(name) {
+      if (!name || name === 'none' || !ICONS[name]) return '';
+      return '<span class="eh-badge__icon" aria-hidden="true">' + ICONS[name] + '</span>';
+    }
+
+    /* Bir kart ilgili kurala uyuyor mu? */
+    function cardMatches(card, rule) {
+      switch (rule.match) {
+        case 'all':
+          return true;
+        case 'discount':
+          return card.getAttribute('data-eh-sale') === 'true';
+        case 'collection': {
+          if (!rule.value) return false;
+          var cols = ' ' + (card.getAttribute('data-eh-collections') || '') + ' ';
+          return cols.indexOf(' ' + rule.value + ' ') !== -1;
+        }
+        case 'tag': {
+          if (!rule.value) return false;
+          var tags = card.getAttribute('data-eh-tags') || '';
+          return tags.indexOf('|' + rule.value + '|') !== -1;
+        }
+        default:
+          return false;
+      }
+    }
+
+    function applyCard(card) {
+      if (card.dataset.ehBadged) return;
+      if (!card.hasAttribute('data-eh-collections') && !card.hasAttribute('data-eh-tags')) return;
+      card.dataset.ehBadged = '1';
+
+      var media = card.querySelector('.card__media') || card.querySelector('.card__badge') || card.querySelector('.card__inner');
+      if (!media) return;
+
+      /* Server tarafı compare-at rozeti (.eh-disc-badge) zaten var mı → discount çift basma */
+      var hasServerDisc = !!card.querySelector('.eh-disc-badge');
+
+      /* Eşleşen kuralları önceliğe göre sırala (küçük öncelik önce/üstte) */
+      var matched = RULES.filter(function (r) { return cardMatches(card, r); });
+      if (!matched.length) return;
+      matched.sort(function (a, b) { return (a.pr || 1) - (b.pr || 1); });
+
+      var wraps = {};
+      matched.forEach(function (rule) {
+        if (rule.match === 'discount' && hasServerDisc) return; /* dedupe */
+
+        var pos = rule.pos || 'top-left';
+        var wrap = wraps[pos];
+        if (!wrap) {
+          wrap = media.querySelector(':scope > .eh-badge-wrap--' + pos);
+          if (!wrap) {
+            wrap = document.createElement('div');
+            wrap.className = 'eh-badge-wrap eh-badge-wrap--' + pos;
+            media.appendChild(wrap);
+          }
+          wraps[pos] = wrap;
+        }
+
+        var badge = document.createElement('span');
+        badge.className = 'eh-badge';
+        if (rule.bg) badge.style.setProperty('--eh-bg', rule.bg);
+        if (rule.fg) badge.style.setProperty('--eh-fg', rule.fg);
+        badge.innerHTML = iconMarkup(rule.icon) + '<span class="eh-badge__text"></span>';
+        badge.querySelector('.eh-badge__text').textContent = rule.label || '';
+        wrap.appendChild(badge);
+      });
+    }
+
+    function run(root) {
+      (root || document).querySelectorAll('.card-wrapper').forEach(applyCard);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () { run(document); });
+    } else {
+      run(document);
+    }
+
+    /* Infinite scroll / quick-add / filtre yeniden-render → gözlemle + poll et
+       (eh-card-skin ile aynı desen; idempotent data-ehBadged ile korunur) */
+    var pending = false;
+    new MutationObserver(function () {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(function () { pending = false; run(document); });
+    }).observe(document.body, { childList: true, subtree: true });
+
+    var tries = 0;
+    var iv = setInterval(function () {
+      run(document);
+      if (++tries >= 12) clearInterval(iv);
+    }, 700);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Badge Yöneticisi",
+  "tag": "section",
+  "class": "eh-badge-manager-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Kampanya rozetlerini ürün KARTLARINDA gösterir. Her kampanya bir koşulu (koleksiyon / etiket / indirimli / tümü) bir rozete bağlar. Tarih girilirse rozet o aralıkta otomatik görünür/gizlenir. Bu bölümü site genelinde göstermek için tema alt bilgisine (footer) ekli tutun."
+    },
+    {
+      "type": "paragraph",
+      "content": "Not: Shopify'ın otomatik indirimleri (ör. '2. üründe %50') mağaza vitrinine yansımaz; bu kampanyaları o ürünlerin bağlı olduğu KOLEKSİYONU seçerek eşleştirin. 'İndirimli' koşulu yalnızca üründe karşılaştırma (üstü çizili eski) fiyatı varsa çalışır."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "campaign",
+      "name": "Kampanya",
+      "settings": [
+        { "type": "checkbox", "id": "enabled", "label": "Bu kampanyayı göster", "default": true },
+        {
+          "type": "select",
+          "id": "match_type",
+          "label": "Koşul (hangi ürünlerde görünsün)",
+          "default": "collection",
+          "options": [
+            { "value": "collection", "label": "Koleksiyondaki ürünler" },
+            { "value": "tag", "label": "Etikete (tag) sahip ürünler" },
+            { "value": "discount", "label": "İndirimli ürünler (compare-at)" },
+            { "value": "all", "label": "Tüm ürünler" }
+          ]
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Koleksiyon",
+          "info": "Koşul 'Koleksiyondaki ürünler' seçiliyse kullanılır."
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Etiket (tag)",
+          "info": "Koşul 'Etikete sahip ürünler' seçiliyse kullanılır. Tek etiket yazın (büyük/küçük harf önemsiz)."
+        },
+        { "type": "header", "content": "Rozet görünümü" },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Rozet yazısı",
+          "default": "Kampanya",
+          "info": "Boş bırakılırsa 'İndirimli' için 'İndirim', diğerleri için 'Kampanya' yazılır."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "İkon",
+          "default": "tag",
+          "options": [
+            { "value": "none", "label": "Yok" },
+            { "value": "percent", "label": "Yüzde (%)" },
+            { "value": "truck", "label": "Kargo" },
+            { "value": "gift", "label": "Hediye" },
+            { "value": "tag", "label": "Etiket" },
+            { "value": "spark", "label": "Yıldız / fırsat" }
+          ]
+        },
+        { "type": "color", "id": "bg_color", "label": "Arka plan rengi", "default": "#5C3A1E" },
+        { "type": "color", "id": "text_color", "label": "Yazı rengi", "default": "#FFFFFF" },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Rozet konumu",
+          "default": "top-left",
+          "options": [
+            { "value": "top-left", "label": "Sol üst" },
+            { "value": "top-right", "label": "Sağ üst" },
+            { "value": "bottom-left", "label": "Sol alt" },
+            { "value": "bottom-right", "label": "Sağ alt" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "priority",
+          "label": "Öncelik (sıralama)",
+          "min": 1, "max": 10, "step": 1, "default": 1,
+          "info": "Aynı köşede birden fazla rozet varsa küçük değer üstte durur."
+        },
+        { "type": "header", "content": "Zamanlama (opsiyonel)" },
+        {
+          "type": "text",
+          "id": "start_date",
+          "label": "Başlangıç tarihi",
+          "info": "Biçim: YYYY-MM-DD (örn. 2026-09-01). Boşsa hemen başlar."
+        },
+        {
+          "type": "text",
+          "id": "end_date",
+          "label": "Bitiş tarihi",
+          "info": "Biçim: YYYY-MM-DD. Bu tarihten sonra rozet gösterilmez. Boşsa süresiz."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Muybieno Badge Yöneticisi",
+      "blocks": [
+        {
+          "type": "campaign",
+          "settings": {
+            "match_type": "all",
+            "label": "Kampanya",
+            "icon": "tag",
+            "bg_color": "#5C3A1E",
+            "position": "top-left"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

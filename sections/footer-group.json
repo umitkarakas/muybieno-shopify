@@ -11,6 +11,30 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "eh_badge_manager": {
+      "type": "eh-badge-manager",
+      "blocks": {
+        "ornek": {
+          "type": "campaign",
+          "settings": {
+            "enabled": false,
+            "match_type": "all",
+            "label": "Kampanya",
+            "icon": "tag",
+            "bg_color": "#5C3A1E",
+            "text_color": "#FFFFFF",
+            "position": "top-left",
+            "priority": 1,
+            "start_date": "",
+            "end_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "ornek"
+      ],
+      "settings": {}
+    },
     "eh_announcement_popup": {
       "type": "eh-announcement-popup",
       "settings": {
@@ -120,6 +144,7 @@
     }
   },
   "order": [
+    "eh_badge_manager",
     "eh_announcement_popup",
     "newsletter",
     "footer"
