@@ -14,6 +14,23 @@
     "eh_badge_manager_k9jkKp": {
       "type": "eh-badge-manager",
       "blocks": {
+        "campaign_Vbr6dE": {
+          "type": "campaign",
+          "settings": {
+            "enabled": true,
+            "match_type": "all",
+            "collection": "",
+            "tag": "Ücretsiz Kargo",
+            "label": "Ücretsiz Kargo",
+            "icon": "tag",
+            "bg_color": "#5c3a1e",
+            "text_color": "#ffffff",
+            "position": "bottom-left",
+            "priority": 1,
+            "start_date": "",
+            "end_date": ""
+          }
+        },
         "campaign_4q6rXF": {
           "type": "campaign",
           "settings": {
@@ -50,6 +67,7 @@
         }
       },
       "block_order": [
+        "campaign_Vbr6dE",
         "campaign_4q6rXF",
         "campaign_rn9U4k"
       ],
