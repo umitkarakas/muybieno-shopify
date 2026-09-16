@@ -11,6 +11,51 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "eh_badge_manager_k9jkKp": {
+      "type": "eh-badge-manager",
+      "blocks": {
+        "campaign_4q6rXF": {
+          "type": "campaign",
+          "settings": {
+            "enabled": true,
+            "match_type": "collection",
+            "collection": "kahveler",
+            "tag": "2. Üründe %50",
+            "label": "2. Üründe %50",
+            "icon": "percent",
+            "bg_color": "#5C3A1E",
+            "text_color": "#FFFFFF",
+            "position": "bottom-left",
+            "priority": 1,
+            "start_date": "",
+            "end_date": ""
+          }
+        },
+        "campaign_rn9U4k": {
+          "type": "campaign",
+          "settings": {
+            "enabled": true,
+            "match_type": "all",
+            "collection": "",
+            "tag": "",
+            "label": "Kampanya",
+            "icon": "tag",
+            "bg_color": "#5c3a1e",
+            "text_color": "#FFFFFF",
+            "position": "top-left",
+            "priority": 1,
+            "start_date": "",
+            "end_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "campaign_4q6rXF",
+        "campaign_rn9U4k"
+      ],
+      "name": "Muybieno Badge Yöneticisi",
+      "settings": {}
+    },
     "eh_badge_manager": {
       "type": "eh-badge-manager",
       "blocks": {
@@ -19,10 +64,12 @@
           "settings": {
             "enabled": false,
             "match_type": "all",
+            "collection": "",
+            "tag": "",
             "label": "Kampanya",
             "icon": "tag",
-            "bg_color": "#5C3A1E",
-            "text_color": "#FFFFFF",
+            "bg_color": "#5c3a1e",
+            "text_color": "#ffffff",
             "position": "top-left",
             "priority": 1,
             "start_date": "",
@@ -144,6 +191,7 @@
     }
   },
   "order": [
+    "eh_badge_manager_k9jkKp",
     "eh_badge_manager",
     "eh_announcement_popup",
     "newsletter",
