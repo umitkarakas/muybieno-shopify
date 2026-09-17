@@ -39,7 +39,7 @@
             "collection": "kahveler",
             "tag": "2. Üründe %50",
             "label": "2. Üründe %50",
-            "icon": "spark",
+            "icon": "tag",
             "bg_color": "#B64232",
             "text_color": "#ffffff",
             "position": "bottom-left",
